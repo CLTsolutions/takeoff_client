@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import './App.css'
 import "bootstrap/dist/css/bootstrap.min.css"
-import Auth from "./Auth/Auth"
+import Auth from "./components/Auth/Auth"
+import Navbar from './components/Site/Navbar'
 
 type valueTypes = {
   token: any
 }
-
 
 class App extends Component<{}, valueTypes> {
   constructor(props: valueTypes) {
@@ -30,12 +30,18 @@ updateToken = (newToken: any) => {
   console.log("is this updating the token", this.state.token)
 }
 
+clearToken = () => {
+  localStorage.clear();
+  this.setState({ token: '' })
+  console.log('token cleared')
+}
+
 
   render() {
     return (
       <div className="App">
-       <h1 className='text-green-500'>Hello</h1>
-      <Auth token={this.updateToken} />
+        <Navbar logout={this.clearToken} token={this.updateToken} />
+        <Auth token={this.updateToken} />
       </div>
     )
   }
