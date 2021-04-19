@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import './App.css'
-import "bootstrap/dist/css/bootstrap.min.css"
 import Auth from "./components/Auth/Auth"
 import Navbar from './components/Site/Navbar'
 

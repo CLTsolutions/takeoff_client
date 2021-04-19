@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-// import { FormGroup, Label, Form, Button, Input } from 'reactstrap'
 import { Button } from 'antd'
 // import { Form, Input, Button, Checkbox } from 'antd';
 // import { UserOutlined, LockOutlined } from '@ant-design/icons';
@@ -27,7 +26,7 @@ export default class Register extends Component<acceptedProps, valueTypes> {
   }
 
   handleSubmit = (e: any) => {
-    e.preDefault()
+    e.preventDefault()
     fetch('http://localhost:3000/user/register', {
       method: 'POST',
       body: JSON.stringify({
@@ -50,27 +49,8 @@ export default class Register extends Component<acceptedProps, valueTypes> {
   render() {
     return (
       <div className="register">
-        {/* <Form onSubmit={this.handleSubmit}>
-                    <FormGroup>
-                        <Label htmlFor="firstName">First Name</Label>
-                        <Input name="firstName" type="text" value={this.state.firstName} onChange={e => this.setState({ firstName: e.target.value})} />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label htmlFor="lastName">Last Name</Label>
-                        <Input name="lastName" type="text" value={this.state.lastName} onChange={e => this.setState({ lastName: e.target.value})} />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label htmlFor="email">Email</Label>
-                        <Input name="email" type="text" value={this.state.email} onChange={e => this.setState({ email: e.target.value})} />
-                        </FormGroup>
-                    <FormGroup>
-                    <Label htmlFor="password">Password</Label>
-                    <Input name="password" type="password" value={this.state.password} onChange={e => this.setState({ password: e.target.value})} />
-                    </FormGroup>
-                    <Button type="submit" color="primary">Register</Button>
-                </Form> */}
         <form className="space-y-5">
-          <h4>Register</h4>
+          <h1 className='text-xl'>Register</h1>
           <div>
             <input
               className="w-full border-2 border-white p-2 rounded outline-none focus:border-purple-500"

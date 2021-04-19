@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-// import { render } from 'react-dom'
 
 type acceptedProps = {
     token: any
@@ -16,12 +15,8 @@ export default class Navbar extends Component<acceptedProps, {}> {
 
     logoutButton = () => {
         return localStorage.getItem('sessionToken') === null
-        ? (
-            ''
-        )
-        : (
-            <button onClick={this.props.logout}>Logout</button>
-        )
+        ? ''
+        : <button onClick={this.props.logout}>Logout</button>
     }
 
     render() {

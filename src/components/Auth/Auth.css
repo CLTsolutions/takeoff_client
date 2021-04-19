@@ -1,0 +1,7 @@
+.map-img {
+    background-image: url('../../assets/globe.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* height: 50%; */
+    /* width: 50%; */
+}

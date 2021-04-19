@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-// import { FormGroup, Label, Form, Input } from "reactstrap";
 // import { Form, Input, Button, Checkbox } from 'antd';
 import { Button } from 'antd'
 // import { UserOutlined, LockOutlined } from '@ant-design/icons';
@@ -23,7 +22,7 @@ export default class Login extends Component<acceptedProps, valueTypes> {
   }
 
   handleSubmit = (e: any) => {
-    e.preDefault()
+    e.preventDefault()
     fetch('http://localhost:3000/user/login', {
       method: 'POST',
       body: JSON.stringify({
@@ -44,20 +43,8 @@ export default class Login extends Component<acceptedProps, valueTypes> {
   render() {
     return (
       <div className="login">
-        {/* <Form onSubmit={this.handleSubmit}>
-                    <FormGroup>
-                    <Label htmlFor="email">Email</Label>
-                    <Input name="email" type="text" value={this.state.email} onChange={e => this.setState({ email: e.target.value})} />
-                    </FormGroup>
-                    <FormGroup>
-                    <Label htmlFor="password">Password</Label>
-                    <Input name="password" type="password" value={this.state.password} onChange={e => this.setState({ password: e.target.value})} />
-                    </FormGroup>
-                    <Button type="submit" color="primary">Login</Button>
-                </Form> */}
-        {/* <p className="text-gray-600 text-center pt-2 mb-8 font-bold text-2xl">Sign in to your bar cart.</p> */}
         <form className="space-y-5">
-          <h4>Login</h4>
+          <h1 className='text-xl'>Login</h1>
           <div>
             {/* <label>Email</label> */}
             <input
