@@ -1,3 +1,11 @@
 /* .App {
   text-align: center;
 } */
+.navbar_all {
+  display: flex !important;
+  flex-direction: row !important;
+}
+.navbar_route {
+  margin-top: 200px !important;
+  margin-left: 50px !important;
+}

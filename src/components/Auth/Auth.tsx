@@ -5,7 +5,7 @@ import { Button } from 'antd'
 import './Auth.css'
 
 type acceptedProps = {
-  token: any
+  token: (token: string | null) => void
 }
 
 type valueTypes = {
@@ -31,13 +31,15 @@ export default class Auth extends Component<acceptedProps, valueTypes> {
   }
 
   authTernary = () => {
-    return this.state.login 
-    ? <Login token={this.props.token} />
-    : <Register token={this.props.token} />
+    return this.state.login ? (
+      <Login token={this.props.token} />
+    ) : (
+      <Register token={this.props.token} />
+    )
   }
 
-  loginToggle = (event: any) => {
-    event.preventDefault()
+  loginToggle = () => {
+    // event.preventDefault()
     this.setState({
       login: !this.state.login,
       firstName: '',
@@ -50,8 +52,8 @@ export default class Auth extends Component<acceptedProps, valueTypes> {
   render() {
     return (
       <div className='map-img'>
-        <div className="flex h-screen justify-center items-center">
-          <div className="bg-indigo-400 bg-opacity-75 max-w-lg m-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl w-1/2">
+        <div className='flex h-screen justify-center items-center'>
+          <div className='bg-indigo-400 bg-opacity-75 max-w-lg m-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl w-1/2'>
             {this.authTernary()}
             <Button onClick={this.loginToggle}>Toggle</Button>
           </div>

@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import './App.css'
 import Auth from './components/Auth/Auth'
-import Navbar from './components/Site/Navbar'
-import { BrowserRouter as Router } from 'react-router-dom'
+import Home from "./components/Site/Home"
+import Sitebar from './components/Site/Sitebar'
+import { Route } from 'react-router-dom'
 
 type valueTypes = {
-  token: any
+  token: string | null
 }
 
 class App extends Component<{}, valueTypes> {
@@ -33,21 +34,24 @@ class App extends Component<{}, valueTypes> {
   clearToken = () => {
     localStorage.clear()
     this.setState({ token: '' })
+  
     console.log('token cleared')
   }
 
   protectedViews = () => {
-    return this.state.token === localStorage.getItem('sessionToken') ? (
-      <Router>
-        <Navbar logout={this.clearToken} token={this.state.token} />
-      </Router>
-    ) : (
-      <Auth token={this.updateToken} />
-    )
+    return this.state.token === localStorage.getItem('sessionToken') 
+    ? <Home token={this.state.token} />
+    : <Auth token={this.updateToken} />
   }
 
   render() {
-    return <div className='App'>{this.protectedViews()}</div>
+    return (
+      <div className='App'>
+        <Route>
+          <Sitebar logout={this.clearToken} token={this.state.token} protectedViews={this.protectedViews} />
+        </Route>
+      </div>
+    )
   }
 }
 
