@@ -3,6 +3,7 @@ import Login from './Login'
 import Register from './Register'
 import { Button } from 'antd'
 import './Auth.css'
+import { Link } from 'react-router-dom'
 
 type acceptedProps = {
   token: (token: string | null) => void
@@ -31,11 +32,9 @@ export default class Auth extends Component<acceptedProps, valueTypes> {
   }
 
   authTernary = () => {
-    return this.state.login ? (
-      <Login token={this.props.token} />
-    ) : (
-      <Register token={this.props.token} />
-    )
+    return this.state.login 
+    ? <Login token={this.props.token} />
+    : <Register token={this.props.token} />
   }
 
   loginToggle = () => {
@@ -55,7 +54,13 @@ export default class Auth extends Component<acceptedProps, valueTypes> {
         <div className='flex h-screen justify-center items-center'>
           <div className='bg-indigo-400 bg-opacity-75 max-w-lg m-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl w-1/2'>
             {this.authTernary()}
-            <Button onClick={this.loginToggle}>Toggle</Button>
+              <Link 
+                to=''
+                className='no-underline text-white hover:text-black' 
+                onClick={this.loginToggle}
+              >
+              Or register here.
+              </Link>
           </div>
         </div>
       </div>

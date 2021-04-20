@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Flights from '../Flights/Flights'
 
 type acceptedProps = {
   token: any
@@ -9,8 +10,8 @@ class Home extends Component<acceptedProps, {}> {
   }
   render() {
     return (
-      <div className='text-center mt-20'>
-        
+      <div>
+        <Flights token={this.props.token}/>
       </div>
     )
   }
