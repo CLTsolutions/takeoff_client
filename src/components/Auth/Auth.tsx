@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Login from './Login'
 import Register from './Register'
-import { Button } from 'antd'
 import './Auth.css'
 import { Link } from 'react-router-dom'
 
@@ -54,13 +53,13 @@ export default class Auth extends Component<acceptedProps, valueTypes> {
         <div className='flex h-screen justify-center items-center'>
           <div className='bg-indigo-400 bg-opacity-75 max-w-lg m-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl w-1/2'>
             {this.authTernary()}
-              <Link 
-                to=''
-                className='no-underline text-white hover:text-black' 
-                onClick={this.loginToggle}
-              >
-              Or register here.
-              </Link>
+            <Link 
+              to=''
+              className='no-underline text-white hover:text-black' 
+              onClick={this.loginToggle}
+            >
+            Or register now!
+            </Link>
           </div>
         </div>
       </div>

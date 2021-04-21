@@ -31,9 +31,9 @@ export default class Sitebar extends Component<acceptedProps, valueTypes> {
   toggle = () => this.setState({isOpen: !this.state.isOpen})
 
   logoutButton = () => {
-    return localStorage.getItem('sessionToken') === null ? (
-      ''
-    ) : (
+    return localStorage.getItem('sessionToken') === null 
+    ? ''
+    : (
       <Link to='/'>
         <button onClick={this.props.logout}>Logout</button>
       </Link>
@@ -58,8 +58,7 @@ export default class Sitebar extends Component<acceptedProps, valueTypes> {
           </Nav>
           <NavbarText>{this.logoutButton()}</NavbarText>
         </Collapse>
-        </Navbar>
-        
+        </Navbar>        
         <Switch>
           <Route exact path='/'>
             {/* <Home token={this.props.token} /> */}

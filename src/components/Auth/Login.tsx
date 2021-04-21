@@ -109,7 +109,6 @@ export default class Login extends Component<acceptedProps, valueTypes> {
             >
               Log in
             </Button>
-            {/* Or <a href=''>register now!</a> */}
           </Form.Item>
         </Form>
       </div>

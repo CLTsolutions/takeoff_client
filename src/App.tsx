@@ -34,8 +34,7 @@ class App extends Component<{}, valueTypes> {
   clearToken = () => {
     localStorage.clear()
     this.setState({ token: '' })
-  
-    console.log('token cleared')
+    // console.log('token cleared')
   }
 
   protectedViews = () => {
