@@ -9,10 +9,12 @@ interface CreateFlightsState {
   flightNumber: number
   originAirport: string
   destAirport: string
-  flightMiles: string
-  flightTime: number
-  international: boolean
-  date: number
+  flightMiles: number
+  // flightTime: string
+  flightTime: string
+  // international: boolean
+  // date: Date
+  // setDate: (e: any) => void;
 }
 
 class Flights extends Component<acceptedProps, CreateFlightsState> {
@@ -23,10 +25,11 @@ class Flights extends Component<acceptedProps, CreateFlightsState> {
       flightNumber: 0,
       originAirport: '',
       destAirport: '',
-      flightMiles: '',
-      flightTime: 0,
-      international: false,
-      date: 0,
+      flightMiles: 0,
+      flightTime: "",
+      // international: false,
+      // date: new Date(),
+      // setDate: (date) => this.setState({ date: date })
     }
   }
 
@@ -41,8 +44,8 @@ class Flights extends Component<acceptedProps, CreateFlightsState> {
         destAirport: this.state.destAirport,
         flightMiles: this.state.flightMiles,
         flightTime: this.state.flightTime,
-        international: this.state.international,
-        date: this.state.date,
+        // date: this.state.date,
+        // international: this.state.international,
       }),
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -50,10 +53,22 @@ class Flights extends Component<acceptedProps, CreateFlightsState> {
       }),
     })
       .then(res => res.json())
-      .then(data => {
-        console.log(data)
-      })
+      .then(data => console.log(data))
+      .catch(err => console.log(err))
   }
+
+  // handleChangeDate = (date: any) => this.setState({ date: date })
+
+  // handleFields = (e: any) => this.setState({
+  //     airline: e.target.value,
+  //     flightNumber: parseInt(e.target.value),
+  //     originAirport: e.target.value,
+  //     destAirport: e.target.value,
+  //     flightMiles: parseInt(e.target.value),
+  //     flightTime: parseInt(e.target.value),
+  //     international: e.target.value,
+  //     date: parseInt(e.target.value),
+  // })
 
   render() {
     return (
@@ -71,6 +86,8 @@ class Flights extends Component<acceptedProps, CreateFlightsState> {
                 className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
                 placeholder='Airline'
                 onChange={e => this.setState({ airline: e.target.value })}
+                // onChange={this.handleFields}
+                defaultValue={''}
               />
               </label>
             </div>
@@ -81,21 +98,88 @@ class Flights extends Component<acceptedProps, CreateFlightsState> {
                 className='w-full border-2 border-transparent p-2 rounded outline-none focus:border-purple-500'
                 placeholder='Flight #'
                 onChange={e => this.setState({ flightNumber: parseInt(e.target.value) })}
+                // onChange={this.handleFields}
+                defaultValue={''}
               />
               </label>
             </div>
             <div className='flex flex-col'>
-              <label className='flex flex-row items-center'>
+              <label>
+              <input
+                type='text'
+                className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
+                placeholder='Origin Airport'
+                onChange={e => this.setState({ originAirport: e.target.value })}
+                // onChange={this.handleFields}
+                defaultValue={''}
+              />
+              </label>
+            </div>
+            <div className='flex flex-col'>
+              <label>
+              <input
+                type='text'
+                className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
+                placeholder='Destination Airport'
+                onChange={e => this.setState({ destAirport: e.target.value })}
+                // onChange={this.handleFields}
+                defaultValue={''}
+              />
+              </label>
+            </div>
+            <div className='flex flex-col'>
+              <label>
+              <input
+                type='text'
+                className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
+                placeholder='Flight Miles'
+                onChange={e => this.setState({ flightMiles: parseInt(e.target.value) })}
+                // onChange={this.handleFields}
+                defaultValue={''}
+              />
+              </label>
+            </div>
+            <div className='flex flex-col'>
+              <label>
+              <input
+                type='text'
+                className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
+                placeholder='Flight Time'
+                onChange={e => this.setState({ flightTime: e.target.value })}
+                // onChange={this.handleFields}
+                defaultValue={''}
+              />
+              </label>
+            </div>
+            {/* 
+            <div className='flex flex-col'>
+              <label>
+              <input
+                type='date'
+                className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
+                placeholder='Date'
+                // onChange={date => this.setState({ date: date.target.value })}
+                onChange={date => this.setState({ new Date(date) })}
+                // onChange={this.handleFields}
+                // defaultValue={''}
+              />
+              </label>
+            </div>
+            
+            <div className='flex flex-col'>
+              <label className='flex flex-row items-center text-gray-400'>
                 International
               <input
                 type='checkbox'
                 className='p-4 ml-3 mr-1 checked:bg-blue-600 checked:border-transparent'
                 // checked={isStirred}
-                name='stirred'
+                name='international'
                 onChange={e => this.setState({ international: e.target.checked })}
+                // onChange={this.handleFields}
+                defaultChecked={false}
               />
               </label>
-            </div>
+            </div> */}
             {/* <label>
               <input
                 type='text'

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link, Route, Switch } from 'react-router-dom'
+import { Link, Redirect, Route, Switch } from 'react-router-dom'
 import Test from "./TestComponent"
 import {
   Collapse,
@@ -39,6 +39,12 @@ export default class Sitebar extends Component<acceptedProps, valueTypes> {
       </Link>
     )
   }
+
+  // redirect = () => {
+  //   if(!this.props.token) {
+  //    return <Redirect to='/' />
+  //  }
+  // }
 
   render() {
     return (

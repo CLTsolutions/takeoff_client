@@ -109,6 +109,7 @@ export default class Register extends Component<acceptedProps, valueTypes> {
             <Input
               prefix={<UserOutlined className='site-form-item-icon' />}
               placeholder='First Name'
+              onChange={e => this.setState({ firstName: e.target.value })}
             />
           </Form.Item>
           <Form.Item
@@ -118,6 +119,7 @@ export default class Register extends Component<acceptedProps, valueTypes> {
             <Input
               prefix={<UserOutlined className='site-form-item-icon' />}
               placeholder='Last Name'
+              onChange={e => this.setState({ lastName: e.target.value })}
             />
           </Form.Item>
           <Form.Item
@@ -127,6 +129,7 @@ export default class Register extends Component<acceptedProps, valueTypes> {
             <Input
               prefix={<UserOutlined className='site-form-item-icon' />}
               placeholder='Email'
+              onChange={e => this.setState({ email: e.target.value })}
             />
           </Form.Item>
           <Form.Item
@@ -137,6 +140,7 @@ export default class Register extends Component<acceptedProps, valueTypes> {
               prefix={<LockOutlined className='site-form-item-icon' />}
               type='password'
               placeholder='Password'
+              onChange={e => this.setState({ password: e.target.value })}
             />
           </Form.Item>
           {/* <Form.Item>
@@ -150,7 +154,7 @@ export default class Register extends Component<acceptedProps, valueTypes> {
               htmlType='submit'
               className='register-form-button'
             >
-              Log in
+              Register
             </Button>
             {/* Or <a href=''>register now!</a> */}
           </Form.Item>

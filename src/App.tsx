@@ -28,7 +28,7 @@ class App extends Component<{}, valueTypes> {
   updateToken = (newToken: any) => {
     localStorage.setItem('sessionToken', newToken)
     this.setState({ token: newToken })
-    console.log('is this updating the token', this.state.token)
+    // console.log('is this updating the token', this.state.token)
   }
 
   clearToken = () => {

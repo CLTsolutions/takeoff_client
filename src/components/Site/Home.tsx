@@ -9,6 +9,7 @@ class Home extends Component<acceptedProps, {}> {
   constructor(props: acceptedProps) {
     super(props)
   }
+
   render() {
     return (
       <div>

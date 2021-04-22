@@ -12,6 +12,8 @@ type acceptedProps = {
 type valueTypes = {
   email: string
   password: string
+  // size: number
+  // minLength: number
 }
 
 export default class Login extends Component<acceptedProps, valueTypes> {
@@ -24,7 +26,7 @@ export default class Login extends Component<acceptedProps, valueTypes> {
   }
 
   handleSubmit = (e: any) => {
-    // e.preventDefault()
+    e.preventDefault()
     fetch('http://localhost:3000/user/login', {
       method: 'POST',
       body: JSON.stringify({
@@ -37,70 +39,76 @@ export default class Login extends Component<acceptedProps, valueTypes> {
     })
       .then(res => res.json())
       .then(data => {
-        this.props.token(data.sessionToken)
+        this.props.token(data.sessionToken),
         console.log(data)
       })
+      .catch(err => console.log(err))
   }
 
   render() {
     return (
       <div className='login'>
-        {/* <form onSubmit={this.handleSubmit} className='space-y-5'>
+        <form onSubmit={this.handleSubmit} className='space-y-5'>
           <h1 className='text-xl'>Login</h1>
-          <div>
+          <div className='flex flex-col'>
+            <label>
             <input
-              className='w-full border-2 border-white p-2 rounded outline-none focus:border-purple-500'
-              required
-              type='email'
+              className='w-full border-2 border-transparent
+               p-2 rounded outline-none focus:border-purple-500'
+              // required type='email'
               placeholder='Email'
-              size= '30'
-              value={this.state.email}
+              // size= {30}
+              // value={this.state.email}
               onChange={e => this.setState({ email: e.target.value })}
             />
+            </label>
           </div>
-          <div>
+          <div className='flex flex-col'>
+            <label>
             <input
-              className='w-full border-2 border-white p-2 rounded outline-none focus:border-purple-500'
-              required
-              type='password'
+              className='w-full border-2 border-transparent p-2 rounded outline-none focus:border-purple-500'
+              required type='password'
               placeholder='Password'
-              minLength='8'
+              // minLength= {8}
               value={this.state.password}
               name='password'
               onChange={e => this.setState({ password: e.target.value })}
             />
+            </label>
           </div>
           <Button htmlType='submit'>Submit</Button>
-        </form> */}
-        <Form
+        </form>
+        {/* <Form
           name='normal_login'
           className='login-form'
           onFinish={this.handleSubmit}
         >
           <Form.Item
             name='Email'
-            rules={[{ required: true, message: 'Please input your email.' }]}
+            rules={[{ message: 'Please input your email.' }]}
           >
             <Input
               prefix={<UserOutlined className='site-form-item-icon' />}
               placeholder='Email'
+              onChange={e => this.setState({ email: e.target.value })}
             />
           </Form.Item>
           <Form.Item
             name='password'
-            rules={[{ required: true, message: 'Please input your password.' }]}
+            rules={[{ message: 'Please input your password.' }]}
           >
             <Input
               prefix={<LockOutlined className='site-form-item-icon' />}
               type='password'
               placeholder='Password'
+              onChange={e => this.setState({ password: e.target.value })}
             />
           </Form.Item>
-          {/* <Form.Item>
+          <Form.Item>
             <a className='login-form-forgot' href=''>
               Forgot password
             </a>
-          </Form.Item> */}
+          </Form.Item>
           <Form.Item>
             <Button
               type='primary'
@@ -110,7 +118,7 @@ export default class Login extends Component<acceptedProps, valueTypes> {
               Log in
             </Button>
           </Form.Item>
-        </Form>
+        </Form> */}
       </div>
     )
   }
