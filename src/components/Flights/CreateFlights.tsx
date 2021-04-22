@@ -1,32 +1,34 @@
 import React, { Component } from 'react'
+// import { FlightsInfo } from '../../types'
 
 type acceptedProps = {
    token: any
+
 }
 
-interface CreateFlightsState {
+interface FlightsState {
   airline: string
   flightNumber: number
   originAirport: string
   destAirport: string
   flightMiles: number
-  // flightTime: string
   flightTime: string
   // international: boolean
   // date: Date
   // setDate: (e: any) => void;
 }
 
-class Flights extends Component<acceptedProps, CreateFlightsState> {
+class Flights extends Component<acceptedProps, FlightsState> {
   constructor(props: acceptedProps) {
     super(props)
     this.state = {
+      // Flights: []
       airline: '',
       flightNumber: 0,
       originAirport: '',
       destAirport: '',
       flightMiles: 0,
-      flightTime: "",
+      flightTime: '',
       // international: false,
       // date: new Date(),
       // setDate: (date) => this.setState({ date: date })
@@ -43,7 +45,7 @@ class Flights extends Component<acceptedProps, CreateFlightsState> {
         originAirport: this.state.originAirport,
         destAirport: this.state.destAirport,
         flightMiles: this.state.flightMiles,
-        flightTime: this.state.flightTime,
+        // flightTime: this.state.flightTime,
         // date: this.state.date,
         // international: this.state.international,
       }),
@@ -58,17 +60,6 @@ class Flights extends Component<acceptedProps, CreateFlightsState> {
   }
 
   // handleChangeDate = (date: any) => this.setState({ date: date })
-
-  // handleFields = (e: any) => this.setState({
-  //     airline: e.target.value,
-  //     flightNumber: parseInt(e.target.value),
-  //     originAirport: e.target.value,
-  //     destAirport: e.target.value,
-  //     flightMiles: parseInt(e.target.value),
-  //     flightTime: parseInt(e.target.value),
-  //     international: e.target.value,
-  //     date: parseInt(e.target.value),
-  // })
 
   render() {
     return (

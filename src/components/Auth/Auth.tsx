@@ -3,10 +3,18 @@ import Login from './Login'
 import Register from './Register'
 import './Auth.css'
 import { Link } from 'react-router-dom'
+// import { BaseUser } from '../../types'
 
 type acceptedProps = {
   token: (token: string | null) => void
+  // user: BaseUser[]
+  // token: string | null
 }
+
+// interface AuthState extends BaseUser {
+//   login: boolean
+//   setLogin: boolean
+// }
 
 type valueTypes = {
   login: boolean
@@ -37,7 +45,6 @@ export default class Auth extends Component<acceptedProps, valueTypes> {
   }
 
   loginToggle = () => {
-    // event.preventDefault()
     this.setState({
       login: !this.state.login,
       firstName: '',

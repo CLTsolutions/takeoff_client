@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Form, Input, Button, Checkbox } from 'antd';
-// import { Button } from 'antd'
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { Button } from 'antd'
+// import { Form, Input, Button, Checkbox } from 'antd';
+// import { UserOutlined, LockOutlined } from '@ant-design/icons';
+// import { BaseUser } from '../../types'
 
 
 
@@ -9,14 +10,14 @@ type acceptedProps = {
   token: (token: string | null) => void
 }
 
-type valueTypes = {
+interface LoginState {
   email: string
   password: string
   // size: number
   // minLength: number
 }
 
-export default class Login extends Component<acceptedProps, valueTypes> {
+export default class Login extends Component<acceptedProps, LoginState> {
   constructor(props: acceptedProps) {
     super(props)
     this.state = {
