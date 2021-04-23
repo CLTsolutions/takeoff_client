@@ -1,8 +1,8 @@
 export interface BaseUser {
-  firstName?: string
-  lastName?: string
   email: string
   password: string
+  lastName?: string
+  firstName?: string
   // userId: number
 }
 

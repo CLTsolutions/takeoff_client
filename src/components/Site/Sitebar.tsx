@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link, Redirect, Route, Switch } from 'react-router-dom'
+import { Link, Route, Switch } from 'react-router-dom'
 import Test from "./TestComponent"
 import {
   Collapse,
@@ -14,7 +14,7 @@ import {
 type acceptedProps = {
   token: any
   logout: any
-  protectedViews: Function
+  protectedViews: () => void
 }
 
 type valueTypes = {
@@ -68,7 +68,7 @@ export default class Sitebar extends Component<acceptedProps, valueTypes> {
         <Switch>
           <Route exact path='/'>
             {/* <Home token={this.props.token} /> */}
-            {this.props.protectedViews()}
+            {this.props.protectedViews}
           </Route>
           <Route exact path="/test">
             <Test />

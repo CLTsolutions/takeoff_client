@@ -3,7 +3,8 @@ import './App.css'
 import Auth from './components/Auth/Auth'
 import Home from "./components/Site/Home"
 import Sitebar from './components/Site/Sitebar'
-import { Route } from 'react-router-dom'
+import { Redirect, Route } from 'react-router-dom'
+import Test from "./components/Site/TestComponent"
 
 type valueTypes = {
   token: string | null
@@ -31,6 +32,12 @@ class App extends Component<{}, valueTypes> {
     // console.log('is this updating the token', this.state.token)
   }
 
+  redirectNoToken = () => {
+    if(!this.state.token) {
+     return <Redirect to='/' />
+   }
+  }
+
   clearToken = () => {
     localStorage.clear()
     this.setState({ token: '' })
@@ -46,6 +53,7 @@ class App extends Component<{}, valueTypes> {
   render() {
     return (
       <div className='App'>
+        {this.redirectNoToken()}
         <Route>
           <Sitebar logout={this.clearToken} token={this.state.token} protectedViews={this.protectedViews} />
         </Route>

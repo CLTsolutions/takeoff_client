@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import CreateFlights from '../Flights/CreateFlights'
+// import CreateFlights from '../Flights/CreateFlights'
 import Flights from '../Flights/Flights'
 
 type acceptedProps = {
@@ -13,7 +13,7 @@ class Home extends Component<acceptedProps, {}> {
   render() {
     return (
       <div>
-        <CreateFlights token={this.props.token}/>
+        {/* <CreateFlights token={this.props.token} /> */}
         <Flights token={this.props.token}/>
       </div>
     )

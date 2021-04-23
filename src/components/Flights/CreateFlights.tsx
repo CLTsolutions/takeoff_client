@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 // import { FlightsInfo } from '../../types'
 
 type acceptedProps = {
-   token: any
-
+  token: any
+  // fetchMyFlights: Function
+  getFlights: () => void
 }
 
 interface FlightsState {
@@ -37,7 +38,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
 
   newFlight = (e: any) => {
     e.preventDefault()
-    fetch('http://localhost:3000/flight/', {
+    fetch(`http://localhost:3000/flight/`, {
       method: 'POST',
       body: JSON.stringify({
         airline: this.state.airline,
@@ -45,7 +46,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
         originAirport: this.state.originAirport,
         destAirport: this.state.destAirport,
         flightMiles: this.state.flightMiles,
-        // flightTime: this.state.flightTime,
+        flightTime: this.state.flightTime,
         // date: this.state.date,
         // international: this.state.international,
       }),
@@ -56,6 +57,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
     })
       .then(res => res.json())
       .then(data => console.log(data))
+      .then(() => {this.props.getFlights()})
       .catch(err => console.log(err))
   }
 
@@ -71,8 +73,10 @@ class Flights extends Component<acceptedProps, FlightsState> {
             onSubmit={this.newFlight}
           >
             <div className='flex flex-col'>
-              <label>
+              {/*'htmlFor links input to label by corresponding id for screen readers */}
+              <label htmlFor='airline'>
               <input
+                id='airline'
                 type='text'
                 className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
                 placeholder='Airline'
@@ -83,8 +87,9 @@ class Flights extends Component<acceptedProps, FlightsState> {
               </label>
             </div>
             <div className='flex flex-col'>
-              <label>
+              <label htmlFor='flightNumber'>
               <input
+                id='flightNumber'
                 type='text'
                 className='w-full border-2 border-transparent p-2 rounded outline-none focus:border-purple-500'
                 placeholder='Flight #'
@@ -95,8 +100,9 @@ class Flights extends Component<acceptedProps, FlightsState> {
               </label>
             </div>
             <div className='flex flex-col'>
-              <label>
+              <label htmlFor='originAirport'>
               <input
+                id='originAirport'
                 type='text'
                 className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
                 placeholder='Origin Airport'
@@ -107,8 +113,9 @@ class Flights extends Component<acceptedProps, FlightsState> {
               </label>
             </div>
             <div className='flex flex-col'>
-              <label>
+              <label htmlFor='destAirport'>
               <input
+                id='destAirport'
                 type='text'
                 className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
                 placeholder='Destination Airport'
@@ -119,8 +126,9 @@ class Flights extends Component<acceptedProps, FlightsState> {
               </label>
             </div>
             <div className='flex flex-col'>
-              <label>
+              <label htmlFor='flightMiles'>
               <input
+                id='flightMiles'
                 type='text'
                 className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
                 placeholder='Flight Miles'
@@ -131,8 +139,9 @@ class Flights extends Component<acceptedProps, FlightsState> {
               </label>
             </div>
             <div className='flex flex-col'>
-              <label>
+              <label className='flightTime'>
               <input
+                id='flightTime'
                 type='text'
                 className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
                 placeholder='Flight Time'
@@ -207,6 +216,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
             <button
               type='submit'
               className='block mx-auto focus:outline-none focus:ring-2 focus:border-purple-500 bg-red-500 hover:bg-red-300 py-1 px-4 mt-4 rounded-full shadow-md text-red-200 font-sans'
+              // onClick={() => this.props.fetchMyFlights()}
             >
               Submit
             </button>
