@@ -10,11 +10,13 @@ import {
   NavLink,
   NavbarText,
 } from 'reactstrap'
+import Home from './Home'
+import Flights from '../Flights/Flights'
 
 type acceptedProps = {
   token: any
   logout: any
-  protectedViews: () => void
+  // protectedViews: () => void
 }
 
 type valueTypes = {
@@ -40,12 +42,6 @@ export default class Sitebar extends Component<acceptedProps, valueTypes> {
     )
   }
 
-  // redirect = () => {
-  //   if(!this.props.token) {
-  //    return <Redirect to='/' />
-  //  }
-  // }
-
   render() {
     return (
       <div>
@@ -54,26 +50,26 @@ export default class Sitebar extends Component<acceptedProps, valueTypes> {
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink>
-                <Link to="/">Home</Link>
-              </NavLink>
+              <NavLink><Link to="/">Home</Link></NavLink>
             </NavItem>
             <NavItem>
               <NavLink><Link to="/test">Test</Link></NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink><Link to="/flights">Flights</Link></NavLink>
             </NavItem>
           </Nav>
           <NavbarText>{this.logoutButton()}</NavbarText>
         </Collapse>
         </Navbar>        
-        <Switch>
+        {/* <Switch>
           <Route exact path='/'>
-            {/* <Home token={this.props.token} /> */}
+            <Home token={this.props.token} />
             {this.props.protectedViews}
           </Route>
-          <Route exact path="/test">
-            <Test />
-          </Route>
-        </Switch>
+          <Route exact path="/test"><Test /></Route>
+          <Route exact path='/flights'><Flights /></Route>
+        </Switch> */}
       </div>
     )
   }

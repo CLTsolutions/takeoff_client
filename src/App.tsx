@@ -3,7 +3,7 @@ import './App.css'
 import Auth from './components/Auth/Auth'
 import Home from "./components/Site/Home"
 import Sitebar from './components/Site/Sitebar'
-import { Redirect, Route } from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
 import Test from "./components/Site/TestComponent"
 
 type valueTypes = {
@@ -54,9 +54,15 @@ class App extends Component<{}, valueTypes> {
     return (
       <div className='App'>
         {this.redirectNoToken()}
-        <Route>
+        {/* <Route>
           <Sitebar logout={this.clearToken} token={this.state.token} protectedViews={this.protectedViews} />
-        </Route>
+        </Route> */}
+        {this.state.token && <Sitebar logout={this.clearToken} token={this.state.token} />}
+        <Switch>
+          <Route exact path='/'>{this.protectedViews}</Route>
+          <Route exact path="/test"><Test /></Route>
+          {/* <Route exact path='/flights'><Flights /></Route> */}
+        </Switch>
       </div>
     )
   }

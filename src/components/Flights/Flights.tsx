@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import CreateFlights from './CreateFlights'
+// import { DeleteFlights } from './DeleteFlights'
 
 type acceptedProps = {
   token: any
@@ -53,13 +54,8 @@ class Flights extends Component<acceptedProps, FlightsState> {
     return (
       <div>
         <CreateFlights token={this.props.token} getFlights={this.fetchMyFlights} />
+        {/* <DeleteFlights token={this.props.token} getFlights={this.fetchMyFlights}/> */}
         <h2 className='text-center my-2'>Flights Library Lives Here:</h2>
-        {/* {this.fetchMyFlights()} */}
-        {/* <div className='flex flex-row flex-wrap'>
-          {this.state.myFlights.map((flight: any, index: number) => (
-            <p className='mt-5 mx-2 border-4' key={index}>{flight.airline}</p>
-          ))}
-        </div> */}
         <div className="flex justify-center flex-wrap">
           {this.state.myFlights.length > 0 ? (
             <>
@@ -122,7 +118,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
                 );
               })}
             </>
-          ) : null}
+          ) : <h3 className='mt-3'>You have flown zero miles. Create a flight!</h3>}
         </div>
       </div>
     )

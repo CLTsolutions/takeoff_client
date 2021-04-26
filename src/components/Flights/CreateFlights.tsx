@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 
 type acceptedProps = {
   token: any
-  // fetchMyFlights: Function
+  // fetchMyFlights: () => void
   getFlights: () => void
 }
 
@@ -52,13 +52,17 @@ class Flights extends Component<acceptedProps, FlightsState> {
       }),
       headers: new Headers({
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.props.token}`
+        Authorization: `Bearer ${this.props.token}`,
       }),
     })
-      .then(res => res.json())
-      .then(data => console.log(data))
-      .then(() => {this.props.getFlights()})
-      .catch(err => console.log(err))
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .then(() => this.props.getFlights())
+    .catch(err => console.log(err))
+  }
+
+  toInputUppercase = (e: any) => {
+    e.target.value = ('' + e.target.value).toUpperCase()
   }
 
   // handleChangeDate = (date: any) => this.setState({ date: date })
@@ -68,87 +72,93 @@ class Flights extends Component<acceptedProps, FlightsState> {
       <div>
         <h2 className='text-center'>Creating Flights:</h2>
         <div className='bg-white bg-opacity-50 max-w-2xl mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl w-1/2'>
-          <form
-            className='space-y-3'
-            onSubmit={this.newFlight}
-          >
+          <form className='space-y-3' onSubmit={this.newFlight}>
             <div className='flex flex-col'>
               {/*'htmlFor links input to label by corresponding id for screen readers */}
               <label htmlFor='airline'>
-              <input
-                id='airline'
-                type='text'
-                className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
-                placeholder='Airline'
-                onChange={e => this.setState({ airline: e.target.value })}
-                // onChange={this.handleFields}
-                defaultValue={''}
-              />
+                <input
+                  id='airline'
+                  type='text'
+                  className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
+                  placeholder='Airline'
+                  onChange={e => this.setState({ airline: e.target.value })}
+                  onInput={this.toInputUppercase}
+                  // onChange={this.handleFields}
+                  // defaultValue={''}
+                />
               </label>
             </div>
             <div className='flex flex-col'>
               <label htmlFor='flightNumber'>
-              <input
-                id='flightNumber'
-                type='text'
-                className='w-full border-2 border-transparent p-2 rounded outline-none focus:border-purple-500'
-                placeholder='Flight #'
-                onChange={e => this.setState({ flightNumber: parseInt(e.target.value) })}
-                // onChange={this.handleFields}
-                defaultValue={''}
-              />
+                <input
+                  id='flightNumber'
+                  type='text'
+                  className='w-full border-2 border-transparent p-2 rounded outline-none focus:border-purple-500'
+                  placeholder='Flight #'
+                  onChange={e =>
+                    this.setState({ flightNumber: parseInt(e.target.value) })
+                  }
+                  // onChange={this.handleFields}
+                  // defaultValue={''}
+                />
               </label>
             </div>
             <div className='flex flex-col'>
               <label htmlFor='originAirport'>
-              <input
-                id='originAirport'
-                type='text'
-                className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
-                placeholder='Origin Airport'
-                onChange={e => this.setState({ originAirport: e.target.value })}
-                // onChange={this.handleFields}
-                defaultValue={''}
-              />
+                <input
+                  id='originAirport'
+                  type='text'
+                  className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
+                  placeholder='Origin Airport'
+                  onChange={e =>
+                    this.setState({ originAirport: e.target.value })
+                  }
+                  onInput={this.toInputUppercase}
+                  // onChange={this.handleFields}
+                  // defaultValue={''}
+                />
               </label>
             </div>
             <div className='flex flex-col'>
               <label htmlFor='destAirport'>
-              <input
-                id='destAirport'
-                type='text'
-                className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
-                placeholder='Destination Airport'
-                onChange={e => this.setState({ destAirport: e.target.value })}
-                // onChange={this.handleFields}
-                defaultValue={''}
-              />
+                <input
+                  id='destAirport'
+                  type='text'
+                  className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
+                  placeholder='Destination Airport'
+                  onChange={e => this.setState({ destAirport: e.target.value })}
+                  onInput={this.toInputUppercase}
+                  // onChange={this.handleFields}
+                  // defaultValue={''}
+                />
               </label>
             </div>
             <div className='flex flex-col'>
               <label htmlFor='flightMiles'>
-              <input
-                id='flightMiles'
-                type='text'
-                className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
-                placeholder='Flight Miles'
-                onChange={e => this.setState({ flightMiles: parseInt(e.target.value) })}
-                // onChange={this.handleFields}
-                defaultValue={''}
-              />
+                <input
+                  id='flightMiles'
+                  type='text'
+                  className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
+                  placeholder='Flight Miles'
+                  onChange={e =>
+                    this.setState({ flightMiles: parseInt(e.target.value) })
+                  }
+                  // onChange={this.handleFields}
+                  // defaultValue={''}
+                />
               </label>
             </div>
             <div className='flex flex-col'>
               <label className='flightTime'>
-              <input
-                id='flightTime'
-                type='text'
-                className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
-                placeholder='Flight Time'
-                onChange={e => this.setState({ flightTime: e.target.value })}
-                // onChange={this.handleFields}
-                defaultValue={''}
-              />
+                <input
+                  id='flightTime'
+                  type='text'
+                  className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
+                  placeholder='Flight Time'
+                  onChange={e => this.setState({ flightTime: e.target.value })}
+                  // onChange={this.handleFields}
+                  // defaultValue={''}
+                />
               </label>
             </div>
             {/* 
@@ -216,7 +226,6 @@ class Flights extends Component<acceptedProps, FlightsState> {
             <button
               type='submit'
               className='block mx-auto focus:outline-none focus:ring-2 focus:border-purple-500 bg-red-500 hover:bg-red-300 py-1 px-4 mt-4 rounded-full shadow-md text-red-200 font-sans'
-              // onClick={() => this.props.fetchMyFlights()}
             >
               Submit
             </button>
