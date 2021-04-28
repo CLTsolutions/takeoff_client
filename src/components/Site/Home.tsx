@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-// import CreateFlights from '../Flights/CreateFlights'
-import Flights from '../Flights/Flights'
+import Flights from '../Flights/FlightsIndex'
 
 type acceptedProps = {
   token: any
@@ -13,7 +12,6 @@ class Home extends Component<acceptedProps, {}> {
   render() {
     return (
       <div>
-        {/* <CreateFlights token={this.props.token} /> */}
         <Flights token={this.props.token}/>
       </div>
     )

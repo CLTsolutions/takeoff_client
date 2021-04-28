@@ -4,10 +4,11 @@ import React, { Component } from 'react'
 type acceptedProps = {
   token: any
   // fetchFlights: () => void
-  getFlights: () => void
+  fetchFlights: (() => any)
 }
 
 interface FlightsState {
+  [key: string]: string | number
   airline: string
   flightNumber: number
   originAirport: string
@@ -36,29 +37,57 @@ class Flights extends Component<acceptedProps, FlightsState> {
     }
   }
 
-  newFlight = (e: any) => {
+  // newFlight = (e: any) => {
+  //   e.preventDefault()
+  //   fetch(`http://localhost:3000/flight/`, {
+  //     method: 'POST',
+  //     body: JSON.stringify({
+  //       airline: this.state.airline,
+  //       flightNumber: this.state.flightNumber,
+  //       originAirport: this.state.originAirport,
+  //       destAirport: this.state.destAirport,
+  //       flightMiles: this.state.flightMiles,
+  //       flightTime: this.state.flightTime,
+  //       // date: this.state.date,
+  //       // international: this.state.international,
+  //     }),
+  //     headers: new Headers({
+  //       'Content-Type': 'application/json',
+  //       Authorization: `Bearer ${this.props.token}`,
+  //     }),
+  //   })
+  //   .then(res => res.json())
+  //   .then(data => console.log(data))
+  //   .then(() => this.props.fetchFlights()) // calling flight library again after creating new flight
+  //   .catch(err => console.log(err))
+  // }
+
+  newFlight = async (e: any) => {
     e.preventDefault()
-    fetch(`http://localhost:3000/flight/`, {
-      method: 'POST',
-      body: JSON.stringify({
-        airline: this.state.airline,
-        flightNumber: this.state.flightNumber,
-        originAirport: this.state.originAirport,
-        destAirport: this.state.destAirport,
-        flightMiles: this.state.flightMiles,
-        flightTime: this.state.flightTime,
-        // date: this.state.date,
-        // international: this.state.international,
-      }),
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.props.token}`,
-      }),
-    })
-    .then(res => res.json())
-    .then(data => console.log(data))
-    .then(() => this.props.getFlights()) // calling flight library again after creating new flight
-    .catch(err => console.log(err))
+    try { 
+      const response = await fetch(`http://localhost:3000/flight/`, {
+        method: 'POST',
+        body: JSON.stringify({
+          airline: this.state.airline,
+          flightNumber: this.state.flightNumber,
+          originAirport: this.state.originAirport,
+          destAirport: this.state.destAirport,
+          flightMiles: this.state.flightMiles,
+          flightTime: this.state.flightTime,
+          // date: this.state.date,
+          // international: this.state.international,
+        }),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.props.token}`,
+        }),
+      })
+      const data = await response.json();
+      console.log(data)
+      return this.props.fetchFlights() // calling flight library again after creating new flight
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   // changes form input to uppercase
@@ -66,10 +95,14 @@ class Flights extends Component<acceptedProps, FlightsState> {
     e.target.value = ('' + e.target.value).toUpperCase()
   }
 
-  // handleInputFields = (e: any) => {
-  //   // const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
-  //   this.setState({ [e.target.name] : e.target.value })
-  // }
+  handleInputFields = (e: any) => {
+    // const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
+    const target = e.target
+    const value = target.value
+    const name = target.name
+    this.setState({ [name]: value })
+    // this.setState({ [e.target.name] : e.target.value })
+  }
 
   // handleChangeDate = (date: any) => this.setState({ date: date })
 
@@ -87,10 +120,9 @@ class Flights extends Component<acceptedProps, FlightsState> {
                   type='text'
                   className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
                   placeholder='Airline'
-                  onChange={e => this.setState({ airline: e.target.value })}
-                  // onChange={this.handleInputFields}
+                  name='airline'
+                  onChange={this.handleInputFields}
                   onInput={this.inputToUppercase}
-                  // onChange={this.handleFields}
                   // defaultValue={''}
                 />
               </label>
@@ -102,10 +134,8 @@ class Flights extends Component<acceptedProps, FlightsState> {
                   type='text'
                   className='w-full border-2 border-transparent p-2 rounded outline-none focus:border-purple-500'
                   placeholder='Flight #'
-                  onChange={e =>
-                    this.setState({ flightNumber: parseInt(e.target.value) })
-                  }
-                  // onChange={this.handleFields}
+                  name="flightNumber"
+                  onChange={this.handleInputFields}
                   // defaultValue={''}
                 />
               </label>
@@ -117,11 +147,9 @@ class Flights extends Component<acceptedProps, FlightsState> {
                   type='text'
                   className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
                   placeholder='Origin Airport'
-                  onChange={e =>
-                    this.setState({ originAirport: e.target.value })
-                  }
+                  name='originAirport'
+                  onChange={this.handleInputFields}
                   onInput={this.inputToUppercase}
-                  // onChange={this.handleFields}
                   // defaultValue={''}
                 />
               </label>
@@ -133,9 +161,9 @@ class Flights extends Component<acceptedProps, FlightsState> {
                   type='text'
                   className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
                   placeholder='Destination Airport'
-                  onChange={e => this.setState({ destAirport: e.target.value })}
+                  name='destAirport'
+                  onChange={this.handleInputFields}
                   onInput={this.inputToUppercase}
-                  // onChange={this.handleFields}
                   // defaultValue={''}
                 />
               </label>
@@ -147,10 +175,8 @@ class Flights extends Component<acceptedProps, FlightsState> {
                   type='text'
                   className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
                   placeholder='Flight Miles'
-                  onChange={e =>
-                    this.setState({ flightMiles: parseInt(e.target.value) })
-                  }
-                  // onChange={this.handleFields}
+                  name='flightMiles'
+                  onChange={this.handleInputFields}
                   // defaultValue={''}
                 />
               </label>
@@ -162,8 +188,9 @@ class Flights extends Component<acceptedProps, FlightsState> {
                   type='text'
                   className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
                   placeholder='Flight Time'
-                  onChange={e => this.setState({ flightTime: e.target.value })}
-                  // onChange={this.handleFields}
+                  // onChange={e => this.setState({ flightTime: e.target.value })}
+                  name='flightTime'
+                  onChange={this.handleInputFields}
                   // defaultValue={''}
                 />
               </label>
