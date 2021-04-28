@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
-// import { Button } from 'antd'
-import { Form, Input, Button, Checkbox } from 'antd'
-import { UserOutlined, LockOutlined } from '@ant-design/icons'
+import { Button } from 'antd'
 
 type acceptedProps = {
   token: (token: string | null) => void
 }
 
 type valueTypes = {
+  [key: string]: string
   firstName: string
   lastName: string
   email: string
@@ -26,7 +25,7 @@ export default class Register extends Component<acceptedProps, valueTypes> {
   }
 
   handleSubmit = (e: any) => {
-    // e.preventDefault()
+    e.preventDefault()
     fetch('http://localhost:3000/user/register', {
       method: 'POST',
       body: JSON.stringify({
@@ -46,119 +45,78 @@ export default class Register extends Component<acceptedProps, valueTypes> {
       })
   }
 
+  handleChange = (e: any) => {
+    const target = e.target
+    const value = target.value
+    const name = target.name
+    this.setState({ [name]: value })
+  }
+
+
   render() {
     return (
       <div className='register'>
-        {/* <form onSubmit={this.handleSubmit} className='space-y-5'>
-          <h1 className='text-xl'>Register</h1>
-          <div>
+        <form onSubmit={this.handleSubmit} className='space-y-5'>
+          <h1 className='text-xl text-white'>Register</h1>
+          <div className='flex flex-col'>
+            <label htmlFor='firstName'>
             <input
-              className='w-full border-2 border-white p-2 rounded outline-none focus:border-purple-500'
-              type='text'
+              id='firstName'
+              className='w-full border-2 border-transparent
+                p-2 rounded outline-none focus:border-purple-500'
+              required type='text'
               placeholder='First Name'
               value={this.state.firstName}
-              name='first name'
-              onChange={e => this.setState({ firstName: e.target.value })}
+              name='firstName'
+              onChange={this.handleChange}
             />
+            </label>
           </div>
-          <div>
+          <div className='flex flex-col'>
+            <label htmlFor='lastName'>
             <input
-              className='w-full border-2 border-white p-2 rounded outline-none focus:border-purple-500'
-              type='text'
+              id='lastName'
+              className='w-full border-2 border-transparent
+                p-2 rounded outline-none focus:border-purple-500'
+              required type='text'
               placeholder='Last Name'
               value={this.state.lastName}
-              name='last name'
-              onChange={e => this.setState({ lastName: e.target.value })}
+              name='lastName'
+              onChange={this.handleChange}
             />
+            </label>
           </div>
-          <div> */}
-        {/* <input
-              className='w-full border-2 border-white p-2 rounded outline-none focus:border-purple-500'
-              required
-              type='email'
-              placeholder='Email'
-              size= '30'
-              name='email'
-              value={this.state.email}
-              onChange={e => this.setState({ email: e.target.value })}
-            />
-          </div>
-          <div>
+          <div className='flex flex-col'>
+            <label htmlFor='email'>
             <input
-              className='w-full border-2 border-white p-2 rounded outline-none focus:border-purple-500'
-              required
+              id='email'
+              className='w-full border-2 border-transparent
+               p-2 rounded outline-none focus:border-purple-500'
+              // required type='email'
+              placeholder='Email'
+              // size= {30}
+              value={this.state.email}
+              name='email'
+              onChange={this.handleChange}
+            />
+            </label>
+          </div>
+          <div className='flex flex-col'>
+            <label htmlFor='password'>
+            <input
               id='password'
-              type='password'
+              className='w-full border-2 border-transparent p-2 rounded outline-none focus:border-purple-500'
+              required type='password'
               placeholder='Password'
+              // minLength= {8}
               value={this.state.password}
               name='password'
-              onChange={e => this.setState({ password: e.target.value })}
+              onChange={this.handleChange}
             />
+            </label>
           </div>
           <Button htmlType='submit'>Submit</Button>
-        </form> */}
-        <Form
-          name='normal_register'
-          className='register-form'
-          onFinish={this.handleSubmit}
-        >
-          <Form.Item
-            name='firstName'
-            rules={[{ message: 'Please input your first name.' }]}
-          >
-            <Input
-              prefix={<UserOutlined className='site-form-item-icon' />}
-              placeholder='First Name'
-              onChange={e => this.setState({ firstName: e.target.value })}
-            />
-          </Form.Item>
-          <Form.Item
-            name='lastName'
-            rules={[{ message: 'Please input your last name.' }]}
-          >
-            <Input
-              prefix={<UserOutlined className='site-form-item-icon' />}
-              placeholder='Last Name'
-              onChange={e => this.setState({ lastName: e.target.value })}
-            />
-          </Form.Item>
-          <Form.Item
-            name='Email'
-            rules={[{ message: 'Please input your email.' }]}
-          >
-            <Input
-              prefix={<UserOutlined className='site-form-item-icon' />}
-              placeholder='Email'
-              onChange={e => this.setState({ email: e.target.value })}
-            />
-          </Form.Item>
-          <Form.Item
-            name='password'
-            rules={[{ required: true, message: 'Please input your password.' }]}
-          >
-            <Input
-              prefix={<LockOutlined className='site-form-item-icon' />}
-              type='password'
-              placeholder='Password'
-              onChange={e => this.setState({ password: e.target.value })}
-            />
-          </Form.Item>
-          {/* <Form.Item>
-            <a className='login-form-forgot' href=''>
-              Forgot password
-            </a>
-          </Form.Item> */}
-          <Form.Item>
-            <Button
-              type='primary'
-              htmlType='submit'
-              className='register-form-button'
-            >
-              Register
-            </Button>
-            {/* Or <a href=''>register now!</a> */}
-          </Form.Item>
-        </Form>
+        </form>      
       </div>
     )
   }

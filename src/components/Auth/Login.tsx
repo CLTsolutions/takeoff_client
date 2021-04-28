@@ -4,13 +4,12 @@ import { Button } from 'antd'
 // import { UserOutlined, LockOutlined } from '@ant-design/icons';
 // import { BaseUser } from '../../types'
 
-
-
 type acceptedProps = {
   token: (token: string | null) => void
 }
 
 interface LoginState {
+  [key: string]: string
   email: string
   password: string
   // size: number
@@ -46,34 +45,44 @@ export default class Login extends Component<acceptedProps, LoginState> {
       .catch(err => console.log(err))
   }
 
+  handleChange = (e: any) => {
+    const target = e.target
+    const value = target.value
+    const name = target.name
+    this.setState({ [name]: value })
+  }
+
   render() {
     return (
       <div className='login'>
         <form onSubmit={this.handleSubmit} className='space-y-5'>
-          <h1 className='text-xl'>Login</h1>
+          <h1 className='text-xl text-white'>Login</h1>
           <div className='flex flex-col'>
-            <label>
+            <label htmlFor='email'>
             <input
+              id='email'
               className='w-full border-2 border-transparent
                p-2 rounded outline-none focus:border-purple-500'
               // required type='email'
               placeholder='Email'
               // size= {30}
-              // value={this.state.email}
-              onChange={e => this.setState({ email: e.target.value })}
+              value={this.state.email}
+              name='email'
+              onChange={this.handleChange}
             />
             </label>
           </div>
           <div className='flex flex-col'>
-            <label>
+            <label htmlFor='password'>
             <input
+              id='password'
               className='w-full border-2 border-transparent p-2 rounded outline-none focus:border-purple-500'
               required type='password'
               placeholder='Password'
               // minLength= {8}
               value={this.state.password}
               name='password'
-              onChange={e => this.setState({ password: e.target.value })}
+              onChange={this.handleChange}
             />
             </label>
           </div>

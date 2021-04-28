@@ -7,18 +7,20 @@ type acceptedProps = {
 }
 
 interface FlightsState {
-  myFlights: []
+  // myFlights: []
+  myFlights: Array<number>
 }
 
 class Flights extends Component<acceptedProps, FlightsState> {
   constructor(props: acceptedProps) {
     super(props)
     this.state = {
-      myFlights: []
+      myFlights: [],
+      // tmp: []
     }
   }
 
-  fetchMyFlights = () => {
+  fetchFlights = () => {
     fetch(`http://localhost:3000/flight/mine`, {
       method: 'GET',
       headers: {
@@ -36,7 +38,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
 
   componentDidMount() {
     console.log(this.props.token)
-    this.fetchMyFlights()
+    this.fetchFlights() // triggering a rerender to display newly created flights
   }
 
   deleteFlight = (id: any) => {
@@ -47,14 +49,23 @@ class Flights extends Component<acceptedProps, FlightsState> {
             Authorization: `Bearer ${this.props.token}`
         })
     })
-    .then(() => this.fetchMyFlights())
+    // .then(() => {
+    //   let tmp : Array<number> = this.state.myFlights.filter((flight: any) => flight.id != id)
+    //   this.setState({ tmp: tmp })
+    // })
+    .then(() => {this.fetchFlights()}) // updating flight list after one is deleted
+  }
+  
+
+  updateFlights = () => {
+
   }
   
   render() {
     return (
       <div>
-        <CreateFlights token={this.props.token} getFlights={this.fetchMyFlights} />
-        {/* <DeleteFlights token={this.props.token} getFlights={this.fetchMyFlights}/> */}
+        <CreateFlights token={this.props.token} getFlights={this.fetchFlights} />
+        {/* <DeleteFlights token={this.props.token} getFlights={this.fetchFlights}/> */}
         <h2 className='text-center my-2'>Flights Library Lives Here:</h2>
         <div className="flex justify-center flex-wrap">
           {this.state.myFlights.length > 0 ? (
@@ -84,7 +95,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
                     <p className="text-md text-center font-serif mb-5">
                       {flight.flightTime}
                     </p>
-                    {/* <div className="mb-2"> */}
+                    <div className="mb-2">
                       {/* <button
                         className="focus:outline-none focus:ring-1 focus:ring-pink-300 bg-pink-500 hover:bg-pink-300 py-1 px-4 mx-1 mt-4 rounded-full shadow-md text-pink-200 font-sans"
                         onClick={() => {
@@ -112,7 +123,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
                         Delete
                       </button>
                       {/* )} */}
-                    {/* </div> */}
+                    </div>
                     <br />
                   </div>
                 );

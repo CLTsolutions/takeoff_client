@@ -10,8 +10,8 @@ import {
   NavLink,
   NavbarText,
 } from 'reactstrap'
-import Home from './Home'
-import Flights from '../Flights/Flights'
+// import Home from './Home'
+// import Flights from '../Flights/Flights'
 
 type acceptedProps = {
   token: any

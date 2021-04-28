@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 
 type acceptedProps = {
   token: any
-  // fetchMyFlights: () => void
+  // fetchFlights: () => void
   getFlights: () => void
 }
 
@@ -57,13 +57,19 @@ class Flights extends Component<acceptedProps, FlightsState> {
     })
     .then(res => res.json())
     .then(data => console.log(data))
-    .then(() => this.props.getFlights())
+    .then(() => this.props.getFlights()) // calling flight library again after creating new flight
     .catch(err => console.log(err))
   }
 
-  toInputUppercase = (e: any) => {
+  // changes form input to uppercase
+  inputToUppercase = (e: any) => {
     e.target.value = ('' + e.target.value).toUpperCase()
   }
+
+  // handleInputFields = (e: any) => {
+  //   // const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
+  //   this.setState({ [e.target.name] : e.target.value })
+  // }
 
   // handleChangeDate = (date: any) => this.setState({ date: date })
 
@@ -82,7 +88,8 @@ class Flights extends Component<acceptedProps, FlightsState> {
                   className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
                   placeholder='Airline'
                   onChange={e => this.setState({ airline: e.target.value })}
-                  onInput={this.toInputUppercase}
+                  // onChange={this.handleInputFields}
+                  onInput={this.inputToUppercase}
                   // onChange={this.handleFields}
                   // defaultValue={''}
                 />
@@ -113,7 +120,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
                   onChange={e =>
                     this.setState({ originAirport: e.target.value })
                   }
-                  onInput={this.toInputUppercase}
+                  onInput={this.inputToUppercase}
                   // onChange={this.handleFields}
                   // defaultValue={''}
                 />
@@ -127,7 +134,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
                   className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
                   placeholder='Destination Airport'
                   onChange={e => this.setState({ destAirport: e.target.value })}
-                  onInput={this.toInputUppercase}
+                  onInput={this.inputToUppercase}
                   // onChange={this.handleFields}
                   // defaultValue={''}
                 />
