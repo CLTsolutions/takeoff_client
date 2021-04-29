@@ -24,7 +24,7 @@ export default class Register extends Component<acceptedProps, valueTypes> {
     }
   }
 
-  handleSubmit = (e: any) => {
+  handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     fetch('http://localhost:3000/user/register', {
       method: 'POST',
@@ -45,7 +45,7 @@ export default class Register extends Component<acceptedProps, valueTypes> {
       })
   }
 
-  handleChange = (e: any) => {
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target
     const value = target.value
     const name = target.name

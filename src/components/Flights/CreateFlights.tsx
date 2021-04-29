@@ -4,19 +4,19 @@ import React, { Component } from 'react'
 type acceptedProps = {
   token: any
   // fetchFlights: () => void
-  fetchFlights: (() => any)
+  fetchFlights: (() => void)
 }
 
 interface FlightsState {
-  [key: string]: string | number
+  [key: string]: string | number | boolean | Date
   airline: string
-  flightNumber: number
+  flightNumber: number | string //'' for empty input value on initialization
   originAirport: string
   destAirport: string
-  flightMiles: number
+  flightMiles: number | string //'' for empty input value on initialization
   flightTime: string
-  // international: boolean
-  // date: Date
+  international: boolean
+  date: Date
   // setDate: (e: any) => void;
 }
 
@@ -26,13 +26,13 @@ class Flights extends Component<acceptedProps, FlightsState> {
     this.state = {
       // Flights: []
       airline: '',
-      flightNumber: 0,
+      flightNumber: '', //'' so input value initializes empty (instead of 0)
       originAirport: '',
       destAirport: '',
-      flightMiles: 0,
+      flightMiles: '', //'' so input value initializes empty (instead of 0)
       flightTime: '',
-      // international: false,
-      // date: new Date(),
+      international: false,
+      date: new Date(),
       // setDate: (date) => this.setState({ date: date })
     }
   }
@@ -62,7 +62,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
   //   .catch(err => console.log(err))
   // }
 
-  newFlight = async (e: any) => {
+  newFlight = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try { 
       const response = await fetch(`http://localhost:3000/flight/`, {
@@ -74,7 +74,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
           destAirport: this.state.destAirport,
           flightMiles: this.state.flightMiles,
           flightTime: this.state.flightTime,
-          // date: this.state.date,
+          date: this.state.date,
           // international: this.state.international,
         }),
         headers: new Headers({
@@ -91,17 +91,18 @@ class Flights extends Component<acceptedProps, FlightsState> {
   }
 
   // changes form input to uppercase
-  inputToUppercase = (e: any) => {
+  inputToUppercase = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.target.value = ('' + e.target.value).toUpperCase()
   }
 
-  handleInputFields = (e: any) => {
-    // const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
+  //handles input fields onChange
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target
-    const value = target.value
+    const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
     this.setState({ [name]: value })
     // this.setState({ [e.target.name] : e.target.value })
+    console.log(value)
   }
 
   // handleChangeDate = (date: any) => this.setState({ date: date })
@@ -120,8 +121,9 @@ class Flights extends Component<acceptedProps, FlightsState> {
                   type='text'
                   className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
                   placeholder='Airline'
+                  value={this.state.airline}
                   name='airline'
-                  onChange={this.handleInputFields}
+                  onChange={this.handleChange}
                   onInput={this.inputToUppercase}
                   // defaultValue={''}
                 />
@@ -131,11 +133,13 @@ class Flights extends Component<acceptedProps, FlightsState> {
               <label htmlFor='flightNumber'>
                 <input
                   id='flightNumber'
-                  type='text'
+                  type='number' // only nums allowed in input field
+                  min='0' //prevents negative nums
                   className='w-full border-2 border-transparent p-2 rounded outline-none focus:border-purple-500'
                   placeholder='Flight #'
+                  value={this.state.flightNumber}
                   name="flightNumber"
-                  onChange={this.handleInputFields}
+                  onChange={this.handleChange}
                   // defaultValue={''}
                 />
               </label>
@@ -148,7 +152,8 @@ class Flights extends Component<acceptedProps, FlightsState> {
                   className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
                   placeholder='Origin Airport'
                   name='originAirport'
-                  onChange={this.handleInputFields}
+                  value={this.state.originAirport}
+                  onChange={this.handleChange}
                   onInput={this.inputToUppercase}
                   // defaultValue={''}
                 />
@@ -162,7 +167,8 @@ class Flights extends Component<acceptedProps, FlightsState> {
                   className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
                   placeholder='Destination Airport'
                   name='destAirport'
-                  onChange={this.handleInputFields}
+                  value={this.state.destAirport}
+                  onChange={this.handleChange}
                   onInput={this.inputToUppercase}
                   // defaultValue={''}
                 />
@@ -172,96 +178,69 @@ class Flights extends Component<acceptedProps, FlightsState> {
               <label htmlFor='flightMiles'>
                 <input
                   id='flightMiles'
-                  type='text'
+                  type='number' // only nums allowed in input field
+                  min='0' // prevents negative nums
                   className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
                   placeholder='Flight Miles'
                   name='flightMiles'
-                  onChange={this.handleInputFields}
+                  value={this.state.flightMiles}
+                  onChange={this.handleChange}
                   // defaultValue={''}
                 />
               </label>
             </div>
             <div className='flex flex-col'>
-              <label className='flightTime'>
+              <label htmlFor='flightTime'>
                 <input
                   id='flightTime'
-                  type='text'
+                  type='time'
                   className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
                   placeholder='Flight Time'
                   // onChange={e => this.setState({ flightTime: e.target.value })}
+                  value={this.state.flightTime}
                   name='flightTime'
-                  onChange={this.handleInputFields}
+                  onChange={this.handleChange}
                   // defaultValue={''}
                 />
               </label>
             </div>
-            {/* 
             <div className='flex flex-col'>
-              <label>
+              <label htmlFor='date'>
               <input
+                id='date'
                 type='date'
                 className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
                 placeholder='Date'
-                // onChange={date => this.setState({ date: date.target.value })}
-                onChange={date => this.setState({ new Date(date) })}
+                value={this.state.Date}
+                onChange={date => this.setState({ Date: date.target.value })}
+                // onChange={date => this.setState({ new Date(date) })}
                 // onChange={this.handleFields}
                 // defaultValue={''}
               />
               </label>
             </div>
-            
             <div className='flex flex-col'>
-              <label className='flex flex-row items-center text-gray-400'>
-                International
-              <input
-                type='checkbox'
-                className='p-4 ml-3 mr-1 checked:bg-blue-600 checked:border-transparent'
-                // checked={isStirred}
-                name='international'
-                onChange={e => this.setState({ international: e.target.checked })}
-                // onChange={this.handleFields}
-                defaultChecked={false}
-              />
+              <label 
+                htmlFor='international' className='international flex flex-row items-center text-gray-400'>
+                International:
+                <input
+                  id='international'
+                  type='checkbox'
+                  className='p-4 ml-3 mr-1 checked:bg-blue-600 checked:border-transparent'
+                  checked={this.state.international}
+                  name='international'
+                  onChange={this.handleChange}
+                  // onChange={this.handleChange.bind(this)}
+                  // onChange={e => this.setState({ international: e.target.checked })}
+                  // defaultChecked={false}
+                />
               </label>
-            </div> */}
-            {/* <label>
-              <input
-                type='text'
-                className='w-full border-2 border-white p-2 rounded outline-none focus:border-purple-500'
-                placeholder='Glass Type'
-                onChange={e => setGlassType(e.target.value)}
-              />
-            </label>
-            <label>
-              <textarea
-                className='w-full border-2 border-white p-2 rounded outline-none focus:border-purple-500'
-                placeholder='Ingredients'
-                onChange={e => setIngredients(e.target.value)}
-              />
-            </label>
-            <label>
-              <textarea
-                className='w-full border-2 border-white p-2 rounded outline-none focus:border-purple-500'
-                placeholder='Measurements'
-                onChange={e => setMeasurements(e.target.value)}
-              />
-            </label>
-            <label className='flex flex-row items-center'>
-              Stirred
-              <input
-                type='checkbox'
-                className='p-4 ml-3 mr-1'
-                checked={isStirred}
-                name='stirred'
-                onChange={e => setIsStirred(e.target.checked)}
-              />{' '}
-              Yes
-            </label> */}
+            </div>
             <button
               type='submit'
               className='block mx-auto focus:outline-none focus:ring-2 focus:border-purple-500 bg-red-500 hover:bg-red-300 py-1 px-4 mt-4 rounded-full shadow-md text-red-200 font-sans'
             >
-              Submit
+            Submit
             </button>
           </form>
         </div>

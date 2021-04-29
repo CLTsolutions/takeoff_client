@@ -23,7 +23,7 @@ export class FlightsCard extends Component<acceptedProps, {}> {
    //    .then(() => this.props.fetchFlights()) // updating flight list after one is deleted
    // }
 
-   deleteFlight = async (id: any) => {
+   deleteFlight = async (id: number) => {
       await fetch(`http://localhost:3000/flight/${id}`, {
          method: "DELETE",
          headers: new Headers ({

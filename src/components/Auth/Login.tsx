@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import { Button } from 'antd'
-// import { Form, Input, Button, Checkbox } from 'antd';
-// import { UserOutlined, LockOutlined } from '@ant-design/icons';
 // import { BaseUser } from '../../types'
 
 type acceptedProps = {
@@ -25,7 +23,7 @@ export default class Login extends Component<acceptedProps, LoginState> {
     }
   }
 
-  handleSubmit = (e: any) => {
+  handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     fetch('http://localhost:3000/user/login', {
       method: 'POST',
@@ -45,7 +43,7 @@ export default class Login extends Component<acceptedProps, LoginState> {
       .catch(err => console.log(err))
   }
 
-  handleChange = (e: any) => {
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target
     const value = target.value
     const name = target.name
@@ -88,47 +86,6 @@ export default class Login extends Component<acceptedProps, LoginState> {
           </div>
           <Button htmlType='submit'>Submit</Button>
         </form>
-        {/* <Form
-          name='normal_login'
-          className='login-form'
-          onFinish={this.handleSubmit}
-        >
-          <Form.Item
-            name='Email'
-            rules={[{ message: 'Please input your email.' }]}
-          >
-            <Input
-              prefix={<UserOutlined className='site-form-item-icon' />}
-              placeholder='Email'
-              onChange={e => this.setState({ email: e.target.value })}
-            />
-          </Form.Item>
-          <Form.Item
-            name='password'
-            rules={[{ message: 'Please input your password.' }]}
-          >
-            <Input
-              prefix={<LockOutlined className='site-form-item-icon' />}
-              type='password'
-              placeholder='Password'
-              onChange={e => this.setState({ password: e.target.value })}
-            />
-          </Form.Item>
-          <Form.Item>
-            <a className='login-form-forgot' href=''>
-              Forgot password
-            </a>
-          </Form.Item>
-          <Form.Item>
-            <Button
-              type='primary'
-              htmlType='submit'
-              className='login-form-button'
-            >
-              Log in
-            </Button>
-          </Form.Item>
-        </Form> */}
       </div>
     )
   }
