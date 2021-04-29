@@ -1,26 +1,28 @@
 import React, { Component } from 'react'
 import { Button } from 'antd'
+import { BaseUser } from '../../types'
 
 type acceptedProps = {
   token: (token: string | null) => void
+  user: BaseUser
 }
 
 type valueTypes = {
   [key: string]: string
-  firstName: string
-  lastName: string
-  email: string
-  password: string
+  // firstName: string
+  // lastName: string
+  // email: string
+  // password: string
 }
 
 export default class Register extends Component<acceptedProps, valueTypes> {
   constructor(props: acceptedProps) {
     super(props)
     this.state = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
+      // firstName: '',
+      // lastName: '',
+      // email: '',
+      // password: '',
     }
   }
 
@@ -66,7 +68,7 @@ export default class Register extends Component<acceptedProps, valueTypes> {
                 p-2 rounded outline-none focus:border-purple-500'
               required type='text'
               placeholder='First Name'
-              value={this.state.firstName}
+              // value={this.state.firstName}
               name='firstName'
               onChange={this.handleChange}
             />
@@ -80,7 +82,7 @@ export default class Register extends Component<acceptedProps, valueTypes> {
                 p-2 rounded outline-none focus:border-purple-500'
               required type='text'
               placeholder='Last Name'
-              value={this.state.lastName}
+              // value={this.state.lastName}
               name='lastName'
               onChange={this.handleChange}
             />
@@ -95,7 +97,7 @@ export default class Register extends Component<acceptedProps, valueTypes> {
               // required type='email'
               placeholder='Email'
               // size= {30}
-              value={this.state.email}
+              // value={this.state.email}
               name='email'
               onChange={this.handleChange}
             />
@@ -109,7 +111,7 @@ export default class Register extends Component<acceptedProps, valueTypes> {
               required type='password'
               placeholder='Password'
               // minLength= {8}
-              value={this.state.password}
+              // value={this.state.password}
               name='password'
               onChange={this.handleChange}
             />

@@ -3,8 +3,7 @@ import React, { Component } from 'react'
 
 type acceptedProps = {
   token: any
-  // fetchFlights: () => void
-  fetchFlights: (() => void)
+  fetchFlights: () => void
 }
 
 interface FlightsState {
@@ -62,7 +61,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
   //   .catch(err => console.log(err))
   // }
 
-  newFlight = async (e: React.FormEvent<HTMLFormElement>) => {
+  newFlight = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
     try { 
       const response = await fetch(`http://localhost:3000/flight/`, {
@@ -75,7 +74,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
           flightMiles: this.state.flightMiles,
           flightTime: this.state.flightTime,
           date: this.state.date,
-          // international: this.state.international,
+          international: this.state.international,
         }),
         headers: new Headers({
           'Content-Type': 'application/json',
@@ -91,12 +90,12 @@ class Flights extends Component<acceptedProps, FlightsState> {
   }
 
   // changes form input to uppercase
-  inputToUppercase = (e: React.ChangeEvent<HTMLInputElement>) => {
+  inputToUppercase = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.target.value = ('' + e.target.value).toUpperCase()
   }
 
   //handles input fields onChange
-  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const target = e.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
@@ -209,12 +208,13 @@ class Flights extends Component<acceptedProps, FlightsState> {
               <input
                 id='date'
                 type='date'
+                // required type='date'
                 className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
                 placeholder='Date'
-                value={this.state.Date}
-                onChange={date => this.setState({ Date: date.target.value })}
-                // onChange={date => this.setState({ new Date(date) })}
-                // onChange={this.handleFields}
+                value={this.state.date}
+                name='date'
+                required pattern="\d{4}-\d{2}-\d{2}" //for unsupported browser
+                onChange={this.handleChange}
                 // defaultValue={''}
               />
               </label>
@@ -230,8 +230,6 @@ class Flights extends Component<acceptedProps, FlightsState> {
                   checked={this.state.international}
                   name='international'
                   onChange={this.handleChange}
-                  // onChange={this.handleChange.bind(this)}
-                  // onChange={e => this.setState({ international: e.target.checked })}
                   // defaultChecked={false}
                 />
               </label>

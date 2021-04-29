@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
 import { Button } from 'antd'
-// import { BaseUser } from '../../types'
+import { BaseUser } from '../../types'
 
 type acceptedProps = {
   token: (token: string | null) => void
+  user: BaseUser
 }
 
 interface LoginState {
   [key: string]: string
-  email: string
-  password: string
+  // email: string
+  // password: string
   // size: number
   // minLength: number
 }
@@ -18,8 +19,8 @@ export default class Login extends Component<acceptedProps, LoginState> {
   constructor(props: acceptedProps) {
     super(props)
     this.state = {
-      email: '',
-      password: '',
+      // email: '',
+      // password: '',
     }
   }
 
@@ -64,7 +65,7 @@ export default class Login extends Component<acceptedProps, LoginState> {
               // required type='email'
               placeholder='Email'
               // size= {30}
-              value={this.state.email}
+              // value={this.state.email}
               name='email'
               onChange={this.handleChange}
             />
@@ -78,7 +79,7 @@ export default class Login extends Component<acceptedProps, LoginState> {
               required type='password'
               placeholder='Password'
               // minLength= {8}
-              value={this.state.password}
+              // value={this.state.password}
               name='password'
               onChange={this.handleChange}
             />

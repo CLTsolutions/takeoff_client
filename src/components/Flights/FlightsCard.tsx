@@ -56,6 +56,9 @@ export class FlightsCard extends Component<acceptedProps, {}> {
                            {flight.airline}
                         </p>
                         <p className="text-md text-center font-serif mb-5">
+                           {flight.flightNumber}
+                        </p>
+                        <p className="text-md text-center font-serif mb-5">
                            {flight.originAirport}
                         </p>
                         <p className="text-md text-center font-serif mb-5">
@@ -63,9 +66,6 @@ export class FlightsCard extends Component<acceptedProps, {}> {
                         </p>
                         <p className="text-md text-center font-serif mb-5">
                            {flight.flightMiles}
-                        </p>
-                        <p className="text-md text-center font-serif mb-5">
-                           {flight.flightNumber}
                         </p>
                         <p className="text-md text-center font-serif mb-5">
                            {flight.flightTime}
