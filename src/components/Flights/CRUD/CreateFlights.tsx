@@ -1,13 +1,15 @@
-import React, { Component } from 'react'
+import React, { Component, SyntheticEvent } from 'react'
 // import { FlightsInfo } from '../../types'
+import * as HtmlDurationPicker from 'html-duration-picker'
 
 type acceptedProps = {
   token: any
   fetchFlights: () => void
 }
 
-interface FlightsState {
-  [key: string]: string | number | boolean | Date
+export interface FlightsState {
+  // [key: string]: string | number | boolean | Date
+  flights: []
   airline: string
   flightNumber: number | string //'' for empty input value on initialization
   originAirport: string
@@ -15,15 +17,15 @@ interface FlightsState {
   flightMiles: number | string //'' for empty input value on initialization
   flightTime: string
   international: boolean
-  date: Date
-  // setDate: (e: any) => void;
+  date: string
+  // date: Date
 }
 
 class Flights extends Component<acceptedProps, FlightsState> {
   constructor(props: acceptedProps) {
     super(props)
     this.state = {
-      // Flights: []
+      flights: [],
       airline: '',
       flightNumber: '', //'' so input value initializes empty (instead of 0)
       originAirport: '',
@@ -31,35 +33,10 @@ class Flights extends Component<acceptedProps, FlightsState> {
       flightMiles: '', //'' so input value initializes empty (instead of 0)
       flightTime: '',
       international: false,
-      date: new Date(),
-      // setDate: (date) => this.setState({ date: date })
+      // date: new Date()
+      date: ''
     }
   }
-
-  // newFlight = (e: any) => {
-  //   e.preventDefault()
-  //   fetch(`http://localhost:3000/flight/`, {
-  //     method: 'POST',
-  //     body: JSON.stringify({
-  //       airline: this.state.airline,
-  //       flightNumber: this.state.flightNumber,
-  //       originAirport: this.state.originAirport,
-  //       destAirport: this.state.destAirport,
-  //       flightMiles: this.state.flightMiles,
-  //       flightTime: this.state.flightTime,
-  //       // date: this.state.date,
-  //       // international: this.state.international,
-  //     }),
-  //     headers: new Headers({
-  //       'Content-Type': 'application/json',
-  //       Authorization: `Bearer ${this.props.token}`,
-  //     }),
-  //   })
-  //   .then(res => res.json())
-  //   .then(data => console.log(data))
-  //   .then(() => this.props.fetchFlights()) // calling flight library again after creating new flight
-  //   .catch(err => console.log(err))
-  // }
 
   newFlight = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
@@ -83,6 +60,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
       })
       const data = await response.json();
       console.log(data)
+      // this.setState({ flights: data })
       return this.props.fetchFlights() // calling flight library again after creating new flight
     } catch (err) {
       console.log(err)
@@ -99,12 +77,13 @@ class Flights extends Component<acceptedProps, FlightsState> {
     const target = e.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
-    this.setState({ [name]: value })
-    // this.setState({ [e.target.name] : e.target.value })
+    this.setState(({ [name]: value } as unknown) as Pick<FlightsState, keyof FlightsState>)
     console.log(value)
   }
 
-  // handleChangeDate = (date: any) => this.setState({ date: date })
+  ngAfterViewInit() {
+    HtmlDurationPicker.init();
+  }
 
   render() {
     return (
@@ -192,8 +171,11 @@ class Flights extends Component<acceptedProps, FlightsState> {
               <label htmlFor='flightTime'>
                 <input
                   id='flightTime'
-                  type='time'
-                  className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
+                  type='text'
+                  // min='0'
+                  // max='24'
+                  className='html-duration-picker w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
+                  data-hide-seconds
                   placeholder='Flight Time'
                   // onChange={e => this.setState({ flightTime: e.target.value })}
                   value={this.state.flightTime}
@@ -213,7 +195,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
                 placeholder='Date'
                 value={this.state.date}
                 name='date'
-                required pattern="\d{4}-\d{2}-\d{2}" //for unsupported browser
+               //  required pattern="\d{4}-\d{2}-\d{2}" //for unsupported browsers
                 onChange={this.handleChange}
                 // defaultValue={''}
               />
@@ -240,7 +222,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
             >
             Submit
             </button>
-          </form>
+          </form> 
         </div>
       </div>
     )

@@ -1,32 +1,32 @@
 import React, { Component } from 'react'
 import { Button } from 'antd'
-import { BaseUser } from '../../types'
+// import { BaseUser } from '../../types'
 
 type acceptedProps = {
   token: (token: string | null) => void
-  user: BaseUser
+  // user: BaseUser
 }
 
-type valueTypes = {
-  [key: string]: string
-  // firstName: string
-  // lastName: string
-  // email: string
-  // password: string
+interface RegisterState {
+  // [key: string]: string
+  firstName: string
+  lastName: string
+  email: string
+  password: string
 }
 
-export default class Register extends Component<acceptedProps, valueTypes> {
+export default class Register extends Component<acceptedProps, RegisterState> {
   constructor(props: acceptedProps) {
     super(props)
     this.state = {
-      // firstName: '',
-      // lastName: '',
-      // email: '',
-      // password: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
     }
   }
 
-  handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
     fetch('http://localhost:3000/user/register', {
       method: 'POST',
@@ -40,18 +40,18 @@ export default class Register extends Component<acceptedProps, valueTypes> {
         'Content-Type': 'application/json',
       }),
     })
-      .then(res => res.json())
-      .then(data => {
-        this.props.token(data.sessionToken)
-        console.log(data)
-      })
+    .then(res => res.json())
+    .then(data => {
+      this.props.token(data.sessionToken)
+      console.log(data)
+    })
   }
 
-  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const target = e.target
     const value = target.value
     const name = target.name
-    this.setState({ [name]: value })
+    this.setState({ [name]: value } as Pick<RegisterState, keyof RegisterState>)
   }
 
 

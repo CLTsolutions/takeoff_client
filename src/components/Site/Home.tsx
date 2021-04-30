@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Flights from '../Flights/FlightsIndex'
+import Flights from '../Flights/Views/FlightsIndex'
 
 type acceptedProps = {
   token: any

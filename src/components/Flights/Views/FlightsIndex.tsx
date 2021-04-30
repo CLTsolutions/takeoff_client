@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import FlightsCard from './FlightsCard'
-import CreateFlights from './CreateFlights'
+import CreateFlights from '../CRUD/CreateFlights'
 
 type acceptedProps = {
   token: any
@@ -18,21 +18,6 @@ class Flights extends Component<acceptedProps, FlightsState> {
       myFlights: []
     }
   }
-
-  // fetchFlights = () => {
-  //   fetch(`http://localhost:3000/flight/mine`, {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Authorization: `Bearer ${this.props.token}`,
-  //     },
-  //   })
-  //   .then(res => res.json())
-  //   .then(data => {
-  //     this.setState({ myFlights: data })
-  //     console.log(this.state.myFlights)
-  //   })
-  // }
 
   fetchFlights = async () => {
     try {
@@ -53,7 +38,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
   }
 
   componentDidMount() {
-    console.log(this.props.token)
+    // console.log(this.props.token)
     this.fetchFlights() // triggering a rerender to display newly created flights
   }  
   
@@ -62,7 +47,6 @@ class Flights extends Component<acceptedProps, FlightsState> {
       <div>
         <CreateFlights token={this.props.token} fetchFlights={this.fetchFlights} />
         <h2 className='text-center my-2'>Flights Library Lives Here:</h2>
-        {/* {this.fetchFlights} */}
         <FlightsCard token={this.props.token} myFlights={this.state.myFlights} fetchFlights={this.fetchFlights}/>
       </div>
     )

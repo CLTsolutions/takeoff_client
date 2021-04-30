@@ -35,7 +35,7 @@ class App extends Component<{}, valueTypes> {
   redirectNoToken = () => {
     if(!this.state.token) {
      return <Redirect to='/' />
-   }
+    }
   }
 
   clearToken = () => {

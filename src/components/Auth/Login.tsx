@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
 import { Button } from 'antd'
-import { BaseUser } from '../../types'
+// import { BaseUser } from '../../types'
 
 type acceptedProps = {
   token: (token: string | null) => void
-  user: BaseUser
+  // user: BaseUser
 }
 
 interface LoginState {
-  [key: string]: string
-  // email: string
-  // password: string
+  email: string
+  password: string
   // size: number
   // minLength: number
 }
@@ -19,12 +18,12 @@ export default class Login extends Component<acceptedProps, LoginState> {
   constructor(props: acceptedProps) {
     super(props)
     this.state = {
-      // email: '',
-      // password: '',
+      email: '',
+      password: '',
     }
   }
 
-  handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
     fetch('http://localhost:3000/user/login', {
       method: 'POST',
@@ -39,16 +38,18 @@ export default class Login extends Component<acceptedProps, LoginState> {
       .then(res => res.json())
       .then(data => {
         this.props.token(data.sessionToken),
+        // this.props.token(data.sessionToken, data.userRole),
+        //this.props.token(data.userRole)
         console.log(data)
       })
       .catch(err => console.log(err))
   }
 
-  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const target = e.target
     const value = target.value
     const name = target.name
-    this.setState({ [name]: value })
+    this.setState({ [name]: value } as Pick<LoginState, keyof LoginState>)
   }
 
   render() {
