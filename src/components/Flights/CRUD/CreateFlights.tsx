@@ -1,4 +1,4 @@
-import React, { Component, SyntheticEvent } from 'react'
+import React, { Component } from 'react'
 // import { FlightsInfo } from '../../types'
 import * as HtmlDurationPicker from 'html-duration-picker'
 
@@ -8,7 +8,6 @@ type acceptedProps = {
 }
 
 export interface FlightsState {
-  // [key: string]: string | number | boolean | Date
   flights: []
   airline: string
   flightNumber: number | string //'' for empty input value on initialization
@@ -81,6 +80,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
     console.log(value)
   }
 
+  // for duration input field in form
   ngAfterViewInit() {
     HtmlDurationPicker.init();
   }
