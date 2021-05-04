@@ -12,6 +12,7 @@ interface FlightsState {
   // myFlights: Array<number>
   updateActive: boolean
   updateFlight: any
+  open: boolean
 }
 
 class Flights extends Component<acceptedProps, FlightsState> {
@@ -19,6 +20,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
     super(props)
     this.state = {
       myFlights: [],
+      open: true,
       updateActive: false,
       updateFlight: ''
     }
@@ -68,7 +70,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
         <FlightsCard token={this.props.token} myFlights={this.state.myFlights} fetchFlights={this.fetchFlights} editFlight={this.editFlight} updateOn={this.updateOn} />
         {this.state.updateActive
         ? (
-          <EditFlightsModal token={this.props.token} fetchFlights={this.fetchFlights} updateFlight={this.state.updateFlight} updateOff={this.updateOff} />
+          <EditFlightsModal token={this.props.token} fetchFlights={this.fetchFlights} updateFlight={this.state.updateFlight} updateOff={this.updateOff} open={this.state.open} />
         )
         : (
           <></>
