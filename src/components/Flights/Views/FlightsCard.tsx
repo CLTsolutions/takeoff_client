@@ -23,7 +23,6 @@ export class FlightsCard extends Component<acceptedProps, FlightCardState> {
     super(props)
     this.state = {
       id: Infinity,
-      // showModal: false,
       flights: [],
       airline: '',
       flightNumber: '', //'' so input value initializes empty (instead of 0)
@@ -67,7 +66,7 @@ export class FlightsCard extends Component<acceptedProps, FlightCardState> {
                       <p className='mt-5 text-2xl text-gray-800 text-center mb-3 font-serif'>
                         {flight.airline}
                       </p>
-                      <div className='grid grid-rows-7 grid-cols-2'>
+                      <div className='grid grid-rows-8 grid-cols-2'>
                         <p className='col-start-1 col-end-2 ml-3'>
                           Flight Number:
                         </p>
@@ -78,10 +77,6 @@ export class FlightsCard extends Component<acceptedProps, FlightCardState> {
                           Flight Date:
                         </p>
                         <p className='col-start-2 col-end-3 row-start-2 justify-self-center font-serif'>
-                          {/* {flight.date !== null
-                                       ? flight.date.split('-').reverse().join('-')
-                                       : flight.date
-                                    } */}
                           {moment(flight.date).format(dateFormat)}
                         </p>
                         <p className='col-start-1 col-end-2 row-start-3 ml-3'>
@@ -108,6 +103,18 @@ export class FlightsCard extends Component<acceptedProps, FlightCardState> {
                         <p className='col-start-2 col-end-3 row-start-6 justify-self-center font-serif'>
                           {flight.flightTime}
                         </p>
+                        <p className='col-start-1 col-end-2 row-start-7 ml-3'>
+                          International:
+                        </p>
+                        {flight.international === true ? (
+                          <p className='col-start-2 col-end-3 row-start-7 justify-self-center font-serif'>
+                            Yes
+                          </p>
+                        ) : (
+                          <p className='col-start-2 col-end-3 row-start-7 justify-self-center font-serif'>
+                            No
+                          </p>
+                        )}
                       </div>
                       <div className='flex justify-center mb-3'>
                         <button

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Link, Route, Switch } from 'react-router-dom'
-import Test from "./TestComponent"
+import { Link } from 'react-router-dom'
 import {
   Collapse,
   Navbar,
@@ -10,6 +9,8 @@ import {
   NavLink,
   NavbarText,
 } from 'reactstrap'
+// import Test from './TestComponent'
+// import { Link, Route, Switch } from 'react-router-dom'
 // import Home from './Home'
 // import Flights from '../Flights/Flights'
 
@@ -26,16 +27,16 @@ export default class Sitebar extends Component<acceptedProps, valueTypes> {
   constructor(props: acceptedProps) {
     super(props)
     this.state = {
-      isOpen: false
+      isOpen: false,
     }
   }
 
-  toggle = () => this.setState({isOpen: !this.state.isOpen})
+  toggle = () => this.setState({ isOpen: !this.state.isOpen })
 
   logoutButton = () => {
-    return localStorage.getItem('sessionToken') === null 
-    ? ''
-    : (
+    return localStorage.getItem('sessionToken') === null ? (
+      ''
+    ) : (
       <Link to='/'>
         <button onClick={this.props.logout}>Logout</button>
       </Link>
@@ -45,23 +46,29 @@ export default class Sitebar extends Component<acceptedProps, valueTypes> {
   render() {
     return (
       <div>
-        <Navbar color="light" light expand="md">
-        <NavbarToggler onClick={this.toggle} />
-        <Collapse isOpen={this.state.isOpen} navbar>
-          <Nav className="mr-auto" navbar>
-            <NavItem>
-              <NavLink><Link to="/">Home</Link></NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink><Link to="/test">Test</Link></NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink><Link to="/flights">Flights</Link></NavLink>
-            </NavItem>
-          </Nav>
-          <NavbarText>{this.logoutButton()}</NavbarText>
-        </Collapse>
-        </Navbar>        
+        <Navbar color='light' light expand='md'>
+          <NavbarToggler onClick={this.toggle} />
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className='mr-auto' navbar>
+              <NavItem>
+                <NavLink>
+                  <Link to='/'>Home</Link>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink>
+                  <Link to='/test'>Test</Link>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink>
+                  <Link to='/blog'>Blog</Link>
+                </NavLink>
+              </NavItem>
+            </Nav>
+            <NavbarText>{this.logoutButton()}</NavbarText>
+          </Collapse>
+        </Navbar>
         {/* <Switch>
           <Route exact path='/'>
             <Home token={this.props.token} />

@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import './App.css'
 import Auth from './components/Auth/Auth'
-import Home from "./components/Site/Home"
+import BlogsIndex from './components/Blogs/Views/BlogsIndex'
+import Home from './components/Site/Home'
 import Sitebar from './components/Site/Sitebar'
+import Test from './components/Site/TestComponent'
 import { Redirect, Route, Switch } from 'react-router-dom'
-import Test from "./components/Site/TestComponent"
 
 type valueTypes = {
   token: string | null
@@ -33,8 +34,8 @@ class App extends Component<{}, valueTypes> {
   }
 
   redirectNoToken = () => {
-    if(!this.state.token) {
-     return <Redirect to='/' />
+    if (this.state.token === '') {
+      return <Redirect to='/' />
     }
   }
 
@@ -45,23 +46,33 @@ class App extends Component<{}, valueTypes> {
   }
 
   protectedViews = () => {
-    return this.state.token === localStorage.getItem('sessionToken') 
-    ? <Home token={this.state.token} />
-    : <Auth token={this.updateToken} />
+    return this.state.token === localStorage.getItem('sessionToken') ? (
+      <Home token={this.state.token} />
+    ) : (
+      <Auth token={this.updateToken} />
+    )
   }
 
   render() {
     return (
       <div className='App'>
-        {this.redirectNoToken()}
+        {/* {this.redirectNoToken()} */}
         {/* <Route>
           <Sitebar logout={this.clearToken} token={this.state.token} protectedViews={this.protectedViews} />
         </Route> */}
-        {this.state.token && <Sitebar logout={this.clearToken} token={this.state.token} />}
+        {this.state.token && (
+          <Sitebar logout={this.clearToken} token={this.state.token} />
+        )}
         <Switch>
-          <Route exact path='/'>{this.protectedViews}</Route>
-          <Route exact path="/test"><Test /></Route>
-          {/* <Route exact path='/flights'><Flights /></Route> */}
+          <Route exact path='/'>
+            {this.protectedViews}
+          </Route>
+          <Route exact path='/test'>
+            <Test />
+          </Route>
+          <Route exact path='/blog'>
+            <BlogsIndex token={this.state.token} />
+          </Route>
         </Switch>
       </div>
     )

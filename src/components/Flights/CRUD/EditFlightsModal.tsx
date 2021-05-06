@@ -1,4 +1,4 @@
-import { Button, Modal } from 'antd'
+import { Modal } from 'antd'
 import React, { Component } from 'react'
 import FlightsCard from '../Views/FlightsCard'
 import { FlightsState } from '../CRUD/CreateFlights'
@@ -8,8 +8,8 @@ interface acceptedProps {
   // id: number
   // myFlights: []
   token: any
-  updateOff: Function
-  fetchFlights: Function
+  updateOff: () => void
+  fetchFlights: () => void
   updateFlight: any
   open: boolean
 }
@@ -17,11 +17,8 @@ interface acceptedProps {
 interface EditFlightsModalState extends FlightsState {
   isModalVisible: boolean
 }
-
-export class EditFlightsModal extends Component<
-  acceptedProps,
-  EditFlightsModalState
-> {
+//prettier-ignore
+export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalState> {
   constructor(props: acceptedProps) {
     super(props)
     this.state = {
@@ -76,19 +73,18 @@ export class EditFlightsModal extends Component<
     }
   }
 
+  // changes input field to uppercase
   inputToUppercase = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.target.value = ('' + e.target.value).toUpperCase()
   }
 
-  //handles input fields onChange
+  // handles input fields onChange
   handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const target = e.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
-    this.setState(({ [name]: value } as unknown) as Pick<
-      FlightsState,
-      keyof FlightsState
-    >)
+    //prettier-ignore
+    this.setState(({ [name]: value } as unknown) as Pick<FlightsState,keyof FlightsState>)
     console.log(value)
   }
 
