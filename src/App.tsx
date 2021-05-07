@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
 import Auth from './components/Auth/Auth'
-import BlogsIndex from './components/Blogs/Views/BlogsIndex'
+import BlogIndex from './components/Blog/Views/BlogIndex'
 import Home from './components/Site/Home'
 import Sitebar from './components/Site/Sitebar'
 import Test from './components/Site/TestComponent'
@@ -35,6 +35,7 @@ class App extends Component<{}, valueTypes> {
 
   redirectNoToken = () => {
     if (this.state.token === '') {
+      console.log(this.state.token)
       return <Redirect to='/' />
     }
   }
@@ -52,6 +53,17 @@ class App extends Component<{}, valueTypes> {
       <Auth token={this.updateToken} />
     )
   }
+
+  // protectedViewsTwo = () => {
+  //   return this.state.token === localStorage.getItem('sessionToken') ? (
+  //     <>
+  //       {this.updateToken}
+  //       <BlogIndex token={this.state.token} />
+  //     </>
+  //   ) : (
+  //     <Home token={this.state.token} />
+  //   )
+  // }
 
   render() {
     return (
@@ -71,7 +83,8 @@ class App extends Component<{}, valueTypes> {
             <Test />
           </Route>
           <Route exact path='/blog'>
-            <BlogsIndex token={this.state.token} />
+            <BlogIndex token={this.state.token} />
+            {/* {this.protectedViewsTwo} */}
           </Route>
         </Switch>
       </div>

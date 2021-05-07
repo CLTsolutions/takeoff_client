@@ -64,30 +64,33 @@ class Flights extends Component<acceptedProps, FlightsState> {
 
   render() {
     return (
-      <div>
-        <CreateFlights
-          token={this.props.token}
-          fetchFlights={this.fetchFlights}
-        />
-        <h2 className='text-center my-2'>Flights Library Lives Here:</h2>
-        <FlightsCard
-          token={this.props.token}
-          myFlights={this.state.myFlights}
-          fetchFlights={this.fetchFlights}
-          editFlight={this.editFlight}
-          updateOn={this.updateOn}
-        />
-        {this.state.updateActive ? (
-          <EditFlightsModal
+      <div className='flex flex-row justify-around'>
+        <div>
+          <CreateFlights
             token={this.props.token}
             fetchFlights={this.fetchFlights}
-            updateFlight={this.state.updateFlight}
-            updateOff={this.updateOff}
-            open={this.state.open}
           />
-        ) : (
-          <></>
-        )}
+        </div>
+        <div>
+          <FlightsCard
+            token={this.props.token}
+            myFlights={this.state.myFlights}
+            fetchFlights={this.fetchFlights}
+            editFlight={this.editFlight}
+            updateOn={this.updateOn}
+          />
+          {this.state.updateActive ? (
+            <EditFlightsModal
+              token={this.props.token}
+              fetchFlights={this.fetchFlights}
+              updateFlight={this.state.updateFlight}
+              updateOff={this.updateOff}
+              open={this.state.open}
+            />
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
     )
   }

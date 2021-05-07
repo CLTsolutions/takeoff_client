@@ -122,7 +122,6 @@ export class FlightsCard extends Component<acceptedProps, FlightCardState> {
                           onClick={() => {
                             this.props.editFlight(flight)
                             this.props.updateOn()
-                            console.log(flight.id)
                           }}
                         >
                           Update

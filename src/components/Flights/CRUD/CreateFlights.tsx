@@ -48,10 +48,8 @@ class Flights extends Component<acceptedProps, FlightsState> {
     const target = e.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
-    this.setState(({ [name]: value } as unknown) as Pick<
-      FlightsState,
-      keyof FlightsState
-    >)
+    //prettier-ignore
+    this.setState(({ [name]: value } as unknown) as Pick<FlightsState, keyof FlightsState>)
     console.log(value)
   }
 
@@ -104,7 +102,6 @@ class Flights extends Component<acceptedProps, FlightsState> {
   render() {
     return (
       <div>
-        <h2 className='text-center'>Creating Flights:</h2>
         <div className='bg-white bg-opacity-50 max-w-2xl mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl w-1/2'>
           <form className='space-y-3' onSubmit={this.newFlight}>
             <div className='flex flex-col'>

@@ -1,6 +1,5 @@
 import { Modal } from 'antd'
 import React, { Component } from 'react'
-import FlightsCard from '../Views/FlightsCard'
 import { FlightsState } from '../CRUD/CreateFlights'
 // import * as HtmlDurationPicker from 'html-duration-picker'
 
@@ -38,7 +37,7 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
     }
   }
 
-  editFlight = async (id: any) => {
+  editFlight = async () => {
     // e.preventDefault()
     console.log('random')
     try {
@@ -64,9 +63,7 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
       )
       const data = await response.json()
       console.log(data)
-      console.log(id)
       this.props.updateOff()
-      // this.setState({ flights: data })
       this.props.fetchFlights() // calling flight library again after updating new flight
     } catch (err) {
       console.log(err)
@@ -108,39 +105,22 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
     return (
       <div>
         <div>
-          {/* <Button type="primary" onClick={this.showModal}>Open Modal</Button> */}
           <Modal
             title='Update Flight Information'
             visible={true}
-            // onOk={this.handleOk}
+            onOk={this.editFlight}
+            okText='Submit'
             onCancel={this.handleCancel}
             // footer={null}
-            footer={[
-              <button
-                key='back'
-                onClick={this.handleCancel}
-                className='block mx-auto focus:outline-none focus:ring-2 focus:border-purple-500 bg-red-500 hover:bg-red-300 py-1 px-4 mt-4 rounded-full shadow-md text-red-200 font-sans'
-              >
-                Cancel
-              </button>,
-              <button
-                type='submit'
-                className='block mx-auto focus:outline-none focus:ring-2 focus:border-purple-500 bg-red-500 hover:bg-red-300 py-1 px-4 mt-4 rounded-full shadow-md text-red-200 font-sans'
-              >
-                Submit
-              </button>,
-            ]}
           >
             {console.log(this.state.airline)}
             <form
               className='space-y-3'
-              onSubmit={e => {
-                e.preventDefault()
-                {
-                  this.editFlight(e)
-                }
-                // {this.props.fetchFlights()}
-              }}
+              // onSubmit={e => {
+              //   e.preventDefault()
+              //   //prettier-ignore
+              //   {this.editFlight(e)}
+              // }}
             >
               <div className='flex flex-col'>
                 {/*'htmlFor links input to label by corresponding id for screen readers */}
@@ -244,7 +224,7 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
                     placeholder='Date'
                     value={this.state.date}
                     name='date'
-                    //  required pattern="\d{4}-\d{2}-\d{2}" //for unsupported browsers
+                     required pattern="\d{4}-\d{2}-\d{2}" //for unsupported browsers
                     onChange={this.handleChange}
                     // defaultValue={''}
                   />
@@ -267,6 +247,23 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
                   />
                 </label>
               </div>
+              {/* <button onClick={this.editFlight}>Submit</button> */}
+              {/* <div className='flex justify-center'>
+              <button
+                // onClick={this.editFlight}
+                type='submit'
+                className='block mx-auto focus:outline-none focus:ring-1 focus:ring-pink-300 bg-pink-500 hover:bg-pink-300 py-2 px-4 mt-4 mb-2 rounded-full shadow-md text-pink-200 font-sans'
+              >
+                Submit
+              </button>
+              <button
+                key='back'
+                onClick={this.handleCancel}
+                className='block mx-auto focus:outline-none focus:ring-1 focus:ring-pink-300 bg-pink-500 hover:bg-pink-300 py-2 px-4 mt-4 mb-2 rounded-full shadow-md text-pink-200 font-sans'
+              >
+                Cancel
+              </button>
+              </div> */}
             </form>
           </Modal>
         </div>

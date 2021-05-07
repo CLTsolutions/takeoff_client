@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 // import { BaseUser } from '../../types'
 
 type acceptedProps = {
-  token: (token: string | null) => void
+  token: any
   // user: BaseUser[]
   // token: string | null
 }
@@ -39,9 +39,11 @@ export default class Auth extends Component<acceptedProps, valueTypes> {
   }
 
   authTernary = () => {
-    return this.state.login 
-    ? <Login token={this.props.token} />
-    : <Register token={this.props.token} />
+    return this.state.login ? (
+      <Login token={this.props.token} />
+    ) : (
+      <Register token={this.props.token} />
+    )
   }
 
   loginToggle = () => {
@@ -57,16 +59,18 @@ export default class Auth extends Component<acceptedProps, valueTypes> {
   render() {
     return (
       <div className='map-img'>
-        <div className='flex h-screen justify-center items-center'>
-          <div className='bg-indigo-400 bg-opacity-75 max-w-lg m-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl w-1/2'>
+        <div className='flex h-screen items-center'>
+          <div className='bg-indigo-400 bg-opacity-75 max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl w-1/2 text-center'>
             {this.authTernary()}
-            <Link 
-              to=''
-              className='no-underline text-white hover:text-black' 
-              onClick={this.loginToggle}
-            >
-            Or register now!
-            </Link>
+            {this.state.login ? (
+              <Link to='' className='auth-link' onClick={this.loginToggle}>
+                Or register now!
+              </Link>
+            ) : (
+              <Link to='' className='auth-link' onClick={this.loginToggle}>
+                Login Now!
+              </Link>
+            )}
           </div>
         </div>
       </div>

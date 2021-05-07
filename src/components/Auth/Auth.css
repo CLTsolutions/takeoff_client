@@ -1,7 +1,17 @@
 .map-img {
-    background-image: url('../../assets/globe.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    /* height: 50%; */
-    /* width: 50%; */
+  background-image: url('../../assets/lady_destinations.svg');
+  background-repeat: no-repeat;
+  /* background-size: 40%; */
+  /* background-position: bottom left; */
+  background-size: contain;
+}
+
+.auth-link {
+  /* margin-top: 500px; */
+  text-decoration: none;
+  color: white;
+}
+.auth-link:hover {
+  text-decoration: none;
+  color: black;
 }
