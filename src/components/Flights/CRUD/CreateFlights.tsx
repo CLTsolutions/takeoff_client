@@ -102,7 +102,10 @@ class Flights extends Component<acceptedProps, FlightsState> {
   render() {
     return (
       <div>
-        <div className='bg-white bg-opacity-50 max-w-2xl mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl w-1/2'>
+        <div className='bg-indigo-500 w-3/5 bg-opacity-60 max-w-2xl mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl'>
+          <h4 className='mb-4 text-center text-indigo-900'>
+            Add a flight to your library.
+          </h4>
           <form className='space-y-3' onSubmit={this.newFlight}>
             <div className='flex flex-col'>
               {/*'htmlFor links input to label by corresponding id for screen readers */}
@@ -111,7 +114,8 @@ class Flights extends Component<acceptedProps, FlightsState> {
                   id='airline'
                   type='text'
                   // className='w-full border-2 border-transparent p-2 rounded-lg focus:outline-none focus:border-purple-500'
-                  className='rounded-lg border-transparent flex-1 appearance-none border-2 border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:border-purple-600 focus:border-transparent'
+                  className='w-full border-2 border-transparent
+                  p-2 rounded outline-none focus:border-purple-500'
                   placeholder='Airline'
                   value={this.state.airline}
                   name='airline'
@@ -128,7 +132,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
                   type='number' // only nums allowed in input field
                   min='0' //prevents negative nums
                   // className='w-full border-2 border-transparent p-2 rounded outline-none focus:border-purple-500'
-                  className='rounded-lg border-transparent flex-1 appearance-none border-2 border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:border-purple-600 focus:border-transparent'
+                  className='w-full border-2 border-transparent p-2 rounded outline-none focus:border-purple-500'
                   placeholder='Flight #'
                   value={this.state.flightNumber}
                   name='flightNumber'
@@ -144,7 +148,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
                   id='originAirport'
                   type='text'
                   // className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
-                  className='rounded-lg border-transparent flex-1 appearance-none border-2 border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:border-purple-600 focus:border-transparent'
+                  className='w-full border-2 border-transparent p-2 rounded outline-none focus:border-purple-500'
                   placeholder='Origin Airport'
                   name='originAirport'
                   value={this.state.originAirport}
@@ -160,7 +164,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
                   id='destAirport'
                   type='text'
                   // className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
-                  className='rounded-lg border-transparent flex-1 appearance-none border-2 border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:border-purple-600 focus:border-transparent'
+                  className='w-full border-2 border-transparent p-2 rounded outline-none focus:border-purple-500'
                   placeholder='Destination Airport'
                   name='destAirport'
                   value={this.state.destAirport}
@@ -177,7 +181,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
                   type='number' // only nums allowed in input field
                   min='0' // prevents negative nums
                   // className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
-                  className='rounded-lg border-transparent flex-1 appearance-none border-2 border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:border-purple-600 focus:border-transparent'
+                  className='w-full border-2 border-transparent p-2 rounded outline-none focus:border-purple-500'
                   placeholder='Flight Miles'
                   name='flightMiles'
                   value={this.state.flightMiles}
@@ -196,7 +200,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
                   // max='24'
                   // className='html-duration-picker w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
                   // data-hide-seconds
-                  className='rounded-lg border-transparent flex-1 appearance-none border-2 border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:border-purple-600 focus:border-transparent'
+                  className='w-full border-2 border-transparent p-2 rounded outline-none focus:border-purple-500'
                   placeholder='Flight Time'
                   // onChange={e => this.setState({ flightTime: e.target.value })}
                   value={this.state.flightTime}
@@ -213,7 +217,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
                   id='date'
                   type='date'
                   // required type='date'
-                  className='rounded-lg border-transparent flex-1 appearance-none border-2 border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:border-purple-600 focus:border-transparent'
+                  className='w-full border-2 border-transparent p-2 rounded outline-none focus:border-purple-500'
                   placeholder='Date'
                   value={this.state.date}
                   name='date'
@@ -223,10 +227,10 @@ class Flights extends Component<acceptedProps, FlightsState> {
                 />
               </label>
             </div>
-            <div className='flex flex-col'>
+            <div className='flex flex-col bg-white rounded py-2 px-2'>
               <label
                 htmlFor='international'
-                className='international flex flex-row items-center text-gray-400'
+                className='international flex flex-row items-center text-gray-900'
               >
                 International:
                 <input
@@ -242,7 +246,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
             </div>
             <button
               type='submit'
-              className='block mx-auto focus:outline-none focus:ring-2 focus:border-purple-500 bg-red-500 hover:bg-red-300 py-1 px-4 mt-4 rounded-full shadow-sm text-red-200 font-sans'
+              className='py-2 px-4  bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 opacity-70 cursor-not-allowed rounded-lg mb-3'
             >
               Submit
             </button>

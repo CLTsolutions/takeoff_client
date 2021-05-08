@@ -4,13 +4,15 @@ import { CreateBlogPostsState } from '../CRUD/CreateBlogPosts'
 
 type acceptedProps = {
   token: string | null
-  fetchBlog: Function
   blogData: []
+  fetchBlog: Function
+  editBlog: Function
+  updateOn: Function
 }
 
 interface BlogsCardState extends CreateBlogPostsState {
   id: number
-  editMode: boolean
+  // editMode: boolean
   // blog: []
   // testing: []
   // blogData: []
@@ -21,40 +23,41 @@ export class BlogsCard extends Component<acceptedProps, BlogsCardState> {
     super(props)
     this.state = {
       id: Infinity,
+      blog: [],
       date: '',
       title: '',
       entry: '',
-      editMode: false,
+      // editMode: false,
       // blog: [],
       // testing: [],
       // blogData: [],
     }
   }
 
-  editBlog = async (id: any) => {
-    // e.preventDefault()
-    console.log('edit working?')
-    try {
-      const response = await fetch(`http://localhost:3000/blog/${id}`, {
-        method: 'PUT',
-        headers: new Headers({
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.props.token}`,
-        }),
-        body: JSON.stringify({
-          date: this.state.date,
-          title: this.state.title,
-          entry: this.state.entry,
-        }),
-      })
-      const data = await response.json()
-      console.log(data)
-      // this.props.updateOff()
-      this.props.fetchBlog() // calling flight library again after updating new blog
-    } catch (err) {
-      console.log(err)
-    }
-  }
+  // editBlog = async (id: any) => {
+  //   // e.preventDefault()
+  //   console.log('edit working?')
+  //   try {
+  //     const response = await fetch(`http://localhost:3000/blog/${id}`, {
+  //       method: 'PUT',
+  //       headers: new Headers({
+  //         'Content-Type': 'application/json',
+  //         Authorization: `Bearer ${this.props.token}`,
+  //       }),
+  //       body: JSON.stringify({
+  //         date: this.state.date,
+  //         title: this.state.title,
+  //         entry: this.state.entry,
+  //       }),
+  //     })
+  //     const data = await response.json()
+  //     console.log(data)
+  //     // this.props.updateOff()
+  //     this.props.fetchBlog() // calling flight library again after updating new blog
+  //   } catch (err) {
+  //     console.log(err)
+  //   }
+  // }
 
   deleteBlog = async (e: React.MouseEvent<HTMLButtonElement>, id: number) => {
     e.preventDefault()
@@ -99,44 +102,32 @@ export class BlogsCard extends Component<acceptedProps, BlogsCardState> {
   //   }
   // }
 
-  editMode = () => {
-    this.setState({
-      editMode: !this.state.editMode,
-    })
-    console.log('edit mode on?')
-  }
-
-  renderEdit = () => {
-    return <div></div>
-  }
-
   render() {
     let dateFormat = 'MM/DD/YYYY'
     return (
-      <div className='flex justify-center flex-wrap'>
+      <div className='flex flex-row flex-wrap'>
         {this.props.blogData.length !== 0 ? (
           <>
             {this.props.blogData.map((post: any, index: number) => {
-              // console.log(index.flightId)
-              // this.fetchByFlight(index.flightId)
-              console.log(post)
+              // console.log(post)
               return (
                 <div
                   key={index}
-                  className='overflow-hidden shadow-lg rounded-lg h-90 w-60 md:w-80 m-auto'
+                  className='bg-indigo-500 bg-opacity-60 overflow-hidden shadow-2xl rounded-lg h-90 w-full my-4'
+                  // className='bg-indigo-500 bg-opacity-60 max-w-2xl mx-auto p-5 md:p-12 rounded-lg shadow-2xl w-1/2 my-6'
                 >
-                  <div className='w-full block h-full'>
+                  <div className='w-full block h-full bg-opacity-50'>
                     <div className='bg-white dark:bg-gray-800 w-full p-4'>
                       <p className='text-indigo-500 text-md font-medium'>
                         {moment(post.date).format(dateFormat)}
                       </p>
-                      <p className='text-indigo-800 text-xl font-medium mb-2'>
+                      <p className='text-indigo-800 text-2xl font-medium mb-2'>
                         {post.title}
                       </p>
-                      <p className='text-gray-800 font-light text-md'>
+                      <p className='bg-green-400 text-gray-800 text-md'>
                         {post.entry}
                       </p>
-                      <div>
+                      {/* <div>
                         {this.state.editMode ? (
                           <div>
                             <input
@@ -151,25 +142,26 @@ export class BlogsCard extends Component<acceptedProps, BlogsCardState> {
                               Update
                             </button>
                           </div>
-                        ) : (
-                          <button
-                            className='focus:outline-none focus:ring-1 focus:ring-pink-300 bg-pink-500 hover:bg-pink-300 py-2 px-4 mx-1 mt-4 mb-2 rounded-full shadow-md text-pink-200 font-sans'
-                            // onClick={e => this.deleteBlog(e, post.id)}
-                            onClick={this.editMode}
-                          >
-                            Update
-                          </button>
-                        )}
-                        <button
-                          className='focus:outline-none focus:ring-1 focus:ring-pink-300 bg-pink-500 hover:bg-pink-300 py-2 px-4 mx-1 mt-4 mb-2 rounded-full shadow-md text-pink-200 font-sans'
-                          onClick={e => this.deleteBlog(e, post.id)}
-                        >
-                          Delete
-                        </button>
-                      </div>
+                        ) : (  */}
+                      <button
+                        className='focus:outline-none focus:ring-1 focus:ring-pink-300 bg-pink-500 hover:bg-pink-300 py-2 px-4 mx-1 mt-4 mb-2 rounded-full shadow-md text-pink-200 font-sans'
+                        onClick={() => {
+                          this.props.editBlog(post)
+                          this.props.updateOn()
+                        }}
+                      >
+                        Update
+                      </button>
+                      <button
+                        className='focus:outline-none focus:ring-1 focus:ring-pink-300 bg-pink-500 hover:bg-pink-300 py-2 px-4 mx-1 mt-4 mb-2 rounded-full shadow-md text-pink-200 font-sans'
+                        onClick={e => this.deleteBlog(e, post.id)}
+                      >
+                        Delete
+                      </button>
                     </div>
                   </div>
                 </div>
+                // </div>
               )
             })}
           </>

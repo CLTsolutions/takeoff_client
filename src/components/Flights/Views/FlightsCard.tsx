@@ -1,20 +1,20 @@
 import React, { Component } from 'react'
 import moment from 'moment' // formats date on card
-import EditFlightsModal from '../CRUD/EditFlightsModal'
-// import EditFlights from '../CRUD/EditFlights'
 import { FlightsState } from '../CRUD/CreateFlights'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlane } from '@fortawesome/free-solid-svg-icons'
 
 type acceptedProps = {
-  token: any
+  token: string | null
   myFlights: []
-  fetchFlights: (e: any) => any //from flightIndex
+  fetchFlights: Function //from flightIndex
   // isVisible: boolean
-  editFlight: any
+  editFlight: Function
   updateOn: Function
 }
 
 interface FlightCardState extends FlightsState {
-  id: any
+  id: number
   // showModal: boolean
 }
 
@@ -58,67 +58,69 @@ export class FlightsCard extends Component<acceptedProps, FlightCardState> {
                 // console.log(flight)
                 // console.log(index)
                 return (
+                  // <div className='flex font-sans justify-center items-center h-screen'>
                   <div
-                    className='mx-8 my-12 w-72 rounded-1xl bg-white border shadow-md overflow-hidden'
                     key={index}
+                    // className='w-full max-w-sm mx-4 shadow-lg rounded-lg'
+                    className='mx-8 my-12 w-80 rounded-lg bg-white border shadow-md overflow-hidden'
                   >
-                    <div>
-                      <p className='mt-5 text-2xl text-gray-800 text-center mb-3 font-serif'>
-                        {flight.airline}
-                      </p>
-                      <div className='grid grid-rows-8 grid-cols-2'>
-                        <p className='col-start-1 col-end-2 ml-3'>
-                          Flight Number:
-                        </p>
-                        <p className='col-start-2 col-end-3 justify-self-center font-serif'>
+                    <div className='bg-white border-b-2 border-indigo-500 py-4 px-6 flex justify-between items-end rounded-lg rounded-b-none'>
+                      <div className='h-8'>
+                        <h5 className='text-blue-800'>{flight.airline}</h5>
+                      </div>
+                      <div>
+                        <span className='text-blue-800 uppercase font-bold text-grey-darkest tracking-wide text-sm'>
                           {flight.flightNumber}
-                        </p>
-                        <p className='col-start-1 col-end-2 row-start-2 ml-3'>
-                          Flight Date:
-                        </p>
-                        <p className='col-start-2 col-end-3 row-start-2 justify-self-center font-serif'>
+                        </span>
+                      </div>
+                    </div>
+                    <div className='flex bg-blue-300 justify-around items-center py-16 px-6 sm:px-12 bg-destination'>
+                      <div className='flex-1 text-5xl font-bold text-white tracking-wide text-shadow-lg'>
+                        {flight.originAirport}
+                      </div>
+                      <div className='mx-8'>
+                        <FontAwesomeIcon icon={faPlane} />
+                      </div>
+                      <div className='flex-1 text-right text-5xl font-bold text-white tracking-wide text-shadow-lg'>
+                        {flight.destAirport}
+                      </div>
+                    </div>
+                    <div className='flex bg-indigo-400 px-4 sm:px-12 py-4'>
+                      <div className='w-1/4'>
+                        <span className='uppercase text-purple-lighter block tracking-wide mb-1 text-md'>
+                          date:
+                        </span>
+                        <span className='uppercase text-white block tracking-wide text-sm'>
                           {moment(flight.date).format(dateFormat)}
-                        </p>
-                        <p className='col-start-1 col-end-2 row-start-3 ml-3'>
-                          Origin:
-                        </p>
-                        <p className='col-start-2 col-end-3 row-start-3 justify-self-center'>
-                          {flight.originAirport}
-                        </p>
-                        <p className='col-start-1 col-end-2 row-start-4 ml-3'>
-                          Destination:
-                        </p>
-                        <p className='col-start-2 col-end-3 row-start-4 justify-self-center font-serif'>
-                          {flight.destAirport}
-                        </p>
-                        <p className='col-start-1 col-end-2 row-start-5 ml-3'>
-                          Flight Miles:
-                        </p>
-                        <p className='col-start-2 col-end-3 row-start-5 justify-self-center font-serif'>
-                          {flight.flightMiles}
-                        </p>
-                        <p className='col-start-1 col-end-2 row-start-6 ml-3'>
-                          Flight Time:
-                        </p>
-                        <p className='col-start-2 col-end-3 row-start-6 justify-self-center font-serif'>
-                          {flight.flightTime}
-                        </p>
-                        <p className='col-start-1 col-end-2 row-start-7 ml-3'>
-                          International:
-                        </p>
+                        </span>
+                      </div>
+                      <div className='w-2/4'>
+                        <span className='uppercase text-purple-lighter block tracking-wide mb-1 text-md'>
+                          international:
+                        </span>
                         {flight.international === true ? (
-                          <p className='col-start-2 col-end-3 row-start-7 justify-self-center font-serif'>
-                            Yes
-                          </p>
+                          <span className='uppercase text-white text-center block tracking-wide text-sm'>
+                            yes
+                          </span>
                         ) : (
-                          <p className='col-start-2 col-end-3 row-start-7 justify-self-center font-serif'>
-                            No
-                          </p>
+                          <span className='uppercase text-white text-center block tracking-wide text-sm'>
+                            no
+                          </span>
                         )}
                       </div>
-                      <div className='flex justify-center mb-3'>
+                      <div className='w-1/4'>
+                        <span className='uppercase text-purple-lighter block tracking-wide mb-1 text-md'>
+                          miles:
+                        </span>
+                        <span className='uppercase text-white block tracking-wide text-sm'>
+                          {flight.flightMiles}
+                        </span>
+                      </div>
+                    </div>
+                    <div className='py-3 px-6 sm:px-12 bg-white rounded-lg rounded-t-none'>
+                      <div className='flex justify-center'>
                         <button
-                          className='focus:outline-none focus:ring-1 focus:ring-pink-300 bg-pink-500 hover:bg-pink-300 py-2 px-4 mx-1 mt-4 mb-2 rounded-full shadow-md text-pink-200 font-sans'
+                          className='py-2 px-4 bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 opacity-70 cursor-not-allowed rounded-lg mx-2 tracking-wide'
                           onClick={() => {
                             this.props.editFlight(flight)
                             this.props.updateOn()
@@ -127,7 +129,7 @@ export class FlightsCard extends Component<acceptedProps, FlightCardState> {
                           Update
                         </button>
                         <button
-                          className='focus:outline-none focus:ring-1 focus:ring-pink-300 bg-pink-500 hover:bg-pink-300 py-2 px-4 mx-1 mt-4 mb-2 rounded-full shadow-md text-pink-200 font-sans'
+                          className='py-2 px-4 bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 opacity-70 cursor-not-allowed rounded-lg mx-2 tracking-wide'
                           onClick={e => this.deleteFlight(e, flight.id)}
                         >
                           Delete
@@ -140,7 +142,7 @@ export class FlightsCard extends Component<acceptedProps, FlightCardState> {
             </>
           ) : (
             <h3 className='mt-3'>
-              You have flown zero miles. Create a flight!
+              Your flight library is empty. Create a flight!
             </h3>
           )}
         </div>

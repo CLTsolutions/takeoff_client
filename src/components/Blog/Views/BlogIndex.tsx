@@ -1,22 +1,30 @@
 import React, { Component } from 'react'
 import BlogCard from './BlogCard'
 import CreateBlogPosts from '../CRUD/CreateBlogPosts'
+import EditPostsModal from '../CRUD/EditPostsModal'
+import './BlogIndex.css'
 
 type acceptedProps = {
   token: any
 }
 
 interface BlogIndexState {
-  blog: string
+  // blog: string
   blogData: []
+  updateBlog: string
+  updateActive: boolean
+  open: boolean
 }
 
-export class BlogIndex extends Component<acceptedProps, BlogIndexState> {
+class BlogIndex extends Component<acceptedProps, BlogIndexState> {
   constructor(props: acceptedProps) {
     super(props)
     this.state = {
-      blog: '',
+      // blog: '',
       blogData: [],
+      open: true,
+      updateActive: false,
+      updateBlog: '',
     }
   }
 
@@ -57,16 +65,40 @@ export class BlogIndex extends Component<acceptedProps, BlogIndexState> {
     }
   }
 
+  editBlog = (blog: any) => {
+    this.setState({ updateBlog: blog })
+  }
+
+  updateOn = () => {
+    this.setState({ updateActive: true })
+  }
+
+  updateOff = () => {
+    this.setState({ updateActive: false })
+  }
+
   render() {
     return (
-      <div>
-        <h2 className='text-center'>Blog Lives Here:</h2>
+      <div className='blog-bg'>
         <CreateBlogPosts token={this.props.token} fetchBlog={this.fetchBlog} />
         <BlogCard
           token={this.props.token}
-          fetchBlog={this.fetchBlog}
           blogData={this.state.blogData}
+          fetchBlog={this.fetchBlog}
+          editBlog={this.editBlog}
+          updateOn={this.updateOn}
         />
+        {this.state.updateActive ? (
+          <EditPostsModal
+            token={this.props.token}
+            fetchBlog={this.fetchBlog}
+            updateBlog={this.state.updateBlog}
+            updateOff={this.updateOff}
+            open={this.state.open}
+          />
+        ) : (
+          <></>
+        )}
       </div>
     )
   }

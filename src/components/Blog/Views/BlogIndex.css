@@ -1,0 +1,12 @@
+.blog-bg {
+  height: 100vh;
+  /* background-color: #f7f9fa; */
+  background-image: url('../../../assets/moments.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  background-position: left;
+  background-attachment: fixed;
+  /* background-size: 40%; */
+}

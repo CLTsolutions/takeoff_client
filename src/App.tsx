@@ -4,7 +4,6 @@ import Auth from './components/Auth/Auth'
 import BlogIndex from './components/Blog/Views/BlogIndex'
 import Home from './components/Site/Home'
 import Sitebar from './components/Site/Sitebar'
-import Test from './components/Site/TestComponent'
 import { Redirect, Route, Switch } from 'react-router-dom'
 
 type valueTypes = {
@@ -54,17 +53,6 @@ class App extends Component<{}, valueTypes> {
     )
   }
 
-  // protectedViewsTwo = () => {
-  //   return this.state.token === localStorage.getItem('sessionToken') ? (
-  //     <>
-  //       {this.updateToken}
-  //       <BlogIndex token={this.state.token} />
-  //     </>
-  //   ) : (
-  //     <Home token={this.state.token} />
-  //   )
-  // }
-
   render() {
     return (
       <div className='App'>
@@ -79,12 +67,8 @@ class App extends Component<{}, valueTypes> {
           <Route exact path='/'>
             {this.protectedViews}
           </Route>
-          <Route exact path='/test'>
-            <Test />
-          </Route>
           <Route exact path='/blog'>
             <BlogIndex token={this.state.token} />
-            {/* {this.protectedViewsTwo} */}
           </Route>
         </Switch>
       </div>

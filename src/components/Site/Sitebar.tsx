@@ -57,11 +57,6 @@ export default class Sitebar extends Component<acceptedProps, valueTypes> {
               </NavItem>
               <NavItem>
                 <NavLink>
-                  <Link to='/test'>Test</Link>
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink>
                   <Link to='/blog'>Blog</Link>
                 </NavLink>
               </NavItem>

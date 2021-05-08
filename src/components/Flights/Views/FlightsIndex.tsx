@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import FlightsCard from './FlightsCard'
 import CreateFlights from '../CRUD/CreateFlights'
 import EditFlightsModal from '../CRUD/EditFlightsModal'
+import './FlightIndex.css'
 
 type acceptedProps = {
   token: any
@@ -64,32 +65,36 @@ class Flights extends Component<acceptedProps, FlightsState> {
 
   render() {
     return (
-      <div className='flex flex-row justify-around'>
-        <div>
-          <CreateFlights
-            token={this.props.token}
-            fetchFlights={this.fetchFlights}
-          />
-        </div>
-        <div>
-          <FlightsCard
-            token={this.props.token}
-            myFlights={this.state.myFlights}
-            fetchFlights={this.fetchFlights}
-            editFlight={this.editFlight}
-            updateOn={this.updateOn}
-          />
-          {this.state.updateActive ? (
-            <EditFlightsModal
+      <div className='bg'>
+        <div className='flex flex-col md:flex-row h-screen'>
+          {/* <div className='items-center lg:block w-full md:w-1/2 xl:w-1/2'> */}
+          <div className='items-center lg:w-1/3 md:w-full'>
+            <CreateFlights
               token={this.props.token}
               fetchFlights={this.fetchFlights}
-              updateFlight={this.state.updateFlight}
-              updateOff={this.updateOff}
-              open={this.state.open}
             />
-          ) : (
-            <></>
-          )}
+          </div>
+          {/* <div className='items-center w-full md:max-w-md lg:max-w-full md:mx-auto md:w-1/2 xl:w-1/2 px-6 lg:px-16 xl:px-12'> */}
+          <div className='items-center lg:w-2/3 md:w-full'>
+            <FlightsCard
+              token={this.props.token}
+              myFlights={this.state.myFlights}
+              fetchFlights={this.fetchFlights}
+              editFlight={this.editFlight}
+              updateOn={this.updateOn}
+            />
+            {this.state.updateActive ? (
+              <EditFlightsModal
+                token={this.props.token}
+                fetchFlights={this.fetchFlights}
+                updateFlight={this.state.updateFlight}
+                updateOff={this.updateOff}
+                open={this.state.open}
+              />
+            ) : (
+              <></>
+            )}
+          </div>
         </div>
       </div>
     )
