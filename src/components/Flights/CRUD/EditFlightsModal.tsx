@@ -1,11 +1,9 @@
-import { Modal } from 'antd'
 import React, { Component } from 'react'
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { FlightsState } from '../CRUD/CreateFlights'
 // import * as HtmlDurationPicker from 'html-duration-picker'
 
 interface acceptedProps {
-  // id: number
-  // myFlights: []
   token: any
   updateOff: () => void
   fetchFlights: () => void
@@ -22,8 +20,6 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
     super(props)
     this.state = {
       isModalVisible: true,
-      // id: Infinity,
-      // showModal: false,
       flights: [],
       airline: '',
       flightNumber: '', //'' so input value initializes empty (instead of 0)
@@ -38,7 +34,6 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
   }
 
   editFlight = async () => {
-    // e.preventDefault()
     console.log('random')
     try {
       const response = await fetch(
@@ -90,15 +85,9 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
   //    HtmlDurationPicker.init();
   // }
 
-  handleOk = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    console.log(e)
+  modalToggle = () => {
     this.setState({ isModalVisible: false })
-  }
-
-  handleCancel = () => {
-    // this.setState({ isModalVisible: false })
     this.props.updateOff()
-    // this.setState({isModalVisible: !this.state.isModalVisible})
   }
 
   render() {
@@ -106,29 +95,18 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
       <div>
         <div>
           <Modal
-            title='Update Flight Information'
-            visible={true}
-            onOk={this.editFlight}
-            okText='Submit'
-            onCancel={this.handleCancel}
-            // footer={null}
+            isOpen={this.state.isModalVisible} 
+            toggle={this.modalToggle}
           >
-            {console.log(this.state.airline)}
-            <form
-              className='space-y-3'
-              // onSubmit={e => {
-              //   e.preventDefault()
-              //   //prettier-ignore
-              //   {this.editFlight(e)}
-              // }}
-            >
+            <ModalHeader toggle={this.modalToggle}>Update your blog post.</ModalHeader>
+            <ModalBody>
               <div className='flex flex-col'>
                 {/*'htmlFor links input to label by corresponding id for screen readers */}
                 <label htmlFor='airline'>
                   <input
                     id='airline'
                     type='text'
-                    className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
+                    className='w-full border-2 border-gray-200 p-2 rounded focus:outline-none focus:border-purple-500'
                     placeholder='Airline'
                     value={this.state.airline}
                     name='airline'
@@ -143,7 +121,7 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
                     id='flightNumber'
                     type='number' // only nums allowed in input field
                     min='0' //prevents negative nums
-                    className='w-full border-2 border-transparent p-2 rounded outline-none focus:border-purple-500'
+                    className='w-full border-2 border-gray-200 p-2 rounded outline-none focus:border-purple-500'
                     placeholder='Flight #'
                     value={this.state.flightNumber}
                     name='flightNumber'
@@ -157,7 +135,7 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
                   <input
                     id='originAirport'
                     type='text'
-                    className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
+                    className='w-full border-2 border-gray-200 p-2 rounded focus:outline-none focus:border-purple-500'
                     placeholder='Origin Airport'
                     name='originAirport'
                     value={this.state.originAirport}
@@ -172,7 +150,7 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
                   <input
                     id='destAirport'
                     type='text'
-                    className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
+                    className='w-full border-2 border-gray-200 p-2 rounded focus:outline-none focus:border-purple-500'
                     placeholder='Destination Airport'
                     name='destAirport'
                     value={this.state.destAirport}
@@ -188,7 +166,7 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
                     id='flightMiles'
                     type='number' // only nums allowed in input field
                     min='0' // prevents negative nums
-                    className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
+                    className='w-full border-2 border-gray-200 p-2 rounded focus:outline-none focus:border-purple-500'
                     placeholder='Flight Miles'
                     name='flightMiles'
                     value={this.state.flightMiles}
@@ -204,7 +182,7 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
                     type='text'
                     // min='0'
                     // max='24'
-                    className='html-duration-picker w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
+                    className='html-duration-picker w-full border-2 border-gray-200 p-2 rounded focus:outline-none focus:border-purple-500'
                     data-hide-seconds
                     placeholder='Flight Time'
                     value={this.state.flightTime}
@@ -220,7 +198,7 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
                     id='date'
                     type='date'
                     // required type='date'
-                    className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
+                    className='w-full border-2 border-gray-200 p-2 rounded focus:outline-none focus:border-purple-500'
                     placeholder='Date'
                     value={this.state.date}
                     name='date'
@@ -239,7 +217,7 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
                   <input
                     id='international'
                     type='checkbox'
-                    className='p-4 ml-3 mr-1 checked:bg-blue-600 checked:border-transparent'
+                    className='p-4 ml-3 mr-1 checked:bg-blue-600 checked:border-gray-200'
                     checked={this.state.international}
                     name='international'
                     onChange={this.handleChange}
@@ -247,24 +225,24 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
                   />
                 </label>
               </div>
-              {/* <button onClick={this.editFlight}>Submit</button> */}
-              {/* <div className='flex justify-center'>
-              <button
-                // onClick={this.editFlight}
-                type='submit'
-                className='block mx-auto focus:outline-none focus:ring-1 focus:ring-pink-300 bg-pink-500 hover:bg-pink-300 py-2 px-4 mt-4 mb-2 rounded-full shadow-md text-pink-200 font-sans'
-              >
-                Submit
-              </button>
-              <button
-                key='back'
-                onClick={this.handleCancel}
-                className='block mx-auto focus:outline-none focus:ring-1 focus:ring-pink-300 bg-pink-500 hover:bg-pink-300 py-2 px-4 mt-4 mb-2 rounded-full shadow-md text-pink-200 font-sans'
-              >
-                Cancel
-              </button>
-              </div> */}
-            </form>
+              </ModalBody>
+            <ModalFooter>
+          <button
+            className='py-2 px-4 bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 opacity-70 cursor-not-allowed rounded-lg mx-2 tracking-wide'
+            onClick={() => {
+              this.editFlight()
+              this.modalToggle()
+            }}
+          >
+            Update
+          </button>
+          <button
+            className='py-2 px-4 bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 opacity-70 cursor-not-allowed rounded-lg mx-2 tracking-wide'
+            onClick={this.modalToggle}
+          >
+            Cancel
+          </button>
+        </ModalFooter>
           </Modal>
         </div>
       </div>

@@ -143,21 +143,23 @@ export class BlogsCard extends Component<acceptedProps, BlogsCardState> {
                             </button>
                           </div>
                         ) : (  */}
-                      <button
-                        className='focus:outline-none focus:ring-1 focus:ring-pink-300 bg-pink-500 hover:bg-pink-300 py-2 px-4 mx-1 mt-4 mb-2 rounded-full shadow-md text-pink-200 font-sans'
-                        onClick={() => {
-                          this.props.editBlog(post)
-                          this.props.updateOn()
-                        }}
-                      >
-                        Update
-                      </button>
-                      <button
-                        className='focus:outline-none focus:ring-1 focus:ring-pink-300 bg-pink-500 hover:bg-pink-300 py-2 px-4 mx-1 mt-4 mb-2 rounded-full shadow-md text-pink-200 font-sans'
-                        onClick={e => this.deleteBlog(e, post.id)}
-                      >
-                        Delete
-                      </button>
+                      <div className='flex justify-center'>
+                        <button
+                          className='py-2 px-4 bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 opacity-70 cursor-not-allowed rounded-lg mx-2 tracking-wide'
+                          onClick={() => {
+                            this.props.editBlog(post)
+                            this.props.updateOn()
+                          }}
+                        >
+                          Update
+                        </button>
+                        <button
+                          className='py-2 px-4 bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 opacity-70 cursor-not-allowed rounded-lg mx-2 tracking-wide'
+                          onClick={e => this.deleteBlog(e, post.id)}
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>

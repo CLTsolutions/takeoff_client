@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { CreateBlogPostsState } from '../CRUD/CreateBlogPosts'
 
 type acceptedProps = {
@@ -84,7 +84,7 @@ export class UpdateBlogPosts extends Component<acceptedProps, UpdateBlogPostsSta
               <input
                 id='blog title'
                 type='text'
-                className='flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-500 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-transparent'
+                className='w-full border-2 border-gray-200 p-2 rounded focus:outline-none focus:border-purple-500'
                 value={this.state.title}
                 name='title'
                 placeholder='Title'
@@ -98,7 +98,7 @@ export class UpdateBlogPosts extends Component<acceptedProps, UpdateBlogPostsSta
               <input
                 id='date'
                 type='date'
-                className='flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-500 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-transparent'
+                className='w-full border-2 border-gray-200 p-2 rounded focus:outline-none focus:border-purple-500'
                 value={this.state.date}
                 name='date'
                 placeholder='Date'
@@ -111,7 +111,7 @@ export class UpdateBlogPosts extends Component<acceptedProps, UpdateBlogPostsSta
             <label htmlFor='entry'>
               <textarea
                 id='entry'
-                className='flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-500 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-transparent'
+                className='w-full border-2 border-gray-200 p-2 rounded focus:outline-none focus:border-purple-500'
                 value={this.state.entry}
                 name='entry'
                 placeholder='Entry'
@@ -130,14 +130,21 @@ export class UpdateBlogPosts extends Component<acceptedProps, UpdateBlogPostsSta
             Submit
           </button> */}
           <ModalFooter>
-          <Button color="primary" 
-          // onClick={this.modalToggle}
-          onClick={(id: any) => {
-            this.editBlog(id)
-            this.modalToggle()
-          }}
-          >Do Something</Button>{' '}
-          <Button color="secondary" onClick={this.modalToggle}>Cancel</Button>
+          <button
+            className='py-2 px-4 bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 opacity-70 cursor-not-allowed rounded-lg mx-2 tracking-wide'
+            onClick={(id: any) => {
+              this.editBlog(id)
+              this.modalToggle()
+            }}
+          >
+            Update
+          </button>
+          <button
+            className='py-2 px-4 bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 opacity-70 cursor-not-allowed rounded-lg mx-2 tracking-wide'
+            onClick={this.modalToggle}
+          >
+            Cancel
+          </button>
         </ModalFooter>
       </Modal>
       </div>
