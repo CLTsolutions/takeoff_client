@@ -141,9 +141,11 @@ export class FlightsCard extends Component<acceptedProps, FlightCardState> {
               })}
             </>
           ) : (
-            <h3 className='mt-3'>
-              Your flight library is empty. Create a flight!
-            </h3>
+            <>
+              <h3 className='mt-3'>
+                Your flight library is empty. Create a flight!
+              </h3>
+            </>
           )}
         </div>
       </div>

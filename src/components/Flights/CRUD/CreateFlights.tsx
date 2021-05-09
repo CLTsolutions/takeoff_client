@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-// import FlightsForm from './FlightsForm'
 // import { FlightsInfo } from '../../types'
-// import * as HtmlDurationPicker from 'html-duration-picker'
+import * as HtmlDurationPicker from 'html-duration-picker'
 
 type acceptedProps = {
   token: any
@@ -53,10 +52,10 @@ class Flights extends Component<acceptedProps, FlightsState> {
     console.log(value)
   }
 
-  //  // for duration input field in form
-  //  ngAfterViewInit() {
-  //     HtmlDurationPicker.init();
-  //  }
+  // for duration input field in form
+  ngAfterViewInit() {
+    HtmlDurationPicker.init()
+  }
 
   newFlight = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
@@ -195,18 +194,18 @@ class Flights extends Component<acceptedProps, FlightsState> {
               <label htmlFor='flightTime'>
                 <input
                   id='flightTime'
-                  type='time'
+                  // type='time'
                   // min='0'
                   // max='24'
-                  // className='html-duration-picker w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
-                  // data-hide-seconds
-                  className='w-full border-2 border-transparent p-2 rounded outline-none focus:border-purple-500'
+                  className='html-duration-picker w-full border-2 border-transparent px-6 py-2 rounded focus:outline-none focus:border-purple-500'
+                  data-hide-seconds
+                  // className='w-full border-2 border-transparent p-2 rounded outline-none focus:border-purple-500'
                   placeholder='Flight Time'
                   // onChange={e => this.setState({ flightTime: e.target.value })}
                   value={this.state.flightTime}
                   name='flightTime'
                   onChange={this.handleChange}
-                  onInput={this.inputToUppercase}
+                  onInput={this.ngAfterViewInit}
                   // defaultValue={''}
                 />
               </label>

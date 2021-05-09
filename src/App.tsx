@@ -8,6 +8,7 @@ import { Redirect, Route, Switch } from 'react-router-dom'
 
 type valueTypes = {
   token: string | null
+  userRole: string | null
 }
 
 class App extends Component<{}, valueTypes> {
@@ -15,6 +16,7 @@ class App extends Component<{}, valueTypes> {
     super(props)
     this.state = {
       token: '',
+      userRole: '',
     }
   }
 
@@ -24,6 +26,14 @@ class App extends Component<{}, valueTypes> {
         token: localStorage.getItem('sessionToken'),
       })
     }
+    if (localStorage.getItem('userRole')) {
+      this.setState({ userRole: localStorage.getItem('userRole') })
+    }
+  }
+
+  updateIsAdmin = (newUserRole: string) => {
+    localStorage.setItem('userRole', newUserRole)
+    this.setState({ userRole: newUserRole })
   }
 
   updateToken = (newToken: any) => {
@@ -44,6 +54,24 @@ class App extends Component<{}, valueTypes> {
     this.setState({ token: '' })
     // console.log('token cleared')
   }
+
+  // protectedViewsAdmin = () => {
+  //   return localStorage.getItem("userRole") === "Admin" ? (
+  //     // display admin panel
+  //   ) : (
+  //     // show auth or whatever else
+  //   )
+  // }
+
+  // // or
+  // adminLinkInNavbar = () => {
+  //   return this.props.userRole === "Admin" ? (
+  //     <button>Admin Panel</button>
+  //   ) : (
+  //     ""
+  //     // or <></>
+  //   )
+  // }
 
   protectedViews = () => {
     return this.state.token === localStorage.getItem('sessionToken') ? (

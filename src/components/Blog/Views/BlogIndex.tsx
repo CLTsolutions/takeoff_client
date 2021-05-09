@@ -42,7 +42,8 @@ class BlogIndex extends Component<acceptedProps, BlogIndexState> {
         })
         const data = await response.json()
         this.setState({ blogData: data })
-        console.log('fetchingBlogs?', data)
+        console.log(this.state.blogData)
+        return data
       } catch (err) {
         console.log(err)
       }

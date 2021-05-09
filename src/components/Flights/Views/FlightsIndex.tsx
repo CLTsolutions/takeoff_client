@@ -28,7 +28,6 @@ class Flights extends Component<acceptedProps, FlightsState> {
   }
 
   fetchFlights = async () => {
-    // e.preventDefault()
     try {
       const response = await fetch(`http://localhost:3000/flight/mine`, {
         method: 'GET',

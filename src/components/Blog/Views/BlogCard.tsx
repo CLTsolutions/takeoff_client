@@ -105,29 +105,31 @@ export class BlogsCard extends Component<acceptedProps, BlogsCardState> {
   render() {
     let dateFormat = 'MM/DD/YYYY'
     return (
-      <div className='flex flex-row flex-wrap'>
-        {this.props.blogData.length !== 0 ? (
-          <>
-            {this.props.blogData.map((post: any, index: number) => {
-              // console.log(post)
-              return (
-                <div
-                  key={index}
-                  className='bg-indigo-500 bg-opacity-60 overflow-hidden shadow-2xl rounded-lg h-90 w-full my-4'
-                  // className='bg-indigo-500 bg-opacity-60 max-w-2xl mx-auto p-5 md:p-12 rounded-lg shadow-2xl w-1/2 my-6'
-                >
-                  <div className='w-full block h-full bg-opacity-50'>
-                    <div className='bg-white dark:bg-gray-800 w-full p-4'>
-                      <p className='text-indigo-500 text-md font-medium'>
-                        {moment(post.date).format(dateFormat)}
-                      </p>
-                      <p className='text-indigo-800 text-2xl font-medium mb-2'>
-                        {post.title}
-                      </p>
-                      <p className='bg-green-400 text-gray-800 text-md'>
-                        {post.entry}
-                      </p>
-                      {/* <div>
+      <div>
+        <div className='flex justify-center flex-wrap'>
+          {this.props.blogData.length > 0 ? (
+            <>
+              {this.props.blogData.map((post: any, index: number) => {
+                // console.log(post)
+                return (
+                  <div className=''>
+                    <div
+                      key={index}
+                      className='bg-indigo-500 bg-opacity-60 overflow-hidden shadow-2xl rounded-lg h-90 w-full my-4'
+                      // className='bg-indigo-500 bg-opacity-60 max-w-2xl mx-auto p-5 md:p-12 rounded-lg shadow-2xl w-1/2 my-6'
+                    >
+                      <div className='w-full block h-full'>
+                        <div className='bg-white dark:bg-gray-800 w-full p-4'>
+                          <p className='text-indigo-500 text-md font-medium'>
+                            {moment(post.date).format(dateFormat)}
+                          </p>
+                          <p className='text-indigo-800 text-2xl font-medium mb-2'>
+                            {post.title}
+                          </p>
+                          <p className='bg-green-400 text-gray-800 text-md'>
+                            {post.entry}
+                          </p>
+                          {/* <div>
                         {this.state.editMode ? (
                           <div>
                             <input
@@ -143,33 +145,36 @@ export class BlogsCard extends Component<acceptedProps, BlogsCardState> {
                             </button>
                           </div>
                         ) : (  */}
-                      <div className='flex justify-center'>
-                        <button
-                          className='py-2 px-4 bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 opacity-70 cursor-not-allowed rounded-lg mx-2 tracking-wide'
-                          onClick={() => {
-                            this.props.editBlog(post)
-                            this.props.updateOn()
-                          }}
-                        >
-                          Update
-                        </button>
-                        <button
-                          className='py-2 px-4 bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 opacity-70 cursor-not-allowed rounded-lg mx-2 tracking-wide'
-                          onClick={e => this.deleteBlog(e, post.id)}
-                        >
-                          Delete
-                        </button>
+                          <div className='flex justify-center'>
+                            <button
+                              className='py-2 px-4 bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 opacity-70 cursor-not-allowed rounded-lg mx-2 tracking-wide'
+                              onClick={() => {
+                                this.props.editBlog(post)
+                                this.props.updateOn()
+                              }}
+                            >
+                              Update
+                            </button>
+                            <button
+                              className='py-2 px-4 bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 opacity-70 cursor-not-allowed rounded-lg mx-2 tracking-wide'
+                              onClick={e => this.deleteBlog(e, post.id)}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                // </div>
-              )
-            })}
-          </>
-        ) : (
-          <h4 className='text-center'>Create a blog post!</h4>
-        )}
+                )
+              })}
+            </>
+          ) : (
+            <>
+              <h3>Create a blog post!</h3>
+            </>
+          )}
+        </div>
       </div>
     )
   }

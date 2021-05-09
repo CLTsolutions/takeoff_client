@@ -90,9 +90,9 @@ export default class Register extends Component<acceptedProps, RegisterState> {
             <label htmlFor='email'>
               <input
                 id='email'
+                // required type='email'
                 className='w-full border-2 border-transparent
                p-2 rounded outline-none focus:border-purple-500'
-                // required type='email'
                 placeholder='Email'
                 // size= {30}
                 value={this.state.email}
