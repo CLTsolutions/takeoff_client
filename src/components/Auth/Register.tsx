@@ -11,6 +11,7 @@ interface RegisterState {
   lastName: string
   email: string
   password: string
+  userRole: string
 }
 
 export default class Register extends Component<acceptedProps, RegisterState> {
@@ -21,6 +22,7 @@ export default class Register extends Component<acceptedProps, RegisterState> {
       lastName: '',
       email: '',
       password: '',
+      userRole: '',
     }
   }
 
@@ -40,7 +42,7 @@ export default class Register extends Component<acceptedProps, RegisterState> {
     })
       .then(res => res.json())
       .then(data => {
-        this.props.token(data.sessionToken)
+        this.props.token(data.sessionToken, this.state.userRole)
         console.log(data)
       })
   }

@@ -5,6 +5,7 @@ import BlogIndex from './components/Blog/Views/BlogIndex'
 import Home from './components/Site/Home'
 import Sitebar from './components/Site/Sitebar'
 import { Redirect, Route, Switch } from 'react-router-dom'
+import AdminView from './components/Site/AdminView'
 
 type valueTypes = {
   token: string | null
@@ -26,19 +27,20 @@ class App extends Component<{}, valueTypes> {
         token: localStorage.getItem('sessionToken'),
       })
     }
-    if (localStorage.getItem('userRole')) {
-      this.setState({ userRole: localStorage.getItem('userRole') })
-    }
+    console.log('is userRole working?', this.state.userRole)
+    // if (localStorage.getItem('userRole')) {
+    //   this.setState({ userRole: localStorage.getItem('userRole') })
+    // }
   }
 
-  updateIsAdmin = (newUserRole: string) => {
-    localStorage.setItem('userRole', newUserRole)
-    this.setState({ userRole: newUserRole })
-  }
+  // updateIsAdmin = (newUserRole: string) => {
+  //   localStorage.setItem('userRole', newUserRole)
+  //   this.setState({ userRole: newUserRole })
+  // }
 
-  updateToken = (newToken: any) => {
+  updateToken = (newToken: any, userRole: string) => {
     localStorage.setItem('sessionToken', newToken)
-    this.setState({ token: newToken })
+    this.setState({ token: newToken, userRole: userRole })
     // console.log('is this updating the token', this.state.token)
   }
 
@@ -52,26 +54,25 @@ class App extends Component<{}, valueTypes> {
   clearToken = () => {
     localStorage.clear()
     this.setState({ token: '' })
-    // console.log('token cleared')
   }
 
   // protectedViewsAdmin = () => {
-  //   return localStorage.getItem("userRole") === "Admin" ? (
+  //   return localStorage.getItem("userRole") === "admin" ? (
   //     // display admin panel
+  //     <AdminView />
   //   ) : (
   //     // show auth or whatever else
   //   )
   // }
 
-  // // or
-  // adminLinkInNavbar = () => {
-  //   return this.props.userRole === "Admin" ? (
-  //     <button>Admin Panel</button>
-  //   ) : (
-  //     ""
-  //     // or <></>
-  //   )
-  // }
+  protectViewsAdmin = () => {
+    if (this.state.userRole === 'admin') {
+      //prettier-ignore
+      return <AdminView />
+    } else {
+      return <Auth token={this.updateToken} />
+    }
+  }
 
   protectedViews = () => {
     return this.state.token === localStorage.getItem('sessionToken') ? (
@@ -89,7 +90,11 @@ class App extends Component<{}, valueTypes> {
           <Sitebar logout={this.clearToken} token={this.state.token} protectedViews={this.protectedViews} />
         </Route> */}
         {this.state.token && (
-          <Sitebar logout={this.clearToken} token={this.state.token} />
+          <Sitebar
+            logout={this.clearToken}
+            token={this.state.token}
+            userRole={this.state.userRole}
+          />
         )}
         <Switch>
           <Route exact path='/'>
@@ -97,6 +102,9 @@ class App extends Component<{}, valueTypes> {
           </Route>
           <Route exact path='/blog'>
             <BlogIndex token={this.state.token} />
+          </Route>
+          <Route exact path='/admin'>
+            {this.protectViewsAdmin}
           </Route>
         </Switch>
       </div>

@@ -15,6 +15,7 @@ import Logo from '../../assets/airplane.svg'
 type acceptedProps = {
   token: any
   logout: any
+  userRole: string | null
 }
 
 type valueTypes = {
@@ -37,6 +38,15 @@ export default class Sitebar extends Component<acceptedProps, valueTypes> {
       <Link to='/'>
         <button onClick={this.props.logout}>Logout</button>
       </Link>
+    )
+  }
+
+  adminLinkInNavbar = () => {
+    return this.props.userRole === 'admin' ? (
+      <button>Admin Panel</button>
+    ) : (
+      // ''
+      <></>
     )
   }
 
@@ -63,6 +73,13 @@ export default class Sitebar extends Component<acceptedProps, valueTypes> {
                 <NavLink>
                   <Link to='/blog' className='text-muted'>
                     Blog
+                  </Link>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink>
+                  <Link to='/admin' className='text-muted'>
+                    {this.adminLinkInNavbar()}
                   </Link>
                 </NavLink>
               </NavItem>

@@ -9,6 +9,7 @@ type acceptedProps = {
 interface LoginState {
   email: string
   password: string
+  userRole: string
   // size: number
   // minLength: number
 }
@@ -19,6 +20,7 @@ export default class Login extends Component<acceptedProps, LoginState> {
     this.state = {
       email: '',
       password: '',
+      userRole: '',
     }
   }
 
@@ -36,9 +38,9 @@ export default class Login extends Component<acceptedProps, LoginState> {
     })
       .then(res => res.json())
       .then(data => {
-        this.props.token(data.sessionToken),
-          // this.props.token(data.sessionToken, data.userRole),
-          //this.props.token(data.userRole)
+        // this.props.token(data.sessionToken),
+        this.props.token(data.sessionToken, data.user.userRole),
+          // this.props.token(data.userRole)
           console.log(data)
       })
       .catch(err => console.log(err))

@@ -7,7 +7,7 @@ import { faPlane } from '@fortawesome/free-solid-svg-icons'
 type acceptedProps = {
   token: string | null
   myFlights: []
-  fetchFlights: Function //from flightIndex
+  fetchFlights: Function //from flightIndex & is returning data
   // isVisible: boolean
   editFlight: Function
   updateOn: Function
