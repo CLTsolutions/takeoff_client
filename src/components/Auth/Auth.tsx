@@ -16,7 +16,7 @@ type acceptedProps = {
 //   setLogin: boolean
 // }
 
-type valueTypes = {
+interface AuthState {
   login: boolean
   setLogin: boolean
   firstName: string
@@ -25,7 +25,7 @@ type valueTypes = {
   password: string
 }
 
-export default class Auth extends Component<acceptedProps, valueTypes> {
+export default class Auth extends Component<acceptedProps, AuthState> {
   constructor(props: acceptedProps) {
     super(props)
     this.state = {

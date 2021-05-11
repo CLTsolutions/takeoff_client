@@ -21,15 +21,15 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
     this.state = {
       isModalVisible: true,
       flights: [],
-      airline: '',
-      flightNumber: '', //'' so input value initializes empty (instead of 0)
-      originAirport: '',
-      destAirport: '',
-      flightMiles: '', //'' so input value initializes empty (instead of 0)
-      flightTime: '',
-      international: false,
+      airline: this.props.updateFlight.airline,
+      flightNumber: this.props.updateFlight.flightNumber,
+      originAirport: this.props.updateFlight.originAirport,
+      destAirport: this.props.updateFlight.destAirport,
+      flightMiles: this.props.updateFlight.flightMiles,
+      flightTime: this.props.updateFlight.flightTime,
+      international: this.props.updateFlight.international,
       // date: new Date()
-      date: '',
+      date: this.props.updateFlight.date,
     }
   }
 
@@ -102,9 +102,9 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
             <ModalBody>
               <div className='flex flex-col'>
                 {/*'htmlFor links input to label by corresponding id for screen readers */}
-                <label htmlFor='airline'>
+                <label htmlFor='theAirline'>
                   <input
-                    id='airline'
+                    id='theAirline'
                     type='text'
                     className='w-full border-2 border-gray-200 p-2 rounded focus:outline-none focus:border-purple-500'
                     placeholder='Airline'
@@ -116,9 +116,9 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
                 </label>
               </div>
               <div className='flex flex-col'>
-                <label htmlFor='flightNumber'>
+                <label htmlFor='theFlightNumber'>
                   <input
-                    id='flightNumber'
+                    id='theFlightNumber'
                     type='number' // only nums allowed in input field
                     min='0' //prevents negative nums
                     className='w-full border-2 border-gray-200 p-2 rounded outline-none focus:border-purple-500'
@@ -131,9 +131,9 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
                 </label>
               </div>
               <div className='flex flex-col'>
-                <label htmlFor='originAirport'>
+                <label htmlFor='theOriginAirport'>
                   <input
-                    id='originAirport'
+                    id='theOriginAirport'
                     type='text'
                     className='w-full border-2 border-gray-200 p-2 rounded focus:outline-none focus:border-purple-500'
                     placeholder='Origin Airport'
@@ -146,9 +146,9 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
                 </label>
               </div>
               <div className='flex flex-col'>
-                <label htmlFor='destAirport'>
+                <label htmlFor='theDestAirport'>
                   <input
-                    id='destAirport'
+                    id='theDestAirport'
                     type='text'
                     className='w-full border-2 border-gray-200 p-2 rounded focus:outline-none focus:border-purple-500'
                     placeholder='Destination Airport'
@@ -161,9 +161,9 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
                 </label>
               </div>
               <div className='flex flex-col'>
-                <label htmlFor='flightMiles'>
+                <label htmlFor='theFlightMiles'>
                   <input
-                    id='flightMiles'
+                    id='theFlightMiles'
                     type='number' // only nums allowed in input field
                     min='0' // prevents negative nums
                     className='w-full border-2 border-gray-200 p-2 rounded focus:outline-none focus:border-purple-500'
@@ -176,9 +176,9 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
                 </label>
               </div>
               <div className='flex flex-col'>
-                <label htmlFor='flightTime'>
+                <label htmlFor='theFlightTime'>
                   <input
-                    id='flightTime'
+                    id='theFlightTime'
                     type='text'
                     // min='0'
                     // max='24'
@@ -193,9 +193,9 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
                 </label>
               </div>
               <div className='flex flex-col'>
-                <label htmlFor='date'>
+                <label htmlFor='tripDate'>
                   <input
-                    id='date'
+                    id='tripDate'
                     type='date'
                     // required type='date'
                     className='w-full border-2 border-gray-200 p-2 rounded focus:outline-none focus:border-purple-500'

@@ -55,8 +55,6 @@ export class FlightsCard extends Component<acceptedProps, FlightCardState> {
           {this.props.myFlights.length > 0 ? (
             <>
               {this.props.myFlights.map((flight: any, index: number) => {
-                // console.log(flight)
-                // console.log(index)
                 return (
                   // <div className='flex font-sans justify-center items-center h-screen'>
                   <div

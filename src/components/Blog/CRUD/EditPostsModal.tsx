@@ -24,9 +24,12 @@ export class UpdateBlogPosts extends Component<acceptedProps, UpdateBlogPostsSta
     this.state = {
       isModalVisible: true,
       blog: [],
-      date: '',
-      title: '',
-      entry: '',
+      // date: '',
+      // title: '',
+      // entry: '',
+      date: this.props.updateBlog.date,
+      title: this.props.updateBlog.title,
+      entry: this.props.updateBlog.entry,
     }
   }
 
@@ -80,9 +83,9 @@ export class UpdateBlogPosts extends Component<acceptedProps, UpdateBlogPostsSta
       {/* <div className='bg-indigo-200 bg-opacity-50 max-w-2xl mx-auto p-5 md:p-12 rounded-lg shadow-2xl w-1/2 my-6'> */}
         {/* <form className='space-y-3' onSubmit={this.editBlog}> */}
           <div className='flex flex-col text-center'>
-            <label htmlFor='blog title'>
+            <label htmlFor='blogTitle'>
               <input
-                id='blog title'
+                id='blogTitle'
                 type='text'
                 className='w-full border-2 border-gray-200 p-2 rounded focus:outline-none focus:border-purple-500'
                 value={this.state.title}
@@ -94,9 +97,9 @@ export class UpdateBlogPosts extends Component<acceptedProps, UpdateBlogPostsSta
             </label>
           </div>
           <div className='flex flex-col'>
-            <label htmlFor='date'>
+            <label htmlFor='blogDate'>
               <input
-                id='date'
+                id='blogDate'
                 type='date'
                 className='w-full border-2 border-gray-200 p-2 rounded focus:outline-none focus:border-purple-500'
                 value={this.state.date}
@@ -108,9 +111,9 @@ export class UpdateBlogPosts extends Component<acceptedProps, UpdateBlogPostsSta
             </label>
           </div>
           <div className='flex flex-col'>
-            <label htmlFor='entry'>
+            <label htmlFor='blogEntry'>
               <textarea
-                id='entry'
+                id='blogEntry'
                 className='w-full border-2 border-gray-200 p-2 rounded focus:outline-none focus:border-purple-500'
                 value={this.state.entry}
                 name='entry'

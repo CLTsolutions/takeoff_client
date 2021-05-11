@@ -27,10 +27,9 @@ class App extends Component<{}, valueTypes> {
         token: localStorage.getItem('sessionToken'),
       })
     }
-    console.log('is userRole working?', this.state.userRole)
-    // if (localStorage.getItem('userRole')) {
-    //   this.setState({ userRole: localStorage.getItem('userRole') })
-    // }
+    if (localStorage.getItem('userRole')) {
+      this.setState({ userRole: localStorage.getItem('userRole') })
+    }
   }
 
   // updateIsAdmin = (newUserRole: string) => {
@@ -41,19 +40,19 @@ class App extends Component<{}, valueTypes> {
   updateToken = (newToken: any, userRole: string) => {
     localStorage.setItem('sessionToken', newToken)
     this.setState({ token: newToken, userRole: userRole })
-    // console.log('is this updating the token', this.state.token)
+    console.log(userRole)
   }
 
-  redirectNoToken = () => {
-    if (this.state.token === '') {
-      console.log(this.state.token)
-      return <Redirect to='/' />
-    }
-  }
+  // redirectNoToken = () => {
+  //   if (this.state.token === '') {
+  //     console.log(this.state.token)
+  //     return <Redirect to='/' />
+  //   }
+  // }
 
   clearToken = () => {
     localStorage.clear()
-    this.setState({ token: '' })
+    this.setState({ token: '', userRole: '' })
   }
 
   // protectedViewsAdmin = () => {
@@ -66,12 +65,12 @@ class App extends Component<{}, valueTypes> {
   // }
 
   protectViewsAdmin = () => {
-    if (this.state.userRole === 'admin') {
+    return this.state.userRole === 'admin' ? (
       //prettier-ignore
-      return <AdminView />
-    } else {
-      return <Auth token={this.updateToken} />
-    }
+      <AdminView token={this.state.token} />
+    ) : (
+      <Home token={this.state.token} />
+    )
   }
 
   protectedViews = () => {
@@ -103,7 +102,7 @@ class App extends Component<{}, valueTypes> {
           <Route exact path='/blog'>
             <BlogIndex token={this.state.token} />
           </Route>
-          <Route exact path='/admin'>
+          <Route exact path='/admin' component={AdminView}>
             {this.protectViewsAdmin}
           </Route>
         </Switch>

@@ -6,7 +6,7 @@ type acceptedProps = {
   // user: BaseUser
 }
 
-interface LoginState {
+export interface LoginState {
   email: string
   password: string
   userRole: string
