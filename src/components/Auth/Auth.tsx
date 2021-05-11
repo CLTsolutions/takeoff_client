@@ -3,19 +3,11 @@ import Login from './Login'
 import Register from './Register'
 import './Auth.css'
 import { Link } from 'react-router-dom'
-// import { BaseUser } from '../../types'
 
 type acceptedProps = {
   token: any
-  updateIsAdmin: () => void
-  // user: BaseUser[]
-  // token: string | null
+  updateIsAdmin: (newUserRole: string) => void
 }
-
-// interface AuthState extends BaseUser {
-//   login: boolean
-//   setLogin: boolean
-// }
 
 interface AuthState {
   login: boolean

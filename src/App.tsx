@@ -7,7 +7,6 @@ import Home from './components/Site/Home'
 import Sitebar from './components/Site/Sitebar'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import AdminView from './components/Site/AdminView'
-// import { Footer } from 'antd/lib/layout/layout'
 
 type valueTypes = {
   token: string | null
@@ -37,10 +36,9 @@ class App extends Component<{}, valueTypes> {
   updateIsAdmin = (newUserRole: string) => {
     localStorage.setItem('userRole', newUserRole)
     this.setState({ userRole: newUserRole })
-    console.log(this.state.userRole)
   }
 
-  updateToken = (newToken: any, userRole: string) => {
+  updateToken = (newToken: string) => {
     localStorage.setItem('sessionToken', newToken)
     // this.setState({ token: newToken, userRole: userRole })
     this.setState({ token: newToken })
@@ -48,7 +46,6 @@ class App extends Component<{}, valueTypes> {
 
   // redirectNoToken = () => {
   //   if (this.state.token === '') {
-  //     console.log(this.state.token)
   //     return <Redirect to='/' />
   //   }
   // }
@@ -63,19 +60,9 @@ class App extends Component<{}, valueTypes> {
       // display admin panel
       <AdminView token={this.state.token} />
     ) : (
-      // show auth or whatever else
       <Home token={this.state.token} />
     )
   }
-
-  // protectedViewsAdmin = () => {
-  //   return this.state.userRole === 'admin' ? (
-  //     //prettier-ignore
-  //     <AdminView token={this.state.token} />
-  //   ) : (
-  //     <Home token={this.state.token} />
-  //   )
-  // }
 
   protectedViews = () => {
     return this.state.token === localStorage.getItem('sessionToken') ? (
@@ -89,9 +76,6 @@ class App extends Component<{}, valueTypes> {
     return (
       <div className='App'>
         {/* {this.redirectNoToken()} */}
-        {/* <Route>
-          <Sitebar logout={this.clearToken} token={this.state.token} protectedViews={this.protectedViews} />
-        </Route> */}
         {this.state.token && (
           <Sitebar
             logout={this.clearToken}

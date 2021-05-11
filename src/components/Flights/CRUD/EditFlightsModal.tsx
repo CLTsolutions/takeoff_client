@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import APIURL from '../../../helpers/environment'
 import { FlightsState } from '../CRUD/CreateFlights'
 // import * as HtmlDurationPicker from 'html-duration-picker'
 
@@ -34,10 +35,9 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
   }
 
   editFlight = async () => {
-    console.log('random')
     try {
       const response = await fetch(
-        `http://localhost:3000/flight/${this.props.updateFlight.id}`,
+        `${APIURL}/flight/${this.props.updateFlight.id}`,
         {
           method: 'PUT',
           body: JSON.stringify({
@@ -57,7 +57,6 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
         }
       )
       const data = await response.json()
-      console.log(data)
       this.props.updateOff()
       this.props.fetchFlights() // calling flight library again after updating new flight
     } catch (err) {
@@ -77,13 +76,7 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
     const name = target.name
     //prettier-ignore
     this.setState(({ [name]: value } as unknown) as Pick<FlightsState,keyof FlightsState>)
-    console.log(value)
   }
-
-  //  // for duration input field in form
-  // ngAfterViewInit() {
-  //    HtmlDurationPicker.init();
-  // }
 
   modalToggle = () => {
     this.setState({ isModalVisible: false })
@@ -126,7 +119,6 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
                     value={this.state.flightNumber}
                     name='flightNumber'
                     onChange={this.handleChange}
-                    // defaultValue={''}
                   />
                 </label>
               </div>
@@ -141,7 +133,6 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
                     value={this.state.originAirport}
                     onChange={this.handleChange}
                     onInput={this.inputToUppercase}
-                    // defaultValue={''}
                   />
                 </label>
               </div>
@@ -156,7 +147,6 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
                     value={this.state.destAirport}
                     onChange={this.handleChange}
                     onInput={this.inputToUppercase}
-                    // defaultValue={''}
                   />
                 </label>
               </div>
@@ -171,7 +161,6 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
                     name='flightMiles'
                     value={this.state.flightMiles}
                     onChange={this.handleChange}
-                    // defaultValue={''}
                   />
                 </label>
               </div>
@@ -188,7 +177,6 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
                     value={this.state.flightTime}
                     name='flightTime'
                     onChange={this.handleChange}
-                    // defaultValue={''}
                   />
                 </label>
               </div>
@@ -204,7 +192,6 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
                     name='date'
                      required pattern="\d{4}-\d{2}-\d{2}" //for unsupported browsers
                     onChange={this.handleChange}
-                    // defaultValue={''}
                   />
                 </label>
               </div>
@@ -221,7 +208,6 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
                     checked={this.state.international}
                     name='international'
                     onChange={this.handleChange}
-                    // defaultChecked={false}
                   />
                 </label>
               </div>

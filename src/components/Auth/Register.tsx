@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-// import { BaseUser } from '../../types'
+import APIURL from '../../helpers/environment'
 
 type acceptedProps = {
   token: any
-  // user: BaseUser
 }
 
 interface RegisterState {
@@ -28,7 +27,7 @@ export default class Register extends Component<acceptedProps, RegisterState> {
 
   handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
-    fetch('http://localhost:3000/user/register', {
+    fetch(`${APIURL}/user/register`, {
       method: 'POST',
       body: JSON.stringify({
         firstName: this.state.firstName,
@@ -43,7 +42,6 @@ export default class Register extends Component<acceptedProps, RegisterState> {
       .then(res => res.json())
       .then(data => {
         this.props.token(data.sessionToken, this.state.userRole)
-        console.log(data)
       })
   }
 
@@ -92,11 +90,11 @@ export default class Register extends Component<acceptedProps, RegisterState> {
             <label htmlFor='email'>
               <input
                 id='email'
-                // required type='email'
+                required
+                type='email'
                 className='w-full border-2 border-transparent
                p-2 rounded outline-none focus:border-purple-500'
                 placeholder='Email'
-                // size= {30}
                 value={this.state.email}
                 name='email'
                 onChange={this.handleChange}
@@ -111,7 +109,7 @@ export default class Register extends Component<acceptedProps, RegisterState> {
                 required
                 type='password'
                 placeholder='Password'
-                // minLength= {8}
+                minLength={8}
                 value={this.state.password}
                 name='password'
                 onChange={this.handleChange}

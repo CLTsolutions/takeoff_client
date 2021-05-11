@@ -3,6 +3,7 @@ import FlightsCard from './FlightsCard'
 import CreateFlights from '../CRUD/CreateFlights'
 import EditFlightsModal from '../CRUD/EditFlightsModal'
 import './FlightIndex.css'
+import APIURL from '../../../helpers/environment'
 
 type acceptedProps = {
   token: any
@@ -29,7 +30,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
 
   fetchFlights = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/flight/mine`, {
+      const response = await fetch(`${APIURL}/flight/mine`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -38,7 +39,6 @@ class Flights extends Component<acceptedProps, FlightsState> {
       })
       const data = await response.json()
       this.setState({ myFlights: data })
-      console.log(this.state.myFlights)
       return data
     } catch (err) {
       console.log(err)
@@ -46,7 +46,6 @@ class Flights extends Component<acceptedProps, FlightsState> {
   }
 
   componentDidMount() {
-    // console.log(this.props.token)
     this.fetchFlights() // triggering a rerender to display newly created flights
   }
 
@@ -66,14 +65,12 @@ class Flights extends Component<acceptedProps, FlightsState> {
     return (
       <div className='bg'>
         <div className='flex flex-col md:flex-row h-screen'>
-          {/* <div className='items-center lg:block w-full md:w-1/2 xl:w-1/2'> */}
           <div className='items-center lg:w-1/3 md:w-full'>
             <CreateFlights
               token={this.props.token}
               fetchFlights={this.fetchFlights}
             />
           </div>
-          {/* <div className='items-center w-full md:max-w-md lg:max-w-full md:mx-auto md:w-1/2 xl:w-1/2 px-6 lg:px-16 xl:px-12'> */}
           <div className='items-center lg:w-2/3 md:w-full'>
             <FlightsCard
               token={this.props.token}

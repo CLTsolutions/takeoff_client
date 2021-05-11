@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 // import { FlightsInfo } from '../../types'
 import * as HtmlDurationPicker from 'html-duration-picker'
+import APIURL from '../../../helpers/environment'
 
 type acceptedProps = {
   token: any
@@ -17,7 +18,6 @@ export interface FlightsState {
   flightTime: string
   international: boolean
   date: string
-  // date: Date
 }
 
 class Flights extends Component<acceptedProps, FlightsState> {
@@ -33,7 +33,6 @@ class Flights extends Component<acceptedProps, FlightsState> {
       flightTime: '',
       international: false,
       date: '',
-      // date: new Date()
     }
   }
 
@@ -49,7 +48,6 @@ class Flights extends Component<acceptedProps, FlightsState> {
     const name = target.name
     //prettier-ignore
     this.setState(({ [name]: value } as unknown) as Pick<FlightsState, keyof FlightsState>)
-    console.log(value)
   }
 
   // for duration input field in form
@@ -60,7 +58,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
   newFlight = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
     try {
-      const response = await fetch(`http://localhost:3000/flight/`, {
+      const response = await fetch(`${APIURL}/flight/`, {
         method: 'POST',
         body: JSON.stringify({
           airline: this.state.airline,
@@ -78,7 +76,6 @@ class Flights extends Component<acceptedProps, FlightsState> {
         }),
       })
       const data = await response.json()
-      console.log(data)
       // resets input fields after submit
       this.setState({
         airline: '',
@@ -90,7 +87,6 @@ class Flights extends Component<acceptedProps, FlightsState> {
         date: '',
         international: false,
       })
-      // this.setState({ flights: data })
       // calling flight library again after creating new flight
       this.props.fetchFlights()
     } catch (err) {
@@ -112,7 +108,6 @@ class Flights extends Component<acceptedProps, FlightsState> {
                 <input
                   id='airline'
                   type='text'
-                  // className='w-full border-2 border-transparent p-2 rounded-lg focus:outline-none focus:border-purple-500'
                   className='w-full border-2 border-transparent
                   p-2 rounded outline-none focus:border-purple-500'
                   placeholder='Airline'
@@ -120,7 +115,6 @@ class Flights extends Component<acceptedProps, FlightsState> {
                   name='airline'
                   onChange={this.handleChange}
                   onInput={this.inputToUppercase}
-                  // defaultValue={''}
                 />
               </label>
             </div>
@@ -130,14 +124,12 @@ class Flights extends Component<acceptedProps, FlightsState> {
                   id='flightNumber'
                   type='number' // only nums allowed in input field
                   min='0' //prevents negative nums
-                  // className='w-full border-2 border-transparent p-2 rounded outline-none focus:border-purple-500'
                   className='w-full border-2 border-transparent p-2 rounded outline-none focus:border-purple-500'
                   placeholder='Flight #'
                   value={this.state.flightNumber}
                   name='flightNumber'
                   onChange={this.handleChange}
                   onInput={this.inputToUppercase}
-                  // defaultValue={''}
                 />
               </label>
             </div>
@@ -146,14 +138,12 @@ class Flights extends Component<acceptedProps, FlightsState> {
                 <input
                   id='originAirport'
                   type='text'
-                  // className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
                   className='w-full border-2 border-transparent p-2 rounded outline-none focus:border-purple-500'
                   placeholder='Origin Airport'
                   name='originAirport'
                   value={this.state.originAirport}
                   onChange={this.handleChange}
                   onInput={this.inputToUppercase}
-                  // defaultValue={''}
                 />
               </label>
             </div>
@@ -162,14 +152,12 @@ class Flights extends Component<acceptedProps, FlightsState> {
                 <input
                   id='destAirport'
                   type='text'
-                  // className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
                   className='w-full border-2 border-transparent p-2 rounded outline-none focus:border-purple-500'
                   placeholder='Destination Airport'
                   name='destAirport'
                   value={this.state.destAirport}
                   onChange={this.handleChange}
                   onInput={this.inputToUppercase}
-                  // defaultValue={''}
                 />
               </label>
             </div>
@@ -179,14 +167,12 @@ class Flights extends Component<acceptedProps, FlightsState> {
                   id='flightMiles'
                   type='number' // only nums allowed in input field
                   min='0' // prevents negative nums
-                  // className='w-full border-2 border-transparent p-2 rounded focus:outline-none focus:border-purple-500'
                   className='w-full border-2 border-transparent p-2 rounded outline-none focus:border-purple-500'
                   placeholder='Flight Miles'
                   name='flightMiles'
                   value={this.state.flightMiles}
                   onChange={this.handleChange}
                   onInput={this.inputToUppercase}
-                  // defaultValue={''}
                 />
               </label>
             </div>
@@ -199,14 +185,11 @@ class Flights extends Component<acceptedProps, FlightsState> {
                   // max='24'
                   className='html-duration-picker w-full border-2 border-transparent px-6 py-2 rounded focus:outline-none focus:border-purple-500'
                   data-hide-seconds
-                  // className='w-full border-2 border-transparent p-2 rounded outline-none focus:border-purple-500'
                   placeholder='Flight Time'
-                  // onChange={e => this.setState({ flightTime: e.target.value })}
                   value={this.state.flightTime}
                   name='flightTime'
                   onChange={this.handleChange}
-                  onInput={this.ngAfterViewInit}
-                  // defaultValue={''}
+                  onInput={this.ngAfterViewInit} //html duration picker fn
                 />
               </label>
             </div>
@@ -220,9 +203,9 @@ class Flights extends Component<acceptedProps, FlightsState> {
                   placeholder='Date'
                   value={this.state.date}
                   name='date'
-                  //  required pattern="\d{4}-\d{2}-\d{2}" //for unsupported browsers
+                  required
+                  pattern='\d{4}-\d{2}-\d{2}' //for unsupported browsers
                   onChange={this.handleChange}
-                  // defaultValue={''}
                 />
               </label>
             </div>
@@ -239,7 +222,6 @@ class Flights extends Component<acceptedProps, FlightsState> {
                   checked={this.state.international}
                   name='international'
                   onChange={this.handleChange}
-                  // defaultChecked={false}
                 />
               </label>
             </div>

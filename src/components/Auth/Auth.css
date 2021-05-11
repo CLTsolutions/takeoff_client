@@ -1,13 +1,10 @@
 .map-img {
   background-image: url('../../assets/lady_destinations.svg');
   background-repeat: no-repeat;
-  /* background-size: 40%; */
-  /* background-position: bottom left; */
   background-size: contain;
 }
 
 .auth-link {
-  /* margin-top: 500px; */
   text-decoration: none;
   color: white;
 }

@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-// import { BaseUser } from '../../types'
+import APIURL from '../../helpers/environment'
 
 type acceptedProps = {
   token: any
-  updateIsAdmin: () => void
-  // user: BaseUser
+  updateIsAdmin: (newUserRole: string) => void
 }
 
 export interface LoginState {
@@ -25,7 +24,7 @@ export default class Login extends Component<acceptedProps, LoginState> {
 
   handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
-    fetch('http://localhost:3000/user/login', {
+    fetch(`${APIURL}/user/login`, {
       method: 'POST',
       body: JSON.stringify({
         email: this.state.email,
@@ -37,11 +36,8 @@ export default class Login extends Component<acceptedProps, LoginState> {
     })
       .then(res => res.json())
       .then(data => {
-        // this.props.token(data.sessionToken),
         this.props.token(data.sessionToken)
         this.props.updateIsAdmin(data.user.userRole)
-        // this.props.token(data.userRole)
-        console.log(data)
       })
       .catch(err => console.log(err))
   }
@@ -61,11 +57,11 @@ export default class Login extends Component<acceptedProps, LoginState> {
             <label htmlFor='email'>
               <input
                 id='email'
-                // required type='email'
+                required
+                type='email'
                 className='w-full border-2 border-transparent
                p-2 rounded outline-none focus:border-purple-500'
                 placeholder='Email'
-                // size= {30}
                 // value={this.state.email}
                 name='email'
                 onChange={this.handleChange}
@@ -80,7 +76,7 @@ export default class Login extends Component<acceptedProps, LoginState> {
                 required
                 type='password'
                 placeholder='Password'
-                // minLength= {8}
+                minLength={8}
                 // value={this.state.password}
                 name='password'
                 onChange={this.handleChange}

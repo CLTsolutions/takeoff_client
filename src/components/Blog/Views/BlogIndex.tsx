@@ -3,13 +3,13 @@ import BlogCard from './BlogCard'
 import CreateBlogPosts from '../CRUD/CreateBlogPosts'
 import EditPostsModal from '../CRUD/EditPostsModal'
 import './BlogIndex.css'
+import APIURL from '../../../helpers/environment'
 
 type acceptedProps = {
   token: any
 }
 
 interface BlogIndexState {
-  // blog: string
   blogData: []
   updateBlog: string
   updateActive: boolean
@@ -30,10 +30,9 @@ class BlogIndex extends Component<acceptedProps, BlogIndexState> {
 
   // wrapped in if to check if there's a token before it runs
   fetchBlog = async () => {
-    // console.log(this.props)
     if (this.props.token) {
       try {
-        const response = await fetch(`http://localhost:3000/blog/mine`, {
+        const response = await fetch(`${APIURL}/blog/mine`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -42,7 +41,6 @@ class BlogIndex extends Component<acceptedProps, BlogIndexState> {
         })
         const data = await response.json()
         this.setState({ blogData: data })
-        console.log(this.state.blogData)
         return data
       } catch (err) {
         console.log(err)
@@ -51,8 +49,6 @@ class BlogIndex extends Component<acceptedProps, BlogIndexState> {
   }
 
   componentDidMount = () => {
-    // console.log(localStorage.getItem('sessionToken'))
-    // this.fetchFlights()
     this.fetchBlog()
   }
 
@@ -60,9 +56,7 @@ class BlogIndex extends Component<acceptedProps, BlogIndexState> {
   // calling fetch again until token passes
   componentDidUpdate(prev: acceptedProps) {
     if (prev.token !== this.props.token) {
-      // this.fetchFlights()
       this.fetchBlog()
-      console.log(this.props.token)
     }
   }
 

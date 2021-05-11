@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import APIURL from '../../../helpers/environment'
 
 type acceptedProps = {
   token: any
@@ -27,7 +28,7 @@ export class CreateBlogPosts extends Component<acceptedProps, CreateBlogPostsSta
   newBlog = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
     try {
-      const response = await fetch(`http://localhost:3000/blog`, {
+      const response = await fetch(`${APIURL}/blog`, {
         method: 'POST',
         body: JSON.stringify({
           date: this.state.date,
@@ -40,7 +41,6 @@ export class CreateBlogPosts extends Component<acceptedProps, CreateBlogPostsSta
         }),
       })
       const data = await response.json()
-      console.log(data)
       // resets input fields after submit
       this.setState({
         date: '',
@@ -49,7 +49,6 @@ export class CreateBlogPosts extends Component<acceptedProps, CreateBlogPostsSta
       })
       // calling blog library again after creating new flight
       this.props.fetchBlog()
-      console.log('are ya calling?')
     } catch (err) {
       console.log(err)
     }
@@ -62,7 +61,6 @@ export class CreateBlogPosts extends Component<acceptedProps, CreateBlogPostsSta
     const name = target.name
     //prettier-ignore
     this.setState(({ [name]: value } as unknown) as Pick<CreateBlogPostsState, keyof CreateBlogPostsState>)
-    console.log(value)
   }
 
   render() {
@@ -81,7 +79,6 @@ export class CreateBlogPosts extends Component<acceptedProps, CreateBlogPostsSta
                 name='title'
                 placeholder='Title'
                 onChange={this.handleChange}
-                // defaultValue={""}
               />
             </label>
           </div>
@@ -96,7 +93,6 @@ export class CreateBlogPosts extends Component<acceptedProps, CreateBlogPostsSta
                 name='date'
                 placeholder='Date'
                 onChange={this.handleChange}
-                // defaultValue={""}
               />
             </label>
           </div>
@@ -110,7 +106,6 @@ export class CreateBlogPosts extends Component<acceptedProps, CreateBlogPostsSta
                 name='entry'
                 placeholder='Entry'
                 onChange={e => this.setState({ entry: e.target.value })}
-                // defaultValue={""}
               />
             </label>
           </div>

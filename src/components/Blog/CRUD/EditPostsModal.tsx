@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import APIURL from '../../../helpers/environment'
 import { CreateBlogPostsState } from '../CRUD/CreateBlogPosts'
 
 type acceptedProps = {
@@ -12,9 +13,6 @@ type acceptedProps = {
 
 export interface UpdateBlogPostsState extends CreateBlogPostsState {
   isModalVisible: boolean
-  // date: string
-  // title: string
-  // entry: string
 }
 
 //prettier-ignore
@@ -24,19 +22,15 @@ export class UpdateBlogPosts extends Component<acceptedProps, UpdateBlogPostsSta
     this.state = {
       isModalVisible: true,
       blog: [],
-      // date: '',
-      // title: '',
-      // entry: '',
       date: this.props.updateBlog.date,
       title: this.props.updateBlog.title,
       entry: this.props.updateBlog.entry,
     }
   }
 
-  editBlog = async (id: any) => {
-    console.log('edit working?')
+  editBlog = async (id: number) => {
     try {
-      const response = await fetch(`http://localhost:3000/blog/${this.props.updateBlog.id}`, {
+      const response = await fetch(`${APIURL}/blog/${this.props.updateBlog.id}`, {
         method: 'PUT',
         headers: new Headers({
           'Content-Type': 'application/json',
@@ -49,9 +43,7 @@ export class UpdateBlogPosts extends Component<acceptedProps, UpdateBlogPostsSta
         }),
       })
       const data = await response.json()
-      console.log(data)
-      // this.props.updateOff()
-      this.props.fetchBlog() // calling flight library again after updating new blog
+      this.props.fetchBlog() // calling blog library again after updating new blog
     } catch (err) {
       console.log(err)
     }
@@ -60,12 +52,10 @@ export class UpdateBlogPosts extends Component<acceptedProps, UpdateBlogPostsSta
   //handles input fields onChange
   handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const target = e.target
-    // const value = target.type === 'checkbox' ? target.checked : target.value
     const value = target.value
     const name = target.name
     //prettier-ignore
     this.setState(({ [name]: value } as unknown) as Pick<UpdateBlogPostsState, keyof UpdateBlogPostsState>)
-    console.log(value)
   }
 
   modalToggle = () => {
@@ -76,12 +66,9 @@ export class UpdateBlogPosts extends Component<acceptedProps, UpdateBlogPostsSta
   render() {
     return (
       <div>
-    {/* <Button color="danger" onClick={this.modalToggle}>Submit</Button> */}
     <Modal isOpen={this.state.isModalVisible} toggle={this.modalToggle}>
     <ModalHeader toggle={this.modalToggle}>Update your blog post.</ModalHeader>
     <ModalBody>
-      {/* <div className='bg-indigo-200 bg-opacity-50 max-w-2xl mx-auto p-5 md:p-12 rounded-lg shadow-2xl w-1/2 my-6'> */}
-        {/* <form className='space-y-3' onSubmit={this.editBlog}> */}
           <div className='flex flex-col text-center'>
             <label htmlFor='blogTitle'>
               <input
@@ -92,7 +79,6 @@ export class UpdateBlogPosts extends Component<acceptedProps, UpdateBlogPostsSta
                 name='title'
                 placeholder='Title'
                 onChange={this.handleChange}
-                // defaultValue={""}
               />
             </label>
           </div>
@@ -106,7 +92,6 @@ export class UpdateBlogPosts extends Component<acceptedProps, UpdateBlogPostsSta
                 name='date'
                 placeholder='Date'
                 onChange={this.handleChange}
-                // defaultValue={""}
               />
             </label>
           </div>
@@ -119,19 +104,10 @@ export class UpdateBlogPosts extends Component<acceptedProps, UpdateBlogPostsSta
                 name='entry'
                 placeholder='Entry'
                 onChange={e => this.setState({ entry: e.target.value })}
-                // defaultValue={""}
               />
             </label>
           </div>
-        {/* </form> */}
-        {/* </div> */}
         </ModalBody>
-          {/* <button
-            type='submit'
-            className='py-2 px-4  bg-indigo-400 hover:bg-indigo-700 focus:ring-pink-500 focus:ring-offset-pink-200 text-white w-1/3 transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full'
-          >
-            Submit
-          </button> */}
           <ModalFooter>
           <button
             className='py-2 px-4 bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 opacity-70 cursor-not-allowed rounded-lg mx-2 tracking-wide'

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { LoginState } from '../Auth/Login'
-import { Button, Table } from 'reactstrap'
+import { Table } from 'reactstrap'
+import APIURL from '../../helpers/environment'
 
 type acceptedProps = {
   token: any
@@ -17,11 +17,10 @@ export class AdminView extends Component<acceptedProps, AdminViewState> {
     }
   }
 
-  fetchUsers = async () => {
-    // console.log(this.props)
+  private _fetchUsers = async () => {
     if (this.props.token) {
       try {
-        const response = await fetch(`http://localhost:3000/user`, {
+        const response = await fetch(`${APIURL}/user`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -30,16 +29,20 @@ export class AdminView extends Component<acceptedProps, AdminViewState> {
         })
         const data = await response.json()
         this.setState({ users: data })
-        console.log(this.state.users)
         return data
       } catch (err) {
         console.log(err)
       }
     }
   }
+  public get fetchUsers() {
+    return this._fetchUsers
+  }
+  public set fetchUsers(value) {
+    this._fetchUsers = value
+  }
 
   componentDidMount() {
-    // console.log(this.props.token)
     this.fetchUsers()
   }
 
@@ -48,13 +51,12 @@ export class AdminView extends Component<acceptedProps, AdminViewState> {
   componentDidUpdate(prev: acceptedProps) {
     if (prev.token !== this.props.token) {
       this.fetchUsers()
-      // console.log(this.props.token)
     }
   }
 
   deleteUser = async (e: any, id: number) => {
     e.preventDefault()
-    await fetch(`http://localhost:3000/user/${id}`, {
+    await fetch(`${APIURL}/user/${id}`, {
       method: 'DELETE',
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -72,6 +74,7 @@ export class AdminView extends Component<acceptedProps, AdminViewState> {
             <td>{user.firstName}</td>
             <td>{user.lastName}</td>
             <td>{user.email}</td>
+            <td>{user.userRole}</td>
             <td>
               {' '}
               <button
@@ -98,6 +101,7 @@ export class AdminView extends Component<acceptedProps, AdminViewState> {
               <th>First Name</th>
               <th>Last Name</th>
               <th>Email</th>
+              <th>Role</th>
               <th>Admin Actions</th>
             </tr>
           </thead>

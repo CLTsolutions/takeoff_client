@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import moment from 'moment' // formats date on card
 import { CreateBlogPostsState } from '../CRUD/CreateBlogPosts'
 import '../Views/BlogCard.css'
+import APIURL from '../../../helpers/environment'
 
 type acceptedProps = {
-  token: string | null
+  token: string
   blogData: []
   fetchBlog: Function
   editBlog: Function
@@ -29,7 +30,7 @@ export class BlogsCard extends Component<acceptedProps, BlogsCardState> {
 
   deleteBlog = async (e: React.MouseEvent<HTMLButtonElement>, id: number) => {
     e.preventDefault()
-    await fetch(`http://localhost:3000/blog/${id}`, {
+    await fetch(`${APIURL}/blog/${id}`, {
       method: 'DELETE',
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -49,7 +50,7 @@ export class BlogsCard extends Component<acceptedProps, BlogsCardState> {
               return (
                 <div
                   key={index}
-                  className='bg-indigo-500 bg-opacity-70 overflow-hidden shadow-2xl rounded-lg h-auto w-2/3 my-4 p-2 border-2 border-gray-200'
+                  className='bg-indigo-500 bg-opacity-70 overflow-hidden shadow-2xl rounded-lg h-auto w-2/3 my-4 p-2 border-2 border-indigo-400'
                 >
                   <p className='text-shadow text-white text-md font-medium px-2'>
                     {moment(post.date).format(dateFormat)}
@@ -57,7 +58,7 @@ export class BlogsCard extends Component<acceptedProps, BlogsCardState> {
                   <p className='text-shadow bg-opacity-60 text-white text-2xl font-medium px-2'>
                     {post.title}
                   </p>
-                  <p className='bg-gray-100 bg-opacity-80 text-md p-3 rounded-md text-gray-900'>
+                  <p className='bg-gray-100 bg-opacity-80 text-md p-3 rounded-md text-gray-900 border-2 border-gray-200'>
                     {post.entry}
                     <div className='flex justify-center mt-4'>
                       <button

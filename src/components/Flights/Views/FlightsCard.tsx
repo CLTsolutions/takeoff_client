@@ -3,9 +3,10 @@ import moment from 'moment' // formats date on card
 import { FlightsState } from '../CRUD/CreateFlights'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlane } from '@fortawesome/free-solid-svg-icons'
+import APIURL from '../../../helpers/environment'
 
 type acceptedProps = {
-  token: string | null
+  token: string
   myFlights: []
   fetchFlights: Function //from flightIndex & is returning data
   // isVisible: boolean
@@ -37,7 +38,7 @@ export class FlightsCard extends Component<acceptedProps, FlightCardState> {
 
   deleteFlight = async (e: any, id: number) => {
     e.preventDefault()
-    await fetch(`http://localhost:3000/flight/${id}`, {
+    await fetch(`${APIURL}/flight/${id}`, {
       method: 'DELETE',
       headers: new Headers({
         'Content-Type': 'application/json',
