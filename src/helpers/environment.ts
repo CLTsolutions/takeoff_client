@@ -5,11 +5,11 @@ switch (window.location.hostname) {
   case '127.0.0.1':
     APIURL = 'http://localhost:3000'
     break
-  case 'czc-thebarcart.herokuapp.com':
-    APIURL = 'https://the-bar-cart.herokuapp.com'
+  case 'clt-takeofftravelapp.herokuapp.com':
+    APIURL = 'https://clt-takeofftravelapp.herokuapp.com/'
     break
   default:
-    APIURL = 'https://the-bar-cart.herokuapp.com'
+    APIURL = 'https://clt-takeofftravelapp.herokuapp.com/'
 }
 
 export default APIURL
