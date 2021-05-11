@@ -42,15 +42,14 @@ export class BlogsCard extends Component<acceptedProps, BlogsCardState> {
   render() {
     let dateFormat = 'MM/DD/YYYY'
     return (
-      // <div className='bg-opacity-100 border-2 border-green-500'>
       <div className='flex justify-center flex-wrap'>
         {this.props.blogData.length > 0 ? (
-          <div>
+          <>
             {this.props.blogData.map((post: any, index: number) => {
               return (
                 <div
                   key={index}
-                  className='bg-indigo-500 bg-opacity-70 overflow-hidden shadow-2xl rounded-lg h-auto w-full my-4 p-2 border-2 border-gray-200'
+                  className='bg-indigo-500 bg-opacity-70 overflow-hidden shadow-2xl rounded-lg h-auto w-2/3 my-4 p-2 border-2 border-gray-200'
                 >
                   <p className='text-shadow text-white text-md font-medium px-2'>
                     {moment(post.date).format(dateFormat)}
@@ -58,9 +57,9 @@ export class BlogsCard extends Component<acceptedProps, BlogsCardState> {
                   <p className='text-shadow bg-opacity-60 text-white text-2xl font-medium px-2'>
                     {post.title}
                   </p>
-                  <p className='bg-gray-100 bg-opacity-80 dark:text-gray-800 text-md p-3 rounded-md text-gray-900'>
+                  <p className='bg-gray-100 bg-opacity-80 text-md p-3 rounded-md text-gray-900'>
                     {post.entry}
-                    <div className='flex justify-center'>
+                    <div className='flex justify-center mt-4'>
                       <button
                         className='py-2 px-4 bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 opacity-75 cursor-not-allowed rounded-lg mx-2 tracking-wide'
                         onClick={() => {
@@ -81,7 +80,7 @@ export class BlogsCard extends Component<acceptedProps, BlogsCardState> {
                 </div>
               )
             })}
-          </div>
+          </>
         ) : (
           <>
             <h3>Create a blog post!</h3>

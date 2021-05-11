@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 
 type acceptedProps = {
   token: any
+  updateIsAdmin: () => void
   // user: BaseUser[]
   // token: string | null
 }
@@ -40,7 +41,10 @@ export default class Auth extends Component<acceptedProps, AuthState> {
 
   authTernary = () => {
     return this.state.login ? (
-      <Login token={this.props.token} />
+      <Login
+        token={this.props.token}
+        updateIsAdmin={this.props.updateIsAdmin}
+      />
     ) : (
       <Register token={this.props.token} />
     )

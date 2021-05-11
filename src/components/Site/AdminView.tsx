@@ -81,7 +81,6 @@ export class AdminView extends Component<acceptedProps, AdminViewState> {
               >
                 Delete
               </button>
-              {/* <Button onClick={e => this.deleteUser(e, user.id)}>Delete</Button> */}
             </td>
           </tr>
         )
