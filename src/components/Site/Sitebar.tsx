@@ -13,8 +13,8 @@ import {
 import Logo from '../../assets/airplane.svg'
 
 type acceptedProps = {
-  token: any
-  logout: any
+  token: string
+  logout: () => void // from app.tsx
   userRole: string | null
 }
 

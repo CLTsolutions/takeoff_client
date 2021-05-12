@@ -6,10 +6,11 @@ import APIURL from '../../../helpers/environment'
 
 type acceptedProps = {
   token: string
-  blogData: []
-  fetchBlog: Function
-  editBlog: Function
-  updateOn: Function
+  // blogData: []
+  blogData: Array<object>
+  fetchBlog: () => Promise<any>
+  editBlog: (blog: string) => void
+  updateOn: () => void
 }
 
 interface BlogsCardState extends CreateBlogPostsState {

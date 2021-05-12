@@ -3,7 +3,7 @@ import { Table } from 'reactstrap'
 import APIURL from '../../helpers/environment'
 
 type acceptedProps = {
-  token: any
+  token: string
 }
 
 interface AdminViewState {
@@ -76,14 +76,17 @@ export class AdminView extends Component<acceptedProps, AdminViewState> {
             <td>{user.email}</td>
             <td>{user.userRole}</td>
             <td>
-              {' '}
-              <button
-                type='submit'
-                className='py-2 px-4 bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 opacity-70 cursor-not-allowed rounded-lg mb-3'
-                onClick={e => this.deleteUser(e, user.id)}
-              >
-                Delete
-              </button>
+              {user.userRole === 'User' ? (
+                <button
+                  type='submit'
+                  className='py-2 px-4 bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 opacity-70 cursor-not-allowed rounded-lg mb-3'
+                  onClick={e => this.deleteUser(e, user.id)}
+                >
+                  Delete
+                </button>
+              ) : (
+                <></>
+              )}
             </td>
           </tr>
         )

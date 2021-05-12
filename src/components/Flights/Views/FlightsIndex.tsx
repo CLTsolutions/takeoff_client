@@ -10,10 +10,10 @@ type acceptedProps = {
 }
 
 interface FlightsState {
-  myFlights: []
-  // myFlights: Array<number>
+  // myFlights: []
+  myFlights: Array<object>
   updateActive: boolean
-  updateFlight: string
+  updateFlight: { [key: string]: string | number } // updateFlight returns an object (flight with key/value pairs)
   open: boolean
 }
 
@@ -24,7 +24,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
       myFlights: [],
       open: true,
       updateActive: false,
-      updateFlight: '',
+      updateFlight: {},
     }
   }
 

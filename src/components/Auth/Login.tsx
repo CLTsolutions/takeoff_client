@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import APIURL from '../../helpers/environment'
 
 type acceptedProps = {
-  token: any
+  updateToken: (newToken: string) => void
   updateIsAdmin: (newUserRole: string) => void
 }
 
@@ -36,7 +36,7 @@ export default class Login extends Component<acceptedProps, LoginState> {
     })
       .then(res => res.json())
       .then(data => {
-        this.props.token(data.sessionToken)
+        this.props.updateToken(data.sessionToken)
         this.props.updateIsAdmin(data.user.userRole)
       })
       .catch(err => console.log(err))

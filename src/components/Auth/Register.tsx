@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import APIURL from '../../helpers/environment'
 
 type acceptedProps = {
-  token: any
+  // updateToken: (newToken: string) => void
+  updateToken: any
 }
 
 interface RegisterState {
@@ -41,7 +42,7 @@ export default class Register extends Component<acceptedProps, RegisterState> {
     })
       .then(res => res.json())
       .then(data => {
-        this.props.token(data.sessionToken, this.state.userRole)
+        this.props.updateToken(data.sessionToken, this.state.userRole)
       })
   }
 

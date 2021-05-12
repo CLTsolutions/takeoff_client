@@ -6,12 +6,12 @@ import './BlogIndex.css'
 import APIURL from '../../../helpers/environment'
 
 type acceptedProps = {
-  token: any
+  token: string
 }
 
 interface BlogIndexState {
   blogData: []
-  updateBlog: string
+  updateBlog: any
   updateActive: boolean
   open: boolean
 }
@@ -24,7 +24,7 @@ class BlogIndex extends Component<acceptedProps, BlogIndexState> {
       blogData: [],
       open: true,
       updateActive: false,
-      updateBlog: '',
+      updateBlog: {},
     }
   }
 
@@ -60,7 +60,7 @@ class BlogIndex extends Component<acceptedProps, BlogIndexState> {
     }
   }
 
-  editBlog = (blog: any) => {
+  editBlog = (blog: string) => {
     this.setState({ updateBlog: blog })
   }
 

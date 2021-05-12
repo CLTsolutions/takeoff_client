@@ -7,7 +7,8 @@ type acceptedProps = {
 }
 
 export interface CreateBlogPostsState {
-  blog: []
+  // blog: []
+  blog: Array<object>
   date: string
   title: string
   entry: string

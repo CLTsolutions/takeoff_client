@@ -7,16 +7,17 @@ import APIURL from '../../../helpers/environment'
 
 type acceptedProps = {
   token: string
-  myFlights: []
-  fetchFlights: Function //from flightIndex & is returning data
-  // isVisible: boolean
-  editFlight: Function
-  updateOn: Function
+  // myFlights: []
+  myFlights: Array<object>
+  fetchFlights: (e: any) => Promise<any> //from flightIndex & is returning data
+  // fetchFlights: Function
+  editFlight: (flight: any) => void
+  updateOn: () => void
 }
 
 interface FlightCardState extends FlightsState {
+  // flights: []
   id: number
-  // showModal: boolean
 }
 
 export class FlightsCard extends Component<acceptedProps, FlightCardState> {
@@ -24,7 +25,7 @@ export class FlightsCard extends Component<acceptedProps, FlightCardState> {
     super(props)
     this.state = {
       id: Infinity,
-      flights: [],
+      // flights: [],
       airline: '',
       flightNumber: '', //'' so input value initializes empty (instead of 0)
       originAirport: '',
@@ -45,6 +46,7 @@ export class FlightsCard extends Component<acceptedProps, FlightCardState> {
         Authorization: `Bearer ${this.props.token}`,
       }),
     })
+    console.log(e)
     return this.props.fetchFlights(e) // updating flight list after one is deleted
   }
 
@@ -56,6 +58,9 @@ export class FlightsCard extends Component<acceptedProps, FlightCardState> {
           {this.props.myFlights.length > 0 ? (
             <>
               {this.props.myFlights.map((flight: any, index: number) => {
+                {
+                  console.log(flight)
+                }
                 return (
                   // <div className='flex font-sans justify-center items-center h-screen'>
                   <div

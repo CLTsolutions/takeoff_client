@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import './App.css'
-import Auth from './components/Auth/Auth'
-import BlogIndex from './components/Blog/Views/BlogIndex'
-import Footer from './components/Site/Footer'
-import Home from './components/Site/Home'
-import Sitebar from './components/Site/Sitebar'
+import Auth from '../src/components/Auth/Auth'
+import BlogIndex from '../src/components/Blog/Views/BlogIndex'
+import Footer from '../src/components/Site/Footer'
+import Home from '../src/components/Site/Home'
+import Sitebar from '../src/components/Site/Sitebar'
 import { Redirect, Route, Switch } from 'react-router-dom'
-import AdminView from './components/Site/AdminView'
+import AdminView from '../src/components/Site/AdminView'
 
 type valueTypes = {
-  token: string | null
-  userRole: string | null
+  token: string
+  userRole: string
 }
 
 class App extends Component<{}, valueTypes> {
@@ -25,11 +25,11 @@ class App extends Component<{}, valueTypes> {
   componentDidMount() {
     if (localStorage.getItem('sessionToken')) {
       this.setState({
-        token: localStorage.getItem('sessionToken'),
+        token: localStorage.getItem('sessionToken')!, // ! is non-null assertion expression operator
       })
     }
     if (localStorage.getItem('userRole')) {
-      this.setState({ userRole: localStorage.getItem('userRole') })
+      this.setState({ userRole: localStorage.getItem('userRole')! }) // ! is non-null assertion expression operator
     }
   }
 
@@ -68,7 +68,7 @@ class App extends Component<{}, valueTypes> {
     return this.state.token === localStorage.getItem('sessionToken') ? (
       <Home token={this.state.token} />
     ) : (
-      <Auth token={this.updateToken} updateIsAdmin={this.updateIsAdmin} />
+      <Auth updateToken={this.updateToken} updateIsAdmin={this.updateIsAdmin} />
     )
   }
 

@@ -9,7 +9,6 @@ type acceptedProps = {
 }
 
 export interface FlightsState {
-  flights: []
   airline: string
   flightNumber: number | string //'' for empty input value on initialization
   originAirport: string
@@ -20,11 +19,14 @@ export interface FlightsState {
   date: string
 }
 
+// interface InternationalState extends FlightsState {
+//   international: boolean
+// }
+
 class Flights extends Component<acceptedProps, FlightsState> {
   constructor(props: acceptedProps) {
     super(props)
     this.state = {
-      flights: [],
       airline: '',
       flightNumber: '', //'' so input value initializes empty (instead of 0)
       originAirport: '',
@@ -51,7 +53,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
   }
 
   // for duration input field in form
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     HtmlDurationPicker.init()
   }
 

@@ -6,8 +6,8 @@ import { CreateBlogPostsState } from '../CRUD/CreateBlogPosts'
 type acceptedProps = {
   token: any
   updateOff: () => void
-  fetchBlog: () => void
-  updateBlog: any
+  fetchBlog: () => Promise<any>
+  updateBlog: { [key: string]: any }
   open: boolean
 }
 
@@ -22,6 +22,7 @@ export class UpdateBlogPosts extends Component<acceptedProps, UpdateBlogPostsSta
     this.state = {
       isModalVisible: true,
       blog: [],
+      // set to props so update form populates values upon onClick
       date: this.props.updateBlog.date,
       title: this.props.updateBlog.title,
       entry: this.props.updateBlog.entry,

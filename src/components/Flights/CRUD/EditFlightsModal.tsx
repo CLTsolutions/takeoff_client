@@ -5,12 +5,16 @@ import { FlightsState } from '../CRUD/CreateFlights'
 // import * as HtmlDurationPicker from 'html-duration-picker'
 
 interface acceptedProps {
-  token: any
+  token: string
   updateOff: () => void
   fetchFlights: () => void
-  updateFlight: any
+  // updateFlight returns an object (flight with key/value pairs)
+  // updateFlight: {[key: string]: string | boolean}
+  updateFlight: { [key: string]: any } // using any because i'ntl is a boolean
   open: boolean
 }
+
+// ({ [name]: value } as unknown) as Pick<FlightsState,keyof FlightsState>
 
 interface EditFlightsModalState extends FlightsState {
   isModalVisible: boolean
@@ -21,7 +25,8 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
     super(props)
     this.state = {
       isModalVisible: true,
-      flights: [],
+      // flights: [],
+      // using props.updateFlight so update form populates values to update
       airline: this.props.updateFlight.airline,
       flightNumber: this.props.updateFlight.flightNumber,
       originAirport: this.props.updateFlight.originAirport,
