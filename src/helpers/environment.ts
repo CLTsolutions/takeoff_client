@@ -1,15 +1,13 @@
 let APIURL = ''
-
 switch (window.location.hostname) {
-  case 'localhost':
-  case '127.0.0.1':
+  // localhost name of react app
+  case 'localhost' || '127.0.0.1':
+    // local hostname name of your API
     APIURL = 'http://localhost:3000'
     break
-  case 'clt-takeofftravelapp.herokuapp.com':
-    APIURL = 'https://clt-takeofftravelapp.herokuapp.com/'
-    break
-  default:
-    APIURL = 'https://clt-takeofftravelapp.herokuapp.com/'
+  // deployed react application
+  case 'https://clt-takeofftravelapp.herokuapp.com':
+    // deployed API/server
+    APIURL = 'https://clt-takeoff.herokuapp.com'
 }
-
 export default APIURL
