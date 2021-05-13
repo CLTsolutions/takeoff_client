@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-// import { FlightsInfo } from '../../types'
 import * as HtmlDurationPicker from 'html-duration-picker'
 import APIURL from '../../../helpers/environment'
 
 type acceptedProps = {
-  token: any
-  fetchFlights: () => void
+  token: string
+  fetchFlights: () => Promise<any>
 }
 
 export interface FlightsState {
@@ -18,10 +17,6 @@ export interface FlightsState {
   international: boolean
   date: string
 }
-
-// interface InternationalState extends FlightsState {
-//   international: boolean
-// }
 
 class Flights extends Component<acceptedProps, FlightsState> {
   constructor(props: acceptedProps) {
@@ -77,7 +72,7 @@ class Flights extends Component<acceptedProps, FlightsState> {
           Authorization: `Bearer ${this.props.token}`,
         }),
       })
-      const data = await response.json()
+      await response.json()
       // resets input fields after submit
       this.setState({
         airline: '',

@@ -6,7 +6,7 @@ import './FlightIndex.css'
 import APIURL from '../../../helpers/environment'
 
 type acceptedProps = {
-  token: any
+  token: string
 }
 
 interface FlightsState {

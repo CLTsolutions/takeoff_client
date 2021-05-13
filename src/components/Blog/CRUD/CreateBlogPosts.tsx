@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import APIURL from '../../../helpers/environment'
 
 type acceptedProps = {
-  token: any
-  fetchBlog: () => void
+  token: string
+  fetchBlog: () => Promise<any>
 }
 
 export interface CreateBlogPostsState {
@@ -41,7 +41,7 @@ export class CreateBlogPosts extends Component<acceptedProps, CreateBlogPostsSta
           Authorization: `Bearer ${this.props.token}`,
         }),
       })
-      const data = await response.json()
+      await response.json()
       // resets input fields after submit
       this.setState({
         date: '',

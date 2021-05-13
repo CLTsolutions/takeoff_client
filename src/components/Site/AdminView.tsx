@@ -7,7 +7,7 @@ type acceptedProps = {
 }
 
 interface AdminViewState {
-  users: []
+  users: Array<object>
 }
 export class AdminView extends Component<acceptedProps, AdminViewState> {
   constructor(props: acceptedProps) {

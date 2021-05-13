@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import APIURL from '../../../helpers/environment'
 import { FlightsState } from '../CRUD/CreateFlights'
-// import * as HtmlDurationPicker from 'html-duration-picker'
+import * as HtmlDurationPicker from 'html-duration-picker'
 
 interface acceptedProps {
   token: string
@@ -14,8 +14,6 @@ interface acceptedProps {
   open: boolean
 }
 
-// ({ [name]: value } as unknown) as Pick<FlightsState,keyof FlightsState>
-
 interface EditFlightsModalState extends FlightsState {
   isModalVisible: boolean
 }
@@ -25,7 +23,6 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
     super(props)
     this.state = {
       isModalVisible: true,
-      // flights: [],
       // using props.updateFlight so update form populates values to update
       airline: this.props.updateFlight.airline,
       flightNumber: this.props.updateFlight.flightNumber,
@@ -34,7 +31,6 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
       flightMiles: this.props.updateFlight.flightMiles,
       flightTime: this.props.updateFlight.flightTime,
       international: this.props.updateFlight.international,
-      // date: new Date()
       date: this.props.updateFlight.date,
     }
   }
@@ -60,8 +56,8 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
             Authorization: `Bearer ${this.props.token}`,
           }),
         }
-      )
-      const data = await response.json()
+      ) 
+      await response.json()
       this.props.updateOff()
       this.props.fetchFlights() // calling flight library again after updating new flight
     } catch (err) {
@@ -83,6 +79,11 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
     this.setState(({ [name]: value } as unknown) as Pick<FlightsState,keyof FlightsState>)
   }
 
+  // for duration input field in form
+  ngAfterViewInit(): void {
+    HtmlDurationPicker.init()
+  }
+
   modalToggle = () => {
     this.setState({ isModalVisible: false })
     this.props.updateOff()
@@ -92,11 +93,10 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
     return (
       <div>
         <div>
-          <Modal
-            isOpen={this.state.isModalVisible} 
-            toggle={this.modalToggle}
-          >
-            <ModalHeader toggle={this.modalToggle}>Update your blog post.</ModalHeader>
+          <Modal isOpen={this.state.isModalVisible} toggle={this.modalToggle}>
+            <ModalHeader toggle={this.modalToggle}>
+              Update your blog post.
+            </ModalHeader>
             <ModalBody>
               <div className='flex flex-col'>
                 {/*'htmlFor links input to label by corresponding id for screen readers */}
@@ -173,7 +173,7 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
                 <label htmlFor='theFlightTime'>
                   <input
                     id='theFlightTime'
-                    type='text'
+                    // type='text'
                     // min='0'
                     // max='24'
                     className='html-duration-picker w-full border-2 border-gray-200 p-2 rounded focus:outline-none focus:border-purple-500'
@@ -182,6 +182,7 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
                     value={this.state.flightTime}
                     name='flightTime'
                     onChange={this.handleChange}
+                    onInput={this.ngAfterViewInit} //html duration picker fn
                   />
                 </label>
               </div>
@@ -195,7 +196,8 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
                     placeholder='Date'
                     value={this.state.date}
                     name='date'
-                     required pattern="\d{4}-\d{2}-\d{2}" //for unsupported browsers
+                    required
+                    pattern='\d{4}-\d{2}-\d{2}' //for unsupported browsers
                     onChange={this.handleChange}
                   />
                 </label>
@@ -216,24 +218,24 @@ export class EditFlightsModal extends Component<acceptedProps, EditFlightsModalS
                   />
                 </label>
               </div>
-              </ModalBody>
+            </ModalBody>
             <ModalFooter>
-          <button
-            className='py-2 px-4 bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 opacity-70 cursor-not-allowed rounded-lg mx-2 tracking-wide'
-            onClick={() => {
-              this.editFlight()
-              this.modalToggle()
-            }}
-          >
-            Update
-          </button>
-          <button
-            className='py-2 px-4 bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 opacity-70 cursor-not-allowed rounded-lg mx-2 tracking-wide'
-            onClick={this.modalToggle}
-          >
-            Cancel
-          </button>
-        </ModalFooter>
+              <button
+                className='py-2 px-4 bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 opacity-70 cursor-not-allowed rounded-lg mx-2 tracking-wide'
+                onClick={() => {
+                  this.editFlight()
+                  this.modalToggle()
+                }}
+              >
+                Update
+              </button>
+              <button
+                className='py-2 px-4 bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 opacity-70 cursor-not-allowed rounded-lg mx-2 tracking-wide'
+                onClick={this.modalToggle}
+              >
+                Cancel
+              </button>
+            </ModalFooter>
           </Modal>
         </div>
       </div>

@@ -13,8 +13,6 @@ export interface FlightsState {
   flightMiles: number
   flightTime: string
   international: boolean
-  // date: Date
-  // setDate: (e: any) => void;
 }
 
 export type FlightsInfo = FlightsState[]

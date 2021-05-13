@@ -15,7 +15,7 @@ import Logo from '../../assets/airplane.svg'
 type acceptedProps = {
   token: string
   logout: () => void // from app.tsx
-  userRole: string | null
+  userRole: string
 }
 
 type valueTypes = {
@@ -45,7 +45,6 @@ export default class Sitebar extends Component<acceptedProps, valueTypes> {
     return this.props.userRole === 'admin' ? (
       <button>Admin Panel</button>
     ) : (
-      // ''
       <></>
     )
   }

@@ -3,7 +3,7 @@ import APIURL from '../../helpers/environment'
 
 type acceptedProps = {
   // updateToken: (newToken: string) => void
-  updateToken: any
+  updateToken: (newToken: string, userRole: string) => void
 }
 
 interface RegisterState {

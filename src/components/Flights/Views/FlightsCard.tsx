@@ -7,16 +7,13 @@ import APIURL from '../../../helpers/environment'
 
 type acceptedProps = {
   token: string
-  // myFlights: []
   myFlights: Array<object>
   fetchFlights: (e: any) => Promise<any> //from flightIndex & is returning data
-  // fetchFlights: Function
   editFlight: (flight: any) => void
   updateOn: () => void
 }
 
 interface FlightCardState extends FlightsState {
-  // flights: []
   id: number
 }
 
@@ -25,7 +22,6 @@ export class FlightsCard extends Component<acceptedProps, FlightCardState> {
     super(props)
     this.state = {
       id: Infinity,
-      // flights: [],
       airline: '',
       flightNumber: '', //'' so input value initializes empty (instead of 0)
       originAirport: '',
@@ -59,10 +55,8 @@ export class FlightsCard extends Component<acceptedProps, FlightCardState> {
             <>
               {this.props.myFlights.map((flight: any, index: number) => {
                 return (
-                  // <div className='flex font-sans justify-center items-center h-screen'>
                   <div
                     key={index}
-                    // className='w-full max-w-sm mx-4 shadow-lg rounded-lg'
                     className='mx-8 my-12 w-80 rounded-lg bg-white border shadow-md overflow-hidden'
                   >
                     <div className='bg-white border-b-2 border-indigo-500 py-4 px-6 flex justify-between items-end rounded-lg rounded-b-none'>

@@ -10,8 +10,9 @@ type acceptedProps = {
 }
 
 interface BlogIndexState {
-  blogData: []
-  updateBlog: any
+  // blogData: []
+  blogData: Array<object>
+  updateBlog: { [key: string]: string }
   updateActive: boolean
   open: boolean
 }
@@ -20,7 +21,6 @@ class BlogIndex extends Component<acceptedProps, BlogIndexState> {
   constructor(props: acceptedProps) {
     super(props)
     this.state = {
-      // blog: '',
       blogData: [],
       open: true,
       updateActive: false,
@@ -60,7 +60,7 @@ class BlogIndex extends Component<acceptedProps, BlogIndexState> {
     }
   }
 
-  editBlog = (blog: string) => {
+  editBlog = (blog: any) => {
     this.setState({ updateBlog: blog })
   }
 

@@ -4,7 +4,7 @@ import APIURL from '../../../helpers/environment'
 import { CreateBlogPostsState } from '../CRUD/CreateBlogPosts'
 
 type acceptedProps = {
-  token: any
+  token: string
   updateOff: () => void
   fetchBlog: () => Promise<any>
   updateBlog: { [key: string]: any }
@@ -43,7 +43,7 @@ export class UpdateBlogPosts extends Component<acceptedProps, UpdateBlogPostsSta
           entry: this.state.entry,
         }),
       })
-      const data = await response.json()
+      await response.json()
       this.props.fetchBlog() // calling blog library again after updating new blog
     } catch (err) {
       console.log(err)
